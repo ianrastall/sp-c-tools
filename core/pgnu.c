@@ -10,6 +10,9 @@
 #include <sys/stat.h>
 #ifdef _WIN32
 #include <direct.h>
+#include <windows.h>
+#else
+#include <unistd.h>
 #endif
 #include "pgnx.h"
 #include "pgnu.h"
@@ -19,17 +22,88 @@ static char PATDIR[1024];
 
 static void die(const char *msg) { fprintf(stderr, "spct: %s\n", msg); exit(1); }
 
+static int is_data_dir(const char *dir)
+{
+    char probe[1300];
+    struct stat st;
+    snprintf(probe, sizeof probe, "%s/patterns/1_pawnsac_white", dir);
+    return stat(probe, &st) == 0;
+}
+
+/* Directory holding the running executable, or "" if unknown. */
+static void exe_dir(char *out, size_t n)
+{
+    out[0] = '\0';
+#ifdef _WIN32
+    DWORD k = GetModuleFileNameA(NULL, out, (DWORD)n);
+    if (k == 0 || k >= n) { out[0] = '\0'; return; }
+#else
+    ssize_t k = readlink("/proc/self/exe", out, n - 1);
+    if (k <= 0) { out[0] = '\0'; return; }
+    out[k] = '\0';
+#endif
+    char *slash = strrchr(out, '/');
+    char *bslash = strrchr(out, '\\');
+    if (bslash > slash) slash = bslash;
+    if (slash) *slash = '\0'; else out[0] = '\0';
+}
+
+const char *pgnu_data_dir(void)
+{
+    static char dir[1300];
+    if (dir[0]) return dir;
+
+    const char *env = getenv("SPCT_DATA");
+    if (env && env[0]) {
+        snprintf(dir, sizeof dir, "%s", env);
+        if (!is_data_dir(dir)) {
+            fprintf(stderr, "spct: SPCT_DATA=%s has no patterns/ files\n", env);
+            exit(1);
+        }
+        return dir;
+    }
+    snprintf(dir, sizeof dir, "data");
+    if (is_data_dir(dir)) return dir;
+
+    char ed[1024];
+    exe_dir(ed, sizeof ed);
+    /* build/spct.exe, or a CMake multi-config build/Release/spct.exe. */
+    static const char *up[3] = { "data", "../data", "../../data" };
+    for (int i = 0; ed[0] && i < 3; i++) {
+        snprintf(dir, sizeof dir, "%s/%s", ed, up[i]);
+        if (is_data_dir(dir)) return dir;
+    }
+#ifdef SPCT_DEFAULT_DATA
+    /* Source-tree data/, baked in by CMake for out-of-tree build dirs. */
+    snprintf(dir, sizeof dir, "%s", SPCT_DEFAULT_DATA);
+    if (is_data_dir(dir)) return dir;
+#endif
+    dir[0] = '\0';
+    die("cannot find the data/ directory (patterns/, anno/); "
+        "run from the SPCT root or set SPCT_DATA");
+    return NULL;
+}
+
 void pgnu_init(const char *work_dir, const char *pattern_dir)
 {
     snprintf(WORK, sizeof WORK, "%s", work_dir);
     snprintf(PATDIR, sizeof PATDIR, "%s", pattern_dir);
+    /* Create every missing component of the work dir (e.g. build/eas_work). */
+    char part[1024];
+    snprintf(part, sizeof part, "%s", WORK);
+    for (char *p = part + 1; ; p++) {
+        char c = *p;
+        if (c == '/' || c == '\\' || c == '\0') {
+            *p = '\0';
 #ifdef _WIN32
-    _mkdir("build");
-    _mkdir(WORK);
+            _mkdir(part);
 #else
-    mkdir("build", 0777);
-    mkdir(WORK, 0777);
+            mkdir(part, 0777);
 #endif
+            *p = c;
+            if (c == '\0') break;
+        }
+    }
 }
 
 const char *pgnu_wp(const char *name)

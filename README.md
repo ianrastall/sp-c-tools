@@ -54,6 +54,11 @@ mingw's libc lacks — the build links `-lregex`).
 
 There is also a `CMakeLists.txt` for IDE/CMake builds.
 
+`spct` reads its pattern/annotation files from `data/`. It looks for `$SPCT_DATA`,
+then `./data`, then `data/` beside the executable or up to two levels above it
+(so `build/spct.exe` works from any directory); CMake builds also fall back to
+the source tree's `data/`. Reports are written to the current directory.
+
 ## Run EAS
 
 ```bash

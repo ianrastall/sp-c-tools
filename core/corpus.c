@@ -47,7 +47,11 @@ static void corpus_hook(const Game *g)
     if (g_count >= g_cap) {
         int ncap = g_cap ? g_cap * 2 : 8192;
         CorpusGame *na = (CorpusGame *) realloc(g_arr, (size_t)ncap * sizeof *na);
-        if (na == NULL) return;   /* out of memory: drop the game rather than crash */
+        if (na == NULL) {
+            /* Dropping games would silently skew every statistic. */
+            fprintf(stderr, "spct: out of memory labelling game %d\n", g_count + 1);
+            exit(1);
+        }
         g_arr = na;
         g_cap = ncap;
     }

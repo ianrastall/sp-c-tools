@@ -14,9 +14,6 @@
  *   very_interesting_wins.pgn  - same minus the 1-pawn sacs and imbalances
  *
  * Idea and original tool (C) Stefan Pohl. pgn-extract (C) David J. Barnes.
- *
- * NB: several helpers here mirror tools/eas/eas.c. Once a third tool lands
- * they should be factored into a shared core/pgnutil module.
  */
 #include <stdio.h>
 #include <stdlib.h>
@@ -29,8 +26,9 @@
 #include "pgnx.h"
 #include "pgnu.h"
 
-#define PATTERN_DIR "data/patterns"
-#define ANNO_DIR    "data/anno_iws"
+/* Data directories, resolved at startup via pgnu_data_dir(). */
+static char PATTERN_DIR[1300];     /* <data>/patterns */
+static char ANNO_DIR[1300];        /* <data>/anno_iws */
 
 static char WORK[1024];
 
@@ -91,6 +89,10 @@ int cmd_iws(int argc, char *argv[])
     if (movelimit >= 250) movelimit = 250;
     char bulimit[16];
     snprintf(bulimit, sizeof bulimit, "-bu%d", movelimit);
+
+    const char *data = pgnu_data_dir();
+    snprintf(PATTERN_DIR, sizeof PATTERN_DIR, "%s/patterns", data);
+    snprintf(ANNO_DIR, sizeof ANNO_DIR, "%s/anno_iws", data);
 
     if (WORK[0] == '\0') snprintf(WORK, sizeof WORK, "build/iws_work");
     pgnu_init(WORK, PATTERN_DIR);

@@ -26,8 +26,10 @@
 #include "pgnx.h"
 #include "pgnu.h"
 
-#define PATTERN_DIR "data/patterns"
-#define ANNO_DIR    "data/anno"
+/* Data directories, resolved at startup via pgnu_data_dir(). */
+static char PATTERN_DIR[1300];     /* <data>/patterns */
+static char ANNO_DIR[1300];        /* <data>/anno */
+static char TERM_ERROR[1300];      /* <data>/anno/termination_error */
 
 static int hard_moveaverage = 0;   /* --hardavg N override (0 = compute) */
 static char WORK[1024];            /* working directory for intermediates */
@@ -78,18 +80,23 @@ static int corp_is_error(const char *t)
     for (int i = 0; i < 9; i++) if (strstr(t, sub[i])) return 1;
     return 0;
 }
-/* -Tw/-Tb/-Tp match a tag by substring, so mirror that with strstr. A win
- * by E excludes error games (as EAS strips them before counting wins). */
+/* -Tw/-Tb/-Tp (without --tagsubstr) match a tag by PREFIX, so mirror that:
+ * "Stockfish" selects "Stockfish 17" too, exactly as the batch's passes do. */
+static int corp_is(const char *tag, const char *E)
+{
+    return strncmp(tag, E, strlen(E)) == 0;
+}
+/* A win by E excludes error games (as EAS strips them before counting wins). */
 static int corp_win(const CorpusGame *c, const char *E)
 {
-    int won = (c->result == 1 && strstr(c->white, E) != NULL) ||
-              (c->result == -1 && strstr(c->black, E) != NULL);
+    int won = (c->result == 1 && corp_is(c->white, E)) ||
+              (c->result == -1 && corp_is(c->black, E));
     return won && !corp_is_error(c->termination);
 }
 static int corp_played_draw(const CorpusGame *c, const char *E)
 {
     return c->result == 0 &&
-           (strstr(c->white, E) != NULL || strstr(c->black, E) != NULL);
+           (corp_is(c->white, E) || corp_is(c->black, E));
 }
 static int corp_count_win(const char *E)
 {
@@ -196,6 +203,13 @@ static void add_engine_name(const char *name)
         engines[num_engines][NAME_LEN - 1] = '\0';
         engine_gamecount[num_engines] = 1;
         num_engines++;
+    } else {
+        static int warned = 0;
+        if (!warned) {
+            fprintf(stderr, "eas: more than %d players; the rest are skipped\n",
+                    MAX_ENGINES);
+            warned = 1;
+        }
     }
 }
 
@@ -239,7 +253,7 @@ static void process_engine(const char *engine, int avg_length_all_wins,
     const char *whitewins_nc = P("whitewins_nc.pgn");
     xrun("--quiet", "-Tr1-0", flag("-Tw", engine), (char *)enginegames,
          "--output", (char *)whitewins_nc, NULL);
-    xrun("--quiet", "--tagsubstr", "-t", ANNO_DIR "/termination_error",
+    xrun("--quiet", "--tagsubstr", "-t", TERM_ERROR,
          (char *)whitewins_nc, "--output", (char *)errg, NULL);
     xrun("--quiet", flag("-c", errg), "-D", flag("-o", whitewins),
          (char *)whitewins_nc, NULL);
@@ -248,7 +262,7 @@ static void process_engine(const char *engine, int avg_length_all_wins,
     const char *blackwins_nc = P("blackwins_nc.pgn");
     xrun("--quiet", "-Tr0-1", flag("-Tb", engine), (char *)enginegames,
          "--output", (char *)blackwins_nc, NULL);
-    xrun("--quiet", "--tagsubstr", "-t", ANNO_DIR "/termination_error",
+    xrun("--quiet", "--tagsubstr", "-t", TERM_ERROR,
          (char *)blackwins_nc, "--output", (char *)errg, NULL);
     xrun("--quiet", flag("-c", errg), "-D", flag("-o", blackwins),
          (char *)blackwins_nc, NULL);
@@ -273,8 +287,8 @@ static void process_engine(const char *engine, int avg_length_all_wins,
     for (int i = 0; i < NCORP; i++) {
         const CorpusGame *c = &CORP[i];
         if (c->result != 0) continue;                 /* draws only */
-        int ew = strstr(c->white, engine) != NULL;
-        int eb = strstr(c->black, engine) != NULL;
+        int ew = corp_is(c->white, engine);
+        int eb = corp_is(c->black, engine);
         if (!ew && !eb) continue;                      /* engine must have played */
         int in_bad2 = (!c->reached_endgame_draw)       /* ended before endgame */
                       || (ew && c->mat_def_black)       /* engine had advantage */
@@ -564,6 +578,11 @@ int cmd_eas(int argc, char *argv[])
         snprintf(gamebase, sizeof gamebase, "%s", infile);
     else
         snprintf(gamebase, sizeof gamebase, "%s.pgn", infile);
+
+    const char *data = pgnu_data_dir();
+    snprintf(PATTERN_DIR, sizeof PATTERN_DIR, "%s/patterns", data);
+    snprintf(ANNO_DIR, sizeof ANNO_DIR, "%s/anno", data);
+    snprintf(TERM_ERROR, sizeof TERM_ERROR, "%s/termination_error", ANNO_DIR);
 
     if (WORK[0] == '\0') snprintf(WORK, sizeof WORK, "build/eas_work");
     pgnu_init(WORK, PATTERN_DIR);

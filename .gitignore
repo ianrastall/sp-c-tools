@@ -4,10 +4,11 @@
 *.exe
 *.pdb
 
-# EAS tool outputs
+# EAS / IWS tool outputs
 /statistics_EAS_ratinglist.txt
 /errorgames.pgn
 /interesting_wins.pgn
+/very_interesting_wins.pgn
 
 # Large test corpora (bring your own; see tests/README)
 /tests/data/*.pgn

@@ -17,6 +17,12 @@
 
 #include <stddef.h>
 
+/* Locate SPCT's data/ directory (patterns/, anno/, ...): $SPCT_DATA if set,
+ * else ./data, else data/ next to the executable or up to two levels above
+ * it (so build/spct.exe finds the repo's data/ from any working directory).
+ * Exits with a message if none contains the pattern files. Cached. */
+const char *pgnu_data_dir(void);
+
 /* One-time setup: the working directory for intermediate PGNs and the
  * directory holding the -y/-z pattern files. Creates the work dir. */
 void pgnu_init(const char *work_dir, const char *pattern_dir);
