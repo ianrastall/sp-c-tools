@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
         if (g[i].result == 1) cw++;
         else if (g[i].result == -1) cb++;
         else if (g[i].result == 0) cd++;
-        if (CORPUS_MOVES_LE(g[i].plies, 20)) cle20++;
+        if (CORPUS_MOVES_LE(g[i].ply_offset + g[i].plies, 20)) cle20++;
     }
 
     printf("                 pgn-extract   corpus\n");

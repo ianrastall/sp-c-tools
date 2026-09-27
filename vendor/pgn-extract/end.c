@@ -556,11 +556,17 @@ void extract_pieces_from_board(int num_pieces[2][NUM_PIECE_VALUES], const Board 
  * In other words, a position with the required balance
  * of pieces.
  */
+/* SPCT patch: the number of plies applied (the position index) at which
+ * look_for_material_match last found its match. Read by
+ * spct_game_material_match_ply; does not affect matching. */
+static unsigned spct_last_match_ply = 0;
+
 static Boolean
 look_for_material_match(Game *game_details)
 {
     Boolean game_ok = TRUE;
     Boolean match_comment_added = FALSE;
+    unsigned spct_plies_applied = 0;   /* SPCT patch */
     Move *next_move = game_details->moves;
     Move *move_for_comment = NULL;
     Colour colour = WHITE;
@@ -633,6 +639,7 @@ look_for_material_match(Game *game_details)
                 move_for_comment = next_move;
                 colour = OPPOSITE_COLOUR(colour);
                 next_move = next_move->next;
+                spct_plies_applied++;   /* SPCT patch */
             }
             else {
                 game_ok = FALSE;
@@ -647,6 +654,7 @@ look_for_material_match(Game *game_details)
     }
     (void) free((void *) board);
     if(game_ok && matches) {
+        spct_last_match_ply = spct_plies_applied;   /* SPCT patch */
         if(GlobalState.add_match_tag) {
             game_details->tags[MATERIAL_MATCH_TAG] =
                 copy_string(white_matches ? "White" : "Black");
@@ -875,6 +883,16 @@ spct_game_matches_material(Game *game, Material_details *list)
     Boolean r = look_for_material_match(game);
     endings_to_match = saved;
     return r;
+}
+
+/* SPCT patch: as spct_game_matches_material, but return the position index
+ * (plies applied from the start) at which the first match occurred, or -1
+ * for no match. The matcher is a left-to-right scan that stops at its first
+ * match, so the game truncated to N plies matches iff this is <= N. */
+int
+spct_game_material_match_ply(Game *game, Material_details *list)
+{
+    return spct_game_matches_material(game, list) ? (int) spct_last_match_ply : -1;
 }
 
 /* Return TRUE if there is insufficient material on the board to force a win. */

@@ -69,6 +69,7 @@ void reset_endings_to_match(void);
  * against an explicit list (reusable per-game -y/-z matcher). */
 Material_details *spct_build_material_list(const char *path, Boolean both_colours);
 Boolean spct_game_matches_material(Game *game, Material_details *list);
+int spct_game_material_match_ply(Game *game, Material_details *list);
 Boolean check_for_piece_count_match(Game *game);
 Boolean constraint_material_match(Material_details *details_to_find, const Board *board);
 void extract_pieces_from_board(int num_pieces[2][NUM_PIECE_VALUES], const Board *board);

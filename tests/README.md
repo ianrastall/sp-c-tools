@@ -30,6 +30,9 @@ local corpora is committed.
 - `parity` — the 1071-game GM blitz corpus behind the oracle check below. It's
   gitignored, so this corpus is skipped unless your local copy matches
   `golden/parity/input.sha256`.
+- `stress` — parity plus duplicate games, error terminations and FEN-start
+  games, which parity lacks. Regenerate it with `tests/mkstress.py` (needs
+  parity and a stock pgn-extract; see the script's header).
 
 Run it before committing any change to the core, the patterns, or a report.
 Output is expected to stay byte-identical unless a change is meant to alter it.

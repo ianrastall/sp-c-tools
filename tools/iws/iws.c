@@ -5,8 +5,9 @@
  * Filters the "spectacular" wins out of a PGN into two sorted, annotated
  * files - no statistics, just the games. It is essentially the
  * interesting_wins.pgn half of EAS, with a game-length limit, an optional
- * player filter, and two output tiers. Like EAS it drives a vendored,
- * in-process pgn-extract (core/pgnx.h) for every pass.
+ * player filter, and two output tiers. Like EAS, it labels every game in
+ * one streaming pass (core/corpus.h) and uses the vendored in-process
+ * pgn-extract only for the initial filter, length sort and final dedup.
  *
  * Outputs:
  *   interesting_wins.pgn       - queen/5/4/3/2/1 pawn sacs, wins before the
@@ -25,6 +26,7 @@
 #endif
 #include "pgnx.h"
 #include "pgnu.h"
+#include "corpus.h"
 
 /* Data directories, resolved at startup via pgnu_data_dir(). */
 static char PATTERN_DIR[1300];     /* <data>/patterns */
@@ -34,11 +36,9 @@ static char WORK[1024];
 
 /* Shared plumbing lives in core/pgnu; alias to this tool's names. */
 #define P               pgnu_wp
-#define pat             pgnu_pat
 #define flag            pgnu_flag
 #define xrun            pgnu_run
 #define count_games     pgnu_count
-#define copy_file       pgnu_copy
 #define annotate_append pgnu_annotate_append
 
 static void read_anno(const char *name, char *out, size_t n)
@@ -95,7 +95,7 @@ int cmd_iws(int argc, char *argv[])
     snprintf(ANNO_DIR, sizeof ANNO_DIR, "%s/anno_iws", data);
 
     if (WORK[0] == '\0') snprintf(WORK, sizeof WORK, "build/iws_work");
-    pgnu_init(WORK, PATTERN_DIR);
+    pgnu_init(WORK);
 
     const char *newsource = P("newsource.pgn");
     /* Won games up to the move limit; strip comments/NAGs/variations. */
@@ -113,34 +113,58 @@ int cmd_iws(int argc, char *argv[])
         return 1;
     }
 
-    const char *whitewins = P("whitewins.pgn");
-    const char *blackwins = P("blackwins.pgn");
-    xrun("--quiet", "-Tr1-0", (char *)newsource, "--output", (char *)whitewins, NULL);
-    xrun("--quiet", "-Tr0-1", (char *)newsource, "--output", (char *)blackwins, NULL);
+    /* ---- one streaming pass labels every won game ----
+     * (sacrifice chain, endgame reached, material imbalance); the batch's
+     * filter passes become index-list operations, and each category file is
+     * written straight from newsource's text. */
+    CorpusGame *G;
+    int NG;
+    corpus_load(newsource, PATTERN_DIR, &G, &NG);
+    int *W = (int *) malloc(((size_t)NG + 1) * sizeof(int));
+    int *B = (int *) malloc(((size_t)NG + 1) * sizeof(int));
+    int *all = (int *) malloc(((size_t)NG + 1) * sizeof(int));
+    int *sel = (int *) malloc(((size_t)NG + 1) * sizeof(int));
+    int *kept = (int *) malloc(((size_t)NG + 1) * sizeof(int));
+    if (!W || !B || !all || !sel || !kept) {
+        fprintf(stderr, "iws: out of memory\n");
+        return 1;
+    }
+    int nW = 0, nB = 0;
+    for (int i = 0; i < NG; i++) {
+        all[i] = i;
+        if (G[i].result == 1) W[nW++] = i;
+        else if (G[i].result == -1) B[nB++] = i;
+    }
 
-    /* ---- sacrifice search + dedup (shared classifier) ---- */
-    const char *r1 = P("results_opt1.pgn");
-    pgnu_sac_1plus(whitewins, blackwins, r1);
+    /* ---- sacrifice categories (shared classifier) ---- */
     const char *u1 = P("unique_opt1.pgn");
     const char *u2 = P("unique_opt2.pgn");
     const char *u3 = P("unique_opt3.pgn");
     const char *u4 = P("unique_opt4.pgn");
     const char *u5 = P("unique_opt5.pgn");
     const char *u9 = P("unique_opt9.pgn");
-    const char *const unique[6] = { u1, u2, u3, u4, u5, u9 };
-    int scnt[6];
-    pgnu_sac_rest(whitewins, blackwins, r1, unique, scnt);
+    const char *const unique[CORPUS_SAC_LEVELS] = { u1, u2, u3, u4, u5, u9 };
+    CorpusSacSets S;
+    corpus_sac_classify(W, nW, B, nB, &S);
+    for (int k = 0; k < CORPUS_SAC_LEVELS; k++) {
+        pgnu_truncate(unique[k]);
+        corpus_append(unique[k], S.list[k], S.n[k]);
+    }
+    corpus_sac_free(&S);
 
     /* ---- wins before an endgame, and material imbalances ---- */
-    const char *tmp = P("results.pgn");
     const char *no_endgame = P("no_endgame_wins.pgn");
     const char *imbalance = P("imbalance.pgn");
-    xrun("--quiet", flag("-z", pat("no_endgame")), (char *)newsource,
-         "--output", (char *)tmp, NULL);
-    xrun("--quiet", flag("-c", tmp), "-D", flag("-o", no_endgame),
-         (char *)newsource, NULL);
-    xrun("--quiet", flag("-z", pat("imbalance")), (char *)newsource,
-         "--output", (char *)imbalance, NULL);
+    int m = 0;
+    for (int i = 0; i < NG; i++) if (G[i].no_endgame) sel[m++] = i;
+    int nne = corpus_dedup(all, NG, sel, m, kept);   /* newsource minus reached */
+    pgnu_truncate(no_endgame);
+    corpus_append(no_endgame, kept, nne);
+    m = 0;
+    for (int i = 0; i < NG; i++) if (G[i].imbalance) sel[m++] = i;
+    pgnu_truncate(imbalance);
+    corpus_append(imbalance, sel, m);
+    free(W); free(B); free(all); free(sel); free(kept);
 
     /* ---- assemble the two tiers ----
      * interesting:      9,5,4,3,2,1 sacs, before-endgame, imbalance

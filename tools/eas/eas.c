@@ -4,10 +4,12 @@
  *
  * The original is a Windows batch script that shells out to pgn-extract
  * (and Norman Pollock's pgn-tools) dozens of times per engine, passing PGN
- * subsets through temp files. This port drives a vendored, in-process
- * pgn-extract (see core/pgnx.h) for every filtering/matching pass, and
- * reproduces the scoring arithmetic natively with the same integer
- * semantics as the batch's `set /A` math, so EAS-Scores match.
+ * subsets through temp files. This port labels every game in one streaming
+ * pass over a vendored, in-process pgn-extract (core/corpus.h, using
+ * pgn-extract's own -y/-z matcher), answers the batch's per-engine filter
+ * passes from those labels, and reproduces the scoring arithmetic natively
+ * with the same integer semantics as the batch's `set /A` math, so
+ * EAS-Scores match.
  *
  * Output: statistics_EAS_ratinglist.txt (three rating lists + single-stats)
  *         errorgames.pgn (games with non-regular terminations)
@@ -39,13 +41,8 @@ static void die(const char *msg) { fprintf(stderr, "eas: %s\n", msg); exit(1); }
 /* Shared plumbing lives in core/pgnu; alias to this tool's names so the
  * validated scoring/report bodies below are unchanged. */
 #define P               pgnu_wp
-#define pat             pgnu_pat
-#define flag            pgnu_flag
-#define bu              pgnu_bu
 #define xrun            pgnu_run
 #define count_games     pgnu_count
-#define copy_file       pgnu_copy
-#define concat2         pgnu_concat2
 #define annotate_append pgnu_annotate_append
 
 static void read_anno(const char *name, char *out, size_t n)
@@ -61,9 +58,9 @@ static void sortlength(const char *src, const char *dst)
     pgnu_sortlength(src, dst, EAS_SLLO, EAS_SLHI, 17);
 }
 
-/* ---- streaming corpus: parameter-free per-game facts, labelled in one
- * pass, replacing the result/length/player COUNT passes (the sac and
- * bad-draw material passes still run on pgn-extract). ---- */
+/* ---- streaming corpus: every per-game fact (result, length, players,
+ * duplicate key, sacrifice/endgame/imbalance labels) labelled in one pass,
+ * replacing the batch's per-engine filter passes. ---- */
 #include "corpus.h"
 static CorpusGame *CORP = NULL;
 static int NCORP = 0;
@@ -114,7 +111,8 @@ static int corp_count_win_le(const char *E, int moves)
 {
     int n = 0;
     for (int i = 0; i < NCORP; i++)
-        if (corp_win(&CORP[i], E) && CORPUS_MOVES_LE(CORP[i].plies, moves)) n++;
+        if (corp_win(&CORP[i], E) &&
+            CORPUS_MOVES_LE(CORP[i].ply_offset + CORP[i].plies, moves)) n++;
     return n;
 }
 /* Average length in MOVES = round(mean plies)/2, matching :moveaverage. */
@@ -230,7 +228,23 @@ static int num_results = 0;
 
 static void write_single_stats(FILE *o, int sh4);
 
-/* ---- process one engine ---- */
+/* ---- process one engine ----
+ * Everything below is answered from the corpus labels; the batch's
+ * per-engine pgn-extract passes are mirrored as index-list operations,
+ * and the games destined for errorgames.pgn / interesting_wins.pgn are
+ * copied straight from the source text. */
+static int *L_wnc, *L_bnc, *L_errw, *L_errb, *L_w, *L_b, *L_all, *L_tmp, *L_tmp2;
+
+static void alloc_lists(void)
+{
+    int **all[9] = { &L_wnc, &L_bnc, &L_errw, &L_errb, &L_w, &L_b, &L_all,
+                     &L_tmp, &L_tmp2 };
+    for (int i = 0; i < 9; i++) {
+        *all[i] = (int *) malloc(((size_t)NCORP + 1) * sizeof(int));
+        if (*all[i] == NULL) die("out of memory");
+    }
+}
+
 static void process_engine(const char *engine, int avg_length_all_wins,
                            int sh1, int sh2, int sh3, int sh4, int sh5,
                            int earlysac_limit, const char *errorcollect)
@@ -239,36 +253,27 @@ static void process_engine(const char *engine, int avg_length_all_wins,
     memset(R, 0, sizeof *R);
     strncpy(R->name, engine, NAME_LEN - 1);
 
-    const char *newsource = P("newsource.pgn");
-    const char *enginegames = P("enginegames.pgn");
-    const char *whitewins = P("whitewins.pgn");
-    const char *blackwins = P("blackwins.pgn");
-    const char *allwins = P("allwins.pgn");
-    const char *tmp = P("results.pgn");
-    const char *errg = P("errg.pgn");
-
-    xrun("--quiet", flag("-Tp", engine), (char *)newsource, "--output",
-         (char *)enginegames, NULL);
-
-    const char *whitewins_nc = P("whitewins_nc.pgn");
-    xrun("--quiet", "-Tr1-0", flag("-Tw", engine), (char *)enginegames,
-         "--output", (char *)whitewins_nc, NULL);
-    xrun("--quiet", "--tagsubstr", "-t", TERM_ERROR,
-         (char *)whitewins_nc, "--output", (char *)errg, NULL);
-    xrun("--quiet", flag("-c", errg), "-D", flag("-o", whitewins),
-         (char *)whitewins_nc, NULL);
-    xrun("--quiet", (char *)errg, flag("-a", errorcollect), NULL);
-
-    const char *blackwins_nc = P("blackwins_nc.pgn");
-    xrun("--quiet", "-Tr0-1", flag("-Tb", engine), (char *)enginegames,
-         "--output", (char *)blackwins_nc, NULL);
-    xrun("--quiet", "--tagsubstr", "-t", TERM_ERROR,
-         (char *)blackwins_nc, "--output", (char *)errg, NULL);
-    xrun("--quiet", flag("-c", errg), "-D", flag("-o", blackwins),
-         (char *)blackwins_nc, NULL);
-    xrun("--quiet", (char *)errg, flag("-a", errorcollect), NULL);
-
-    concat2(allwins, whitewins, blackwins);
+    /* The batch's whitewins/blackwins: games the engine won with each
+     * colour, in file order, minus error terminations and duplicates
+     * (-c errg -D). The error games themselves go to errorgames.pgn. */
+    int nwnc = 0, nbnc = 0, nerrw = 0, nerrb = 0;
+    for (int i = 0; i < NCORP; i++) {
+        const CorpusGame *c = &CORP[i];
+        if (c->result == 1 && corp_is(c->white, engine)) {
+            L_wnc[nwnc++] = i;
+            if (corp_is_error(c->termination)) L_errw[nerrw++] = i;
+        } else if (c->result == -1 && corp_is(c->black, engine)) {
+            L_bnc[nbnc++] = i;
+            if (corp_is_error(c->termination)) L_errb[nerrb++] = i;
+        }
+    }
+    int nw = corpus_dedup(L_wnc, nwnc, L_errw, nerrw, L_w);
+    int nb = corpus_dedup(L_bnc, nbnc, L_errb, nerrb, L_b);
+    corpus_append(errorcollect, L_errw, nerrw);
+    corpus_append(errorcollect, L_errb, nerrb);
+    int nall = 0;   /* allwins = whitewins then blackwins */
+    for (int i = 0; i < nw; i++) L_all[nall++] = L_w[i];
+    for (int i = 0; i < nb; i++) L_all[nall++] = L_b[i];
 
     R->avg_len_eng_wins = corp_avg(0, engine);   /* E's non-error wins */
     R->E_avglen = R->avg_len_eng_wins;
@@ -308,11 +313,6 @@ static void process_engine(const char *engine, int avg_length_all_wins,
     R->eas_bad_draws = engine_eas;
 
     /* ---- short wins (bucket counts from the streaming corpus) ---- */
-    /* shortmv (E's wins <= sh1 moves) is still built as a file because the
-     * interesting_wins collection appends its <= sh4 subset. */
-    const char *shortmv = P("short_mvs_wins.pgn");
-    xrun("--quiet", bu(sh1), (char *)allwins, "--output", (char *)shortmv, NULL);
-
     int won_40 = corp_count_win_le(engine, sh5);
     R->s40 = pct(numb_wins, won_40);
     engine_eas += R->s40.x100 * 100;
@@ -340,27 +340,20 @@ static void process_engine(const char *engine, int avg_length_all_wins,
 
     R->eas_short_wins = engine_eas - R->eas_bad_draws;
 
-    /* ---- sacs: 1+ first (also the early-sac base) ---- */
-    const char *r1 = P("results_opt1.pgn");
-    pgnu_sac_1plus(whitewins, blackwins, r1);
-
-    /* ---- early sac bonus ---- */
-    int numb_1sacs = (int)count_games(whitewins) + (int)count_games(blackwins);
+    /* ---- early sac bonus ----
+     * Of the 1+ pawn-sac wins, those that already show the sacrifice within
+     * the first earlysac_limit+8 plies. (The batch cut the games with
+     * --plylimit and re-matched; the matcher stops at its first match, so
+     * that is the first-match ply compared against the cut.) */
     int earlysearch = earlysac_limit + 8;
-    char plyarg[32];
-    snprintf(plyarg, sizeof plyarg, "%d", earlysearch);
-    const char *wcut = P("whitewins_cutoff.pgn");
-    const char *bcut = P("blackwins_cutoff.pgn");
-    const char *early = P("earlysacs.pgn");
-    xrun("--quiet", "--plylimit", plyarg, (char *)whitewins, "--output",
-         (char *)wcut, NULL);
-    xrun("--quiet", "--plylimit", plyarg, (char *)blackwins, "--output",
-         (char *)bcut, NULL);
-    xrun("--quiet", flag("-y", pat("1_pawnsac_white")), (char *)wcut,
-         "--output", (char *)early, NULL);
-    xrun("--quiet", flag("-y", pat("1_pawnsac_black")), (char *)bcut,
-         flag("-a", early), NULL);
-    int numb_early = (int)count_games(early);
+    int numb_1sacs = 0, numb_early = 0;
+    for (int i = 0; i < nall; i++) {
+        const CorpusGame *c = &CORP[L_all[i]];
+        if (c->sac_depth < 1) continue;
+        numb_1sacs++;
+        int cut = earlysearch - c->ply_offset;   /* plies left after a FEN start */
+        if (c->sac1_ply <= (cut > 0 ? cut : 0)) numb_early++;
+    }
     R->early = pct(numb_1sacs, numb_early);
     R->A_early = R->early;
     long earlysacs_points = (R->early.x100 / 18) * (R->early.x100 / 18);
@@ -369,18 +362,11 @@ static void process_engine(const char *engine, int avg_length_all_wins,
     engine_eas += earlysacs_points;
     R->eas_earlysacs = earlysacs_points;
 
-    /* ---- sac categories 2,3,4,5,queen (+ dedup to highest) ---- */
-    const char *u1 = P("unique_opt1.pgn");
-    const char *u2 = P("unique_opt2.pgn");
-    const char *u3 = P("unique_opt3.pgn");
-    const char *u4 = P("unique_opt4.pgn");
-    const char *u5 = P("unique_opt5.pgn");
-    const char *u9 = P("unique_opt9.pgn");
-    const char *const unique[6] = { u1, u2, u3, u4, u5, u9 };
-    int scnt[6];
-    pgnu_sac_rest(whitewins, blackwins, r1, unique, scnt);
-    int n1 = scnt[0], n2 = scnt[1], n3 = scnt[2];
-    int n4 = scnt[3], n5 = scnt[4], n9 = scnt[5];
+    /* ---- sac categories 1,2,3,4,5,queen (each game in its highest) ---- */
+    CorpusSacSets S;
+    corpus_sac_classify(L_w, nw, L_b, nb, &S);
+    int n1 = S.n[0], n2 = S.n[1], n3 = S.n[2];
+    int n4 = S.n[3], n5 = S.n[4], n9 = S.n[5];
     int numb_sum = n1 + n2 + n3 + n4 + n5 + n9;
     R->all_sacs = pct(numb_wins, numb_sum);
     R->B_allsacs = R->all_sacs;
@@ -398,23 +384,31 @@ static void process_engine(const char *engine, int avg_length_all_wins,
     R->eas = engine_eas;
 
     /* ---- collect games for interesting_wins.pgn ---- */
-    xrun("--quiet", (char *)u9, flag("-a", P("collect_sacgames_9.pgn")), NULL);
-    xrun("--quiet", (char *)u5, flag("-a", P("collect_sacgames_5.pgn")), NULL);
-    xrun("--quiet", (char *)u4, flag("-a", P("collect_sacgames_4.pgn")), NULL);
-    xrun("--quiet", (char *)u3, flag("-a", P("collect_sacgames_3.pgn")), NULL);
-    xrun("--quiet", (char *)u2, flag("-a", P("collect_sacgames_2.pgn")), NULL);
-    xrun("--quiet", (char *)u1, flag("-a", P("collect_sacgames_1.pgn")), NULL);
+    static const char *collsac[CORPUS_SAC_LEVELS] = {
+        "collect_sacgames_1.pgn", "collect_sacgames_2.pgn", "collect_sacgames_3.pgn",
+        "collect_sacgames_4.pgn", "collect_sacgames_5.pgn", "collect_sacgames_9.pgn",
+    };
+    for (int k = 0; k < CORPUS_SAC_LEVELS; k++)
+        corpus_append(P(collsac[k]), S.list[k], S.n[k]);
+    corpus_sac_free(&S);
     /* very short wins (<= sh4 moves) */
-    xrun("--quiet", bu(sh4), (char *)shortmv, flag("-a", P("collect_shorts.pgn")), NULL);
+    int m = 0;
+    for (int i = 0; i < nall; i++) {
+        const CorpusGame *c = &CORP[L_all[i]];
+        if (CORPUS_MOVES_LE(c->ply_offset + c->plies, sh4)) L_tmp[m++] = L_all[i];
+    }
+    corpus_append(P("collect_shorts.pgn"), L_tmp, m);
     /* wins that ended before an endgame was reached (allwins minus reached) */
-    xrun("--quiet", flag("-z", pat("no_endgame")), (char *)allwins,
-         "--output", (char *)tmp, NULL);
-    xrun("--quiet", flag("-c", tmp), "-D", flag("-o", P("ne_tmp.pgn")),
-         (char *)allwins, NULL);
-    xrun("--quiet", (char *)P("ne_tmp.pgn"), flag("-a", P("collect_no_endgame.pgn")), NULL);
+    m = 0;
+    for (int i = 0; i < nall; i++)
+        if (CORP[L_all[i]].no_endgame) L_tmp[m++] = L_all[i];
+    int nne = corpus_dedup(L_all, nall, L_tmp, m, L_tmp2);
+    corpus_append(P("collect_no_endgame.pgn"), L_tmp2, nne);
     /* wins with a material imbalance */
-    xrun("--quiet", flag("-z", pat("imbalance")), (char *)allwins,
-         flag("-a", P("collect_imbalance.pgn")), NULL);
+    m = 0;
+    for (int i = 0; i < nall; i++)
+        if (CORP[L_all[i]].imbalance) L_tmp[m++] = L_all[i];
+    corpus_append(P("collect_imbalance.pgn"), L_tmp, m);
 
     num_results++;
 }
@@ -585,7 +579,7 @@ int cmd_eas(int argc, char *argv[])
     snprintf(TERM_ERROR, sizeof TERM_ERROR, "%s/termination_error", ANNO_DIR);
 
     if (WORK[0] == '\0') snprintf(WORK, sizeof WORK, "build/eas_work");
-    pgnu_init(WORK, PATTERN_DIR);
+    pgnu_init(WORK);
 
     const char *newsource = P("newsource.pgn");
     xrun("--quiet", "--fixresulttags", "-C", "-N", "-V", "--plycount",
@@ -595,10 +589,12 @@ int cmd_eas(int argc, char *argv[])
         return 1;
     }
 
-    /* One streaming pass labels every game (result, length, players); the
-     * per-engine win/draw counts, averages and short-win buckets are then
-     * answered in memory instead of by result/length filter passes. */
+    /* One streaming pass labels every game (result, length, players,
+     * duplicate key, sacrifice/endgame/imbalance); every per-engine count,
+     * sacrifice category and output collection is then answered in memory
+     * instead of by per-engine filter passes. */
     corpus_load(newsource, PATTERN_DIR, &CORP, &NCORP);
+    alloc_lists();
 
     int avg_length_all_wins = corp_avg(1, NULL);   /* all decisive games */
     if (hard_moveaverage > 0) avg_length_all_wins = hard_moveaverage;

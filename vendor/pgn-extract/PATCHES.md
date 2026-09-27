@@ -54,6 +54,15 @@ exit to release state and files) and expose a per-game classifier hook.
    matcher, instead of running one filter pass per pattern over PGN subsets.
    No matching logic is reimplemented.
 
+7. **`end.c` / `end.h` — added `spct_game_material_match_ply`.**
+   `look_for_material_match` now also counts the plies it applies and, on a
+   match, stores that position index in a file-static
+   (`spct_last_match_ply`); matching behaviour is unchanged. The new function
+   returns it (or -1). Because the matcher scans left to right and stops at
+   its first match, a game truncated to N plies (`--plylimit N`) matches iff
+   this index is <= N, which lets EAS's early-sacrifice test run from one
+   label instead of a truncate-and-rematch pass pair per engine.
+
 ## Not changed
 
 Everything else is upstream 26-04 verbatim, including the parser, board and

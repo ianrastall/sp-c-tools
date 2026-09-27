@@ -21,14 +21,17 @@ vendor/pgn-extract/   pgn-extract 26-04, GPLv3, lightly patched (see PATCHES.md)
                       to be driven in-process, once per "pass", many times.
 core/pgnx.[ch]        Runs one pgn-extract "pass" (== one command line) in
                       process with full state reset; pgnx_games_matched() counts.
-core/pgnu.[ch]        Shared machinery over pgnx: work paths, the pass wrapper,
-                      length-sort, annotate, and the sacrifice classifier that
-                      every report uses.
 core/corpus.[ch]      Streaming labels: one pass over the PGN (via the
-                      spct_game_hook) records each game's result, length and
-                      players in memory, so count/length/player queries need no
-                      filter passes. (First step off multi-pass orchestration;
-                      material labels still come from pgn-extract -y/-z.)
+                      spct_game_hook) records each game's result, length,
+                      players, duplicate key and material labels (sacrifice
+                      depth and first-sac ply, endgame reached, imbalance -
+                      from pgn-extract's own -y/-z matcher, run in memory).
+                      Also the batch's -c/-D set operations and the shared
+                      sacrifice classifier, over index lists, and copying
+                      selected games straight from the source text.
+core/pgnu.[ch]        Shared plumbing: data-dir lookup, work paths, the pass
+                      wrapper for the few remaining whole-file passes
+                      (clean-up, length sort, final dedup), annotation.
 tools/spct/spct.c     Front-end: dispatches <command> to a report.
 tools/eas/eas.c       EAS report: engine-aggressiveness scoring, rating lists.
 tools/iws/iws.c       IWS report: filter spectacular wins into two tiers.
@@ -41,7 +44,9 @@ data/anno_iws/        IWS annotator-tag files.
 pgn-extract already contains the hard part (a correct move parser with board and
 material tracking, and the `-y`/`-z` material matcher). The reports reuse that
 engine and the shared classifiers, adding only their aggregation/output. No
-subprocess spawning, no temp-file shuffling between processes, no external `.exe`s.
+subprocess spawning, no external `.exe`s, and no per-engine filter passes: EAS
+labels every game once and answers each engine from memory (about 8x faster
+than the multi-pass version on a 1071-game, 116-player file).
 
 ## Build (Windows, MSYS2 UCRT64)
 
@@ -100,6 +105,9 @@ Filters the spectacular wins (no statistics) into two tiers:
 the whole file — no per-engine loop.
 
 ## Validation
+
+`tests/check.sh` is the regression gate: it re-runs every report variant on the
+test corpora and compares all outputs to recorded goldens (see `tests/README.md`).
 
 EAS was checked against a stock pgn-extract "oracle" that replays the batch's
 exact pass sequence: win counts, short-win buckets, and the sacrifice-detection
