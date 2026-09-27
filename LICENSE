@@ -1,3 +1,20 @@
+SPCT - Stefan Pohl Chess Tools (C port)
+
+Engine Aggressiveness Statistics Tool, Interesting Wins Search Tool,
+Sacrifice Games Search Tool, Short Games Analyzer Tool, GamePairs
+rescoring tool, DecisionTimeStats: idea, design, algorithms and scoring
+(C) 2024-2025, Stefan Pohl (SPCC), www.sp-cc.de
+
+pgn-extract (C) David J. Barnes, licensed under the GNU GPL v3 or later.
+
+This program links pgn-extract, so it is distributed under the same terms:
+you can redistribute it and/or modify it under the terms of the GNU General
+Public License as published by the Free Software Foundation, either version
+3 of the License, or (at your option) any later version. See NOTICE.md for
+credits, and the full license text below.
+
+================================================================================
+
                     GNU GENERAL PUBLIC LICENSE
                        Version 3, 29 June 2007
 

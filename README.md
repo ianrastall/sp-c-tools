@@ -1,5 +1,8 @@
 # SPCT — Stefan Pohl Chess Tools (C port)
 
+*Idea, design, algorithms and scoring (C) 2024-2025, Stefan Pohl (SPCC),
+[www.sp-cc.de](https://www.sp-cc.de/). pgn-extract (C) David J. Barnes.*
+
 Native C reimplementation of [Stefan Pohl's](https://www.sp-cc.de/) computer-chess
 analysis tools. The originals are separate Windows batch scripts that shell out to
 [pgn-extract](https://www.cs.kent.ac.uk/people/staff/djb/pgn-extract/) (and
@@ -116,5 +119,6 @@ See `NOTICE.md` for the v24-11 vs v26-04 material-match caveat.
 
 ## License
 
-GPLv3 (see `LICENSE` and `NOTICE.md`) — the combined work links pgn-extract's
-GPLv3 source.
+The tools' idea, design, algorithms and scoring are (C) 2024-2025, Stefan Pohl
+(SPCC), www.sp-cc.de. The code is GPLv3 or later (see `LICENSE` and
+`NOTICE.md`), as required because it links pgn-extract's GPL source.

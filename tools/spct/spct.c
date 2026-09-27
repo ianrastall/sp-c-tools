@@ -1,9 +1,13 @@
 /*
  * spct - Stefan Pohl Chess Tools, unified front-end.
  *
- * One binary, one shared classification core (core/pgnx + core/pgnu), and a
- * report per subcommand. Each subcommand is a thin layer over the same
+ * One binary, one shared classification core (core/corpus over core/pgnx),
+ * and a report per subcommand. Each subcommand is a thin layer over the same
  * labelling machinery; see tools/<name>/<name>.c.
+ *
+ * The tools' idea, design, algorithms and scoring
+ * (C) 2024-2025, Stefan Pohl (SPCC), www.sp-cc.de.
+ * SPDX-License-Identifier: GPL-3.0-or-later
  */
 #include <stdio.h>
 #include <string.h>
@@ -16,6 +20,7 @@ static int usage(const char *prog)
 {
     fprintf(stderr,
         "SPCT - Stefan Pohl Chess Tools (C port)\n"
+        "Tools (C) 2024-2025, Stefan Pohl, www.sp-cc.de; C port under GPLv3+\n\n"
         "usage: %s <command> [options] file.pgn\n\n"
         "commands:\n"
         "  eas   Engine Aggressiveness Statistics - rating lists, interesting_wins,\n"

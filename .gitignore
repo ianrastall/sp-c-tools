@@ -1,3 +1,7 @@
+# Stefan Pohl's original tools (his copyright, not redistributed here).
+# Keep a local copy for reference and oracle checks; see NOTICE.md.
+/archive/
+
 # Build artifacts
 /build/
 *.o

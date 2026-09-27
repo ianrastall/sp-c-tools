@@ -14,7 +14,9 @@
  *                                endgame, and material imbalances
  *   very_interesting_wins.pgn  - same minus the 1-pawn sacs and imbalances
  *
- * Idea and original tool (C) Stefan Pohl. pgn-extract (C) David J. Barnes.
+ * Interesting Wins Search Tool: idea and design
+ * (C) 2024, Stefan Pohl, www.sp-cc.de. pgn-extract (C) David J. Barnes.
+ * SPDX-License-Identifier: GPL-3.0-or-later
  */
 #include <stdio.h>
 #include <stdlib.h>

@@ -1,5 +1,6 @@
 /*
  * SPCT shared utilities. See core/pgnu.h.
+ * SPDX-License-Identifier: GPL-3.0-or-later
  */
 #include <stdio.h>
 #include <stdlib.h>

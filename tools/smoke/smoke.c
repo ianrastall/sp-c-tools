@@ -1,5 +1,6 @@
 /* SPCT core smoke test: (1) the in-process pass runner + reset, and
- * (2) the streaming corpus cross-checked against pgn-extract's own counts. */
+ * (2) the streaming corpus cross-checked against pgn-extract's own counts.
+ * SPDX-License-Identifier: GPL-3.0-or-later */
 #include <stdio.h>
 #include <string.h>
 #include "pgnx.h"

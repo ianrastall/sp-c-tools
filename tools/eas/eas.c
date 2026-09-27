@@ -14,7 +14,9 @@
  * Output: statistics_EAS_ratinglist.txt (three rating lists + single-stats)
  *         errorgames.pgn (games with non-regular terminations)
  *
- * Idea and original tool (C) Stefan Pohl. pgn-extract (C) David J. Barnes.
+ * Engine Aggressiveness Statistics Tool: idea, design and scoring
+ * (C) 2025, Stefan Pohl, www.sp-cc.de. pgn-extract (C) David J. Barnes.
+ * SPDX-License-Identifier: GPL-3.0-or-later
  */
 #include <stdio.h>
 #include <stdlib.h>

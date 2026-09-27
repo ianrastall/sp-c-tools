@@ -1,6 +1,7 @@
 /*
  * SPCT core: in-process pgn-extract pass runner and state reset.
  * See core/pgnx.h and vendor/pgn-extract/PATCHES.md.
+ * SPDX-License-Identifier: GPL-3.0-or-later
  */
 #include <stdio.h>
 #include <stdlib.h>

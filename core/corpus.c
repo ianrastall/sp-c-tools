@@ -2,6 +2,11 @@
  * SPCT streaming corpus. See core/corpus.h.
  * Uses the vendored pgn-extract's per-game hook (spct_game_hook) to label
  * each game in a single pass, with no intermediate files.
+ *
+ * The sacrifice classification (levels, narrowing, dedup to the highest
+ * category) follows Stefan Pohl's tools, (C) 2024-2025, Stefan Pohl,
+ * www.sp-cc.de.
+ * SPDX-License-Identifier: GPL-3.0-or-later
  */
 #include <stdio.h>
 #include <stdlib.h>
