@@ -1,0 +1,20 @@
+# Build artifacts
+/build/
+*.o
+*.exe
+*.pdb
+
+# EAS tool outputs
+/statistics_EAS_ratinglist.txt
+/errorgames.pgn
+/interesting_wins.pgn
+
+# Large test corpora (bring your own; see tests/README)
+/tests/data/*.pgn
+!/tests/data/sample.pgn
+
+# Editor / OS cruft
+.vscode/
+.idea/
+*.swp
+Thumbs.db
