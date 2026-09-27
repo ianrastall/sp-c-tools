@@ -1,0 +1,7 @@
+# Shell scripts must keep LF line endings or bash rejects them.
+*.sh text eol=lf
+
+# Regression goldens and test corpora are compared byte-for-byte: no
+# line-ending conversion on checkout.
+tests/golden/** -text
+tests/data/*.pgn -text
