@@ -6,8 +6,9 @@
 # manual, Pollock's pgn-tools); kept locally, not redistributed here.
 /assets/
 
-# Build artifacts
+# Build artifacts (build.bat stages the installable tree in dist/)
 /build/
+/dist/
 *.o
 *.exe
 *.pdb

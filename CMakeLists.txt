@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.15)
-project(spct C)
+file(READ "${CMAKE_SOURCE_DIR}/VERSION" SPCT_VERSION)
+string(STRIP "${SPCT_VERSION}" SPCT_VERSION)
+project(spct VERSION ${SPCT_VERSION} LANGUAGES C)
 
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_C_STANDARD_REQUIRED ON)
@@ -32,8 +34,10 @@ add_executable(spct
     ${CMAKE_SOURCE_DIR}/tools/spct/spct.c
     ${CMAKE_SOURCE_DIR}/tools/eas/eas.c
     ${CMAKE_SOURCE_DIR}/tools/iws/iws.c
-    ${CMAKE_SOURCE_DIR}/tools/sgs/sgs.c)
+    ${CMAKE_SOURCE_DIR}/tools/sgs/sgs.c
+    ${CMAKE_SOURCE_DIR}/tools/sga/sga.c)
 target_link_libraries(spct PRIVATE spctcore)
+target_compile_definitions(spct PRIVATE SPCT_VERSION="${SPCT_VERSION}")
 
 add_executable(smoke ${CMAKE_SOURCE_DIR}/tools/smoke/smoke.c)
 target_link_libraries(smoke PRIVATE spctcore)

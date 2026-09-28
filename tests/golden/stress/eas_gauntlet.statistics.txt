@@ -6,7 +6,7 @@
                          early           bad  avg.win
 Rank  EAS-Score  sacs    sacs   shorts  draws  moves  Engine/player
 ---------------------------------------------------------------------------
-  1    81550  09.09%  00.00%  00.00%  16.67%     56   Ringoir,T   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
+  1    98600  12.50%  00.00%  00.00%  16.67%     56   Ringoir,T   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
 -------------------------------------------------------------------
 *** Average length of all won games: 44 moves
 *** Movelimit for early sac bonus  : 22 moves
@@ -16,7 +16,7 @@ Rank  EAS-Score  sacs    sacs   shorts  draws  moves  Engine/player
 A: Early sacrifices (percent of all sacs):
      [1] 00.00%    Ringoir,T
 B: Most sacrifices overall:
-     [1] 09.09%    Ringoir,T
+     [1] 12.50%    Ringoir,T
 C: Very short wins (15 moves or less):
      [1] 00.00%    Ringoir,T
 D: Most short wins overall:
@@ -33,14 +33,14 @@ F: Smallest number of bad draws:
 *** Movelimit for early sac bonus                    : 22 moves
 Rank EAS-Score wins amoves  allsacs =[ sacQ + sac5 + sac4 + sac3 + sac2 + sac1] esacs  shorts =[ s10 + s15 + s20 + s25 + s30] bdraws Engine
 -------------------------------------------------------------------------------------------------------------------------------------------------
-  1    81550    11    56  09.09% =[00.00% +00.00% +00.00% +00.00% +09.09% +00.00%] 00.00%  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00%] 16.67% Ringoir,T
+  1    98600     8    56  12.50% =[00.00% +00.00% +00.00% +00.00% +12.50% +00.00%] 00.00%  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00%] 16.67% Ringoir,T
 *****************************************************************************
 *** 3rd Ratinglist, showing EAS-points instead of percents
 *****************************************************************************
                             early          bad
 Rank  EAS-Score    sacs    sacs   shorts   draws    Engine/player
 -------------------------------------------------------------------------------------
-  1    81550   45450       0       0   36100    Ringoir,T
+  1    98600   62500       0       0   36100    Ringoir,T
 ********************************************************************************************
 *** 0 games with non-regular endings are stored in errorgames.pgn
 ****************************************************

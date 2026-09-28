@@ -5,6 +5,10 @@
 #   target defaults to "spct" (the unified tool). "smoke" builds the core
 #   self-test. Produces build/<target>.exe
 #
+#   SPCT_STATIC=1 ./build.sh   links statically (the regex library and its
+#   dependencies included), so the exe runs without MSYS2's DLLs: what
+#   build.bat uses for the installer.
+#
 # Notes:
 #   - pgn-extract uses POSIX regex; mingw has no libc regex, so we MUST
 #     link -lregex (and -lm). If missing, GNU ld fails SILENTLY with
@@ -20,13 +24,18 @@ CORE="$ROOT/core"
 OBJ="$ROOT/build/obj"
 BIN="$ROOT/build"
 CC="${CC:-gcc}"
-CFLAGS="-O2 -std=c99 -w -I$VENDOR -I$CORE"
+VERSION="$(tr -d ' \r\n' < "$ROOT/VERSION")"
+CFLAGS="-O2 -std=c99 -w -I$VENDOR -I$CORE -DSPCT_VERSION=\"$VERSION\""
 LIBS="-lm -lregex"
+if [ "${SPCT_STATIC:-0}" = "1" ]; then
+    # libregex is MSYS2's libsystre, which sits on libtre/libintl/libiconv.
+    LIBS="-static -lm -lregex -ltre -lintl -liconv"
+fi
 
 mkdir -p "$OBJ" "$BIN"
 
 case "$TARGET" in
-    spct)  TOOL_SRCS="tools/spct/spct.c tools/eas/eas.c tools/iws/iws.c tools/sgs/sgs.c" ;;
+    spct)  TOOL_SRCS="tools/spct/spct.c tools/eas/eas.c tools/iws/iws.c tools/sgs/sgs.c tools/sga/sga.c" ;;
     smoke) TOOL_SRCS="tools/smoke/smoke.c" ;;
     *) echo "unknown target '$TARGET' (try: spct, smoke)" >&2; exit 1 ;;
 esac

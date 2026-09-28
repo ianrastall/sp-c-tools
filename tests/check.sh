@@ -31,7 +31,13 @@ OUTPUTS="stdout.txt statistics_EAS_ratinglist.txt interesting_wins.pgn \
          very_interesting_wins.pgn errorgames.pgn statistics.txt \
          sacgames_1_pawns.pgn sacgames_2_pawns.pgn sacgames_3_pawns.pgn \
          sacgames_4_pawns.pgn sacgames_5_pawns.pgn sacgames_queensacs.pgn \
-         games_with_sacrifices.pgn"
+         games_with_sacrifices.pgn \
+         SGA_full_statistics.txt SGA_wins_statistics.txt \
+         SGA_draws_statistics.txt SGA_losses_statistics.txt \
+         shortgames.pgn short_sac_games.pgn \
+         SGA_no_endgame_full_statistics.txt SGA_no_endgame_wins_statistics.txt \
+         SGA_no_endgame_draws_statistics.txt SGA_no_endgame_losses_statistics.txt \
+         shortgames_no_endgame.pgn short_sac_games_no_endgame.pgn"
 
 # The human-readable report a case produced, if any.
 report_of() {

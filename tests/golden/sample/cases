@@ -4,3 +4,5 @@ iws iws
 iws_player iws --player Alpha
 sgs sgs
 sgs_l1 sgs --level 1 --moves 60
+sga sga
+sga_ne sga --no-endgame

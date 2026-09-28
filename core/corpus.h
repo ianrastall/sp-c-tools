@@ -58,7 +58,8 @@ typedef struct {
                         * the game is in the batch's results_optK file iff
                         * sac_depth >= level K (queen = 6) */
     int sac1_ply;      /* position index of the first 1-pawn-sac match, -1 if none */
-    int no_endgame;    /* matches the no_endgame -z pattern (endgame reached) */
+    int no_endgame;    /* matches the no_endgame -z pattern (endgame reached);
+                        * set for every game, unlike the fields above */
     int imbalance;     /* matches the imbalance -z pattern */
     /* Registered probes (corpus_add_probe), decisive games only: position
      * index of the first match of probe i's pattern for the winner's colour
@@ -72,6 +73,11 @@ typedef struct {
  * corpus_clear_probes. */
 int corpus_add_probe(const char *white_path, const char *black_path);
 void corpus_clear_probes(void);
+
+/* The pattern file (in the pattern dir) behind the no_endgame label:
+ * "no_endgame" by default. SGA ships an older version of that pattern, so it
+ * selects "no_endgame_sga". NULL restores the default. */
+void corpus_set_no_endgame_pattern(const char *name);
 
 /* Stream pgn_path once, filling an internal table. If pattern_dir is non-NULL
  * the material labels above are computed too (from data files in that dir).

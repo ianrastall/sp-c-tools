@@ -5,3 +5,7 @@
 # line-ending conversion on checkout.
 tests/golden/** -text
 tests/data/*.pgn -text
+
+# Windows scripts: CRLF, or cmd can mis-handle labels.
+*.bat text eol=crlf
+*.iss text eol=crlf

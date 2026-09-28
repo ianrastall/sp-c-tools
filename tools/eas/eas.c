@@ -85,23 +85,10 @@ static int corp_is(const char *tag, const char *E)
 {
     return strncmp(tag, E, strlen(E)) == 0;
 }
-/* A win by E excludes error games (as EAS strips them before counting wins). */
-static int corp_win(const CorpusGame *c, const char *E)
-{
-    int won = (c->result == 1 && corp_is(c->white, E)) ||
-              (c->result == -1 && corp_is(c->black, E));
-    return won && !corp_is_error(c->termination);
-}
 static int corp_played_draw(const CorpusGame *c, const char *E)
 {
     return c->result == 0 &&
            (corp_is(c->white, E) || corp_is(c->black, E));
-}
-static int corp_count_win(const char *E)
-{
-    int n = 0;
-    for (int i = 0; i < NCORP; i++) if (corp_win(&CORP[i], E)) n++;
-    return n;
 }
 static int corp_count_draw(const char *E)
 {
@@ -109,27 +96,14 @@ static int corp_count_draw(const char *E)
     for (int i = 0; i < NCORP; i++) if (corp_played_draw(&CORP[i], E)) n++;
     return n;
 }
-static int corp_count_win_le(const char *E, int moves)
+/* Average length in moves of all decisive games (the batch's
+ * newsource_onlywins: not de-duplicated), exactly as its :moveaverage. */
+static int corp_avg_decisive(void)
 {
-    int n = 0;
+    long long total = 0, cnt = 0;
     for (int i = 0; i < NCORP; i++)
-        if (corp_win(&CORP[i], E) &&
-            CORPUS_MOVES_LE(CORP[i].ply_offset + CORP[i].plies, moves)) n++;
-    return n;
-}
-/* Average length in MOVES = round(mean plies)/2, matching :moveaverage. */
-static int corp_avg(int decisive_only, const char *E)
-{
-    long total = 0, cnt = 0;
-    for (int i = 0; i < NCORP; i++) {
-        int take = decisive_only ? (CORP[i].result == 1 || CORP[i].result == -1)
-                                 : corp_win(&CORP[i], E);
-        if (take) { total += CORP[i].plies; cnt++; }
-    }
-    if (cnt <= 0) return 0;
-    long whole = total / cnt, rem = total % cnt;
-    if (rem * 2 >= cnt) whole += 1;
-    return (int)(whole / 2);
+        if (CORP[i].result == 1 || CORP[i].result == -1) { total += CORP[i].plies; cnt++; }
+    return pgnu_moveaverage(total, cnt);
 }
 
 /* ---- percentage, matching the batch :percent exactly (core/pgnu) ---- */
@@ -192,6 +166,27 @@ static void add_engine_name(const char *name)
     }
 }
 
+/* Sort the roster bytewise by name (keeping each name's game count). */
+static int cmp_engine_idx(const void *a, const void *b)
+{
+    return strcmp(engines[*(const int *)a], engines[*(const int *)b]);
+}
+
+static void sort_engines(void)
+{
+    static int order[MAX_ENGINES];
+    static char names[MAX_ENGINES][NAME_LEN];
+    static long counts[MAX_ENGINES];
+    for (int i = 0; i < num_engines; i++) order[i] = i;
+    qsort(order, (size_t)num_engines, sizeof order[0], cmp_engine_idx);
+    for (int i = 0; i < num_engines; i++) {
+        memcpy(names[i], engines[order[i]], NAME_LEN);
+        counts[i] = engine_gamecount[order[i]];
+    }
+    memcpy(engines, names, (size_t)num_engines * NAME_LEN);
+    memcpy(engine_gamecount, counts, (size_t)num_engines * sizeof counts[0]);
+}
+
 /* ---- per-engine result record ---- */
 typedef struct {
     char name[NAME_LEN];
@@ -215,15 +210,34 @@ static void write_single_stats(FILE *o, int sh4);
  * and the games destined for errorgames.pgn / interesting_wins.pgn are
  * copied straight from the source text. */
 static int *L_wnc, *L_bnc, *L_errw, *L_errb, *L_w, *L_b, *L_all, *L_tmp, *L_tmp2;
+static int *L_d, *L_bad2;
 
 static void alloc_lists(void)
 {
-    int **all[9] = { &L_wnc, &L_bnc, &L_errw, &L_errb, &L_w, &L_b, &L_all,
-                     &L_tmp, &L_tmp2 };
-    for (int i = 0; i < 9; i++) {
-        *all[i] = (int *) malloc(((size_t)NCORP + 1) * sizeof(int));
+    /* bad_draws2 can hold every draw up to three times (it gets two
+     * appends), so size everything for that. */
+    int **all[11] = { &L_wnc, &L_bnc, &L_errw, &L_errb, &L_w, &L_b, &L_all,
+                      &L_tmp, &L_tmp2, &L_d, &L_bad2 };
+    for (int i = 0; i < 11; i++) {
+        *all[i] = (int *) malloc(((size_t)NCORP * 3 + 1) * sizeof(int));
         if (*all[i] == NULL) die("out of memory");
     }
+}
+
+/* :moveaverage over a list of games, and -bu<moves> counts over it. */
+static int list_avg(const int *list, int n)
+{
+    long long plies = 0;
+    for (int i = 0; i < n; i++) plies += CORP[list[i]].plies;
+    return pgnu_moveaverage(plies, n);
+}
+
+static int list_count_le(const int *list, int n, int moves)
+{
+    int k = 0;
+    for (int i = 0; i < n; i++)
+        if (CORPUS_MOVES_LE(CORP[list[i]].ply_offset + CORP[list[i]].plies, moves)) k++;
+    return k;
 }
 
 static void process_engine(const char *engine, int avg_length_all_wins,
@@ -256,33 +270,47 @@ static void process_engine(const char *engine, int avg_length_all_wins,
     for (int i = 0; i < nw; i++) L_all[nall++] = L_w[i];
     for (int i = 0; i < nb; i++) L_all[nall++] = L_b[i];
 
-    R->avg_len_eng_wins = corp_avg(0, engine);   /* E's non-error wins */
+    /* The batch counted and averaged its allwins file - whitewins then
+     * blackwins, de-duplicated and without error terminations - not every
+     * win the engine has. */
+    int numb_wins = nall;
+    R->avg_len_eng_wins = list_avg(L_all, nall);
     R->E_avglen = R->avg_len_eng_wins;
-    int numb_wins = corp_count_win(engine);
-    int numb_draws = corp_count_draw(engine);
+    int numb_draws = corp_count_draw(engine);   /* enginedraws: not de-duplicated */
     R->numb_wins = numb_wins;
     R->warning = (numb_wins < 50 || numb_draws < 30) ? 1 : 0;
 
     long engine_eas = 0;
 
-    /* ---- bad draws (from the streaming material labels) ----
-     * A draw is bad if it ended before an endgame OR the engine had a
-     * material advantage, but not if the engine had a material disadvantage.
-     * (Mirrors the batch's -z/-y set operations, per game.) */
-    int numb_bad_draws = 0;
+    /* ---- bad draws: the batch's set operations on enginedraws ----
+     * bad_draws2 = draws that ended before an endgame (-c on those that
+     * reached one, -D), then appended: draws where the engine had a
+     * material advantage; minus (-c, -D) the "saved" draws in it where the
+     * engine had a material disadvantage; then -D once more. */
+    int nd = 0;
     for (int i = 0; i < NCORP; i++) {
         const CorpusGame *c = &CORP[i];
-        if (c->result != 0) continue;                 /* draws only */
-        int ew = corp_is(c->white, engine);
-        int eb = corp_is(c->black, engine);
-        if (!ew && !eb) continue;                      /* engine must have played */
-        int in_bad2 = (!c->reached_endgame_draw)       /* ended before endgame */
-                      || (ew && c->mat_def_black)       /* engine had advantage */
-                      || (eb && c->mat_def_white);
-        int saved = (ew && c->mat_def_white)            /* engine had disadvantage */
-                    || (eb && c->mat_def_black);
-        if (in_bad2 && !saved) numb_bad_draws++;
+        if (c->result == 0 && (corp_is(c->white, engine) || corp_is(c->black, engine)))
+            L_d[nd++] = i;
     }
+    int nr = 0;
+    for (int i = 0; i < nd; i++) if (CORP[L_d[i]].reached_endgame_draw) L_tmp[nr++] = L_d[i];
+    int nb2 = corpus_dedup(L_d, nd, L_tmp, nr, L_bad2);
+    for (int i = 0; i < nd; i++)
+        if (corp_is(CORP[L_d[i]].white, engine) && CORP[L_d[i]].mat_def_black)
+            L_bad2[nb2++] = L_d[i];
+    for (int i = 0; i < nd; i++)
+        if (corp_is(CORP[L_d[i]].black, engine) && CORP[L_d[i]].mat_def_white)
+            L_bad2[nb2++] = L_d[i];
+    int nsaved = 0;
+    for (int i = 0; i < nb2; i++)
+        if (corp_is(CORP[L_bad2[i]].white, engine) && CORP[L_bad2[i]].mat_def_white)
+            L_tmp[nsaved++] = L_bad2[i];
+    for (int i = 0; i < nb2; i++)
+        if (corp_is(CORP[L_bad2[i]].black, engine) && CORP[L_bad2[i]].mat_def_black)
+            L_tmp[nsaved++] = L_bad2[i];
+    int numb_bad_draws = corpus_dedup(L_bad2, nb2, L_tmp, nsaved, L_tmp2);
+    numb_bad_draws = corpus_dedup(L_tmp2, numb_bad_draws, NULL, 0, L_tmp2);
 
     R->bad_draws = pct(numb_draws, numb_bad_draws);
     R->F_baddraws = R->bad_draws;
@@ -293,27 +321,27 @@ static void process_engine(const char *engine, int avg_length_all_wins,
     engine_eas += temp_bd;
     R->eas_bad_draws = engine_eas;
 
-    /* ---- short wins (bucket counts from the streaming corpus) ---- */
-    int won_40 = corp_count_win_le(engine, sh5);
+    /* ---- short wins: bucket counts over allwins ---- */
+    int won_40 = list_count_le(L_all, nall, sh5);
     R->s40 = pct(numb_wins, won_40);
     engine_eas += R->s40.x100 * 100;
     int shortC = won_40;
 
-    int won_45 = corp_count_win_le(engine, sh4);
+    int won_45 = list_count_le(L_all, nall, sh4);
     R->s45 = pct(numb_wins, won_45 - won_40);
     engine_eas += R->s45.x100 * 68;
     shortC += (won_45 - won_40);
     R->C_shortC = pct(numb_wins, shortC);
 
-    int won_50 = corp_count_win_le(engine, sh3);
+    int won_50 = list_count_le(L_all, nall, sh3);
     R->s50 = pct(numb_wins, won_50 - won_45);
     engine_eas += R->s50.x100 * 42;
 
-    int won_55 = corp_count_win_le(engine, sh2);
+    int won_55 = list_count_le(L_all, nall, sh2);
     R->s55 = pct(numb_wins, won_55 - won_50);
     engine_eas += R->s55.x100 * 27;
 
-    int won_60 = corp_count_win_le(engine, sh1);
+    int won_60 = list_count_le(L_all, nall, sh1);
     R->all_shorts = pct(numb_wins, won_60);
     R->D_allshorts = R->all_shorts;
     R->s60 = pct(numb_wins, won_60 - won_55);
@@ -577,7 +605,7 @@ int cmd_eas(int argc, char *argv[])
     corpus_load(newsource, PATTERN_DIR, &CORP, &NCORP);
     alloc_lists();
 
-    int avg_length_all_wins = corp_avg(1, NULL);   /* all decisive games */
+    int avg_length_all_wins = corp_avg_decisive();
     if (hard_moveaverage > 0) avg_length_all_wins = hard_moveaverage;
     int shortwin_movelimit = avg_length_all_wins - 15;
     if (shortwin_movelimit < 30) shortwin_movelimit = 30;
@@ -588,12 +616,15 @@ int cmd_eas(int argc, char *argv[])
     int earlysac_limit = avg_length_all_wins / 2;
     if (earlysac_limit < 10) earlysac_limit = 10;
 
-    /* Enumerate engines from the corpus: distinct names in file order,
-     * engine_gamecount filled for --gauntlet (same as the old file scan). */
+    /* Enumerate engines from the corpus (engine_gamecount filled for
+     * --gauntlet), then put them in the order the batch processed them:
+     * Pollock's nameList sorts the names bytewise. That order decides the
+     * order of errorgames.pgn and of each interesting_wins.pgn category. */
     for (int i = 0; i < NCORP; i++) {
         add_engine_name(CORP[i].white);
         add_engine_name(CORP[i].black);
     }
+    sort_engines();
     printf("Engines found: %d\n", num_engines);
 
     const char *errorcollect = P("errorgames_collect.pgn");

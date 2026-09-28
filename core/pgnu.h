@@ -46,6 +46,14 @@ char *pgnu_flag(const char *prefix, const char *value);
 typedef struct { char s[10]; long x100; } PgnuPct;
 PgnuPct pgnu_pct(long base, long count);
 
+/* The batches' :moveaverage routine, exactly: the average game length in
+ * moves of games totalling total_plies over count games (0 if none). The
+ * batch read the mean ply count from Pollock's summary.exe, which prints it
+ * rounded half up to 2 decimals with trailing zeros dropped (93.74, 93.5,
+ * 94.0), rounded that up if the decimal digits were >= 50 - so a mean
+ * printed with one decimal (x.5 .. x.9) is never rounded up - and halved. */
+int pgnu_moveaverage(long long total_plies, long long count);
+
 /* Length-sort src into dst ascending, using the given move-length buckets
  * (lo[i]==0 means no lower bound, hi[i]==0 means no upper bound). */
 void pgnu_sortlength(const char *src, const char *dst,

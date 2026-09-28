@@ -228,3 +228,16 @@ PgnuPct pgnu_pct(long base, long count)
     if (l_percent > 99) { strcpy(r.s, "100.0%"); r.x100 = 10000; }
     return r;
 }
+
+int pgnu_moveaverage(long long total_plies, long long count)
+{
+    if (count <= 0) return 0;
+    /* summary.exe: the mean rounded half up to 2 decimals... */
+    long long r = (200 * total_plies + count) / (2 * count);
+    long long whole = r / 100, dec = r % 100;
+    /* ...printed without trailing zeros (93.74, 93.5, 94.0); the batch
+     * reads the digits after the point and rounds up if they are >= 50,
+     * which a single digit never is. */
+    if (dec % 10 != 0 && dec >= 50) whole++;
+    return (int)(whole / 2);
+}

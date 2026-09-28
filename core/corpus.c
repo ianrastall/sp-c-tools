@@ -59,6 +59,15 @@ void corpus_clear_probes(void)
     n_probes = 0;
 }
 
+/* The -z pattern file behind the no_endgame label. */
+static char no_endgame_name[256] = "no_endgame";
+
+void corpus_set_no_endgame_pattern(const char *name)
+{
+    snprintf(no_endgame_name, sizeof no_endgame_name, "%s",
+             name != NULL ? name : "no_endgame");
+}
+
 static void die(const char *msg)
 {
     fprintf(stderr, "spct: %s\n", msg);
@@ -152,9 +161,11 @@ static void corpus_hook(const Game *g)
             if (spct_game_matches_material(gm, L[k])) c->sac_mask |= 1 << k;
         while (c->sac_depth < CORPUS_SAC_LEVELS && (c->sac_mask >> c->sac_depth & 1))
             c->sac_depth++;
-        c->no_endgame = spct_game_matches_material(gm, L_no_endgame) ? 1 : 0;
         c->imbalance = spct_game_matches_material(gm, L_imbalance) ? 1 : 0;
     }
+    /* Endgame reached: every game (SGA filters draws and losses by it too). */
+    if (have_material)
+        c->no_endgame = spct_game_matches_material(gm, L_no_endgame) ? 1 : 0;
     if (c->result == 1 || c->result == -1) {
         int side = c->result == 1 ? 0 : 1;
         for (int i = 0; i < n_probes; i++)
@@ -224,7 +235,7 @@ int corpus_load(const char *pgn_path, const char *pattern_dir,
             snprintf(p, sizeof p, "%s/%s%ssac_black", pattern_dir, lvl[k], sep);
             L_sac[1][k] = spct_build_material_list(p, FALSE);
         }
-        snprintf(p, sizeof p, "%s/no_endgame", pattern_dir);
+        snprintf(p, sizeof p, "%s/%s", pattern_dir, no_endgame_name);
         L_no_endgame = spct_build_material_list(p, TRUE);
         snprintf(p, sizeof p, "%s/imbalance", pattern_dir);
         L_imbalance = spct_build_material_list(p, TRUE);
