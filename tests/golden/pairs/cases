@@ -1,0 +1,2 @@
+gp gamepairs --plies 16 --ref-engine Alpha --no-ordo
+gp8 gamepairs --plies 8 --ref-engine Alpha --no-ordo

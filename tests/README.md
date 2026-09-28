@@ -37,8 +37,14 @@ local corpora is committed.
 - `comments` — stress with clock/eval comments (some wrapping onto lines that
   start with `[`), NAGs and variations, for SGS, which keeps them.
 
+- `pairs` — a synthetic engine tournament for GamePairs (openings played with
+  both colours, every pair outcome, and the awkward cases), made from parity's
+  openings by `tests/mkpairs.py`.
+
 Regenerate `stress` and `comments` with `tests/mkstress.py` (needs parity and a
-stock pgn-extract; see the script's header).
+stock pgn-extract; see the script's header), and `pairs` with
+`python tests/mkpairs.py tests/data/parity.pgn tests/data/pairs.pgn`. GamePairs
+cases run with `--no-ordo`, so the goldens don't depend on having Ordo.
 
 Run it before committing any change to the core, the patterns, or a report.
 Output is expected to stay byte-identical unless a change is meant to alter it.

@@ -37,7 +37,8 @@ OUTPUTS="stdout.txt statistics_EAS_ratinglist.txt interesting_wins.pgn \
          shortgames.pgn short_sac_games.pgn \
          SGA_no_endgame_full_statistics.txt SGA_no_endgame_wins_statistics.txt \
          SGA_no_endgame_draws_statistics.txt SGA_no_endgame_losses_statistics.txt \
-         shortgames_no_endgame.pgn short_sac_games_no_endgame.pgn"
+         shortgames_no_endgame.pgn short_sac_games_no_endgame.pgn \
+         Gamepairs_final.pgn Gamepairs_rating.txt Gamepairs_head-to-head.txt"
 
 # The human-readable report a case produced, if any.
 report_of() {
@@ -74,7 +75,7 @@ for gdir in "$GOLDEN"/*/; do
     echo "== $name"
 
     # Core: in-process passes and the streaming corpus agree with pgn-extract.
-    if (cd "$ROOT" && "$SMOKE" "$pgn" >"$TMP/smoke.txt"); then
+    if (cd "$ROOT" && "$SMOKE" "$pgn" >"$TMP/smoke.txt" 2>&1); then
         echo "   smoke            ok"
     else
         echo "   smoke            FAIL"; sed 's/^/     /' "$TMP/smoke.txt"; fail=1

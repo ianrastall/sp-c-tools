@@ -29,7 +29,7 @@ static int is_data_dir(const char *dir)
 }
 
 /* Directory holding the running executable, or "" if unknown. */
-static void exe_dir(char *out, size_t n)
+void pgnu_exe_dir(char *out, size_t n)
 {
     out[0] = '\0';
 #ifdef _WIN32
@@ -64,7 +64,7 @@ const char *pgnu_data_dir(void)
     if (is_data_dir(dir)) return dir;
 
     char ed[1024];
-    exe_dir(ed, sizeof ed);
+    pgnu_exe_dir(ed, sizeof ed);
     /* build/spct.exe, or a CMake multi-config build/Release/spct.exe. */
     static const char *up[3] = { "data", "../data", "../../data" };
     for (int i = 0; ed[0] && i < 3; i++) {

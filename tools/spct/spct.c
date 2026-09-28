@@ -17,6 +17,7 @@ int cmd_eas(int argc, char *argv[]);
 int cmd_iws(int argc, char *argv[]);
 int cmd_sgs(int argc, char *argv[]);
 int cmd_sga(int argc, char *argv[]);
+int cmd_gamepairs(int argc, char *argv[]);
 
 /* Set from the VERSION file by build.sh / CMake. */
 #ifndef SPCT_VERSION
@@ -38,7 +39,10 @@ static int usage(const char *prog)
         "        --level 0|1-5|9 (0 = full search), --moves N;\n"
         "        --comfort: the SGS comfort tool (marks the sac move)\n"
         "  sga   Short Games Analyzer - short wins/draws/losses and short sacs\n"
-        "        per engine, four rating lists; --no-endgame\n\n"
+        "        per engine, four rating lists; --no-endgame\n"
+        "  gamepairs  Gamepair rescorer - score matches by opening pairs, rate\n"
+        "        them with Ordo; --plies N, --ref-engine NAME, --ref-elo N,\n"
+        "        --ordo PATH\n\n"
         "Run a command with no file to get its interactive prompt.\n"
         "spct --version prints the version.\n",
         prog);
@@ -53,6 +57,7 @@ int main(int argc, char *argv[])
     if (strcmp(cmd, "iws") == 0) return cmd_iws(argc - 1, argv + 1);
     if (strcmp(cmd, "sgs") == 0) return cmd_sgs(argc - 1, argv + 1);
     if (strcmp(cmd, "sga") == 0) return cmd_sga(argc - 1, argv + 1);
+    if (strcmp(cmd, "gamepairs") == 0) return cmd_gamepairs(argc - 1, argv + 1);
     if (strcmp(cmd, "-h") == 0 || strcmp(cmd, "--help") == 0) { usage(argv[0]); return 0; }
     if (strcmp(cmd, "--version") == 0) { printf("spct %s\n", SPCT_VERSION); return 0; }
     fprintf(stderr, "spct: unknown command '%s'\n\n", cmd);

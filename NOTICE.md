@@ -20,8 +20,11 @@ of this repository; get them from https://www.sp-cc.de/ .
 
 - **pgn-extract** © **David J. Barnes** — GPLv3 or later. Vendored under
   `vendor/pgn-extract/` (lightly patched; see `vendor/pgn-extract/PATCHES.md`).
-- **Ordo / ordoprep** © **Miguel A. Ballicora** — GPLv3. Used (where needed, by
-  the GamePairs tool) as an external executable, not linked.
+- **Ordo** © **Miguel A. Ballicora** — GPLv3 or later. `spct gamepairs` runs it
+  as a separate, unmodified program (it is not linked), as Stefan's GamePairs
+  tool does. The installer ships `ordo-win64.exe` 1.2.6 next to `spct.exe`,
+  with `ORDO.txt`; its source is at https://github.com/michiguel/Ordo (release
+  v1.2.6).
 - The **pgn-tools** utilities (nameList, summary, tagCreate, …) © **Norman
   Pollock**. The C port reimplements the small pieces it needs natively rather
   than shelling out to them.

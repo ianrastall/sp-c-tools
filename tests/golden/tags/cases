@@ -4,3 +4,4 @@ sgs sgs
 sgs_comfort sgs --comfort
 sga sga
 sga_ne sga --no-endgame
+gp gamepairs --plies 8 --no-ordo

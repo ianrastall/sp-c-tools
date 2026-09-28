@@ -9,3 +9,4 @@ tests/data/*.pgn -text
 # Windows scripts: CRLF, or cmd can mis-handle labels.
 *.bat text eol=crlf
 *.iss text eol=crlf
+installer/*.txt text eol=crlf

@@ -13,9 +13,10 @@ length, endgame reached, material imbalance, …), then aggregate or filter thos
 labels.** So this is one binary, `spct`, with a subcommand per report, over a
 shared classification core with pgn-extract folded in and driven **in-process**.
 
-Status: **EAS, IWS, SGS (including the SGS comfort tool) and SGA are ported**
-(as `spct eas`, `spct iws`, `spct sgs [--comfort]`, `spct sga [--no-endgame]`).
-GamePairs is planned; DecisionTimeStats already exists separately as a C# tool.
+Status: **EAS, IWS, SGS (including the SGS comfort tool), SGA and GamePairs
+are ported** (as `spct eas`, `spct iws`, `spct sgs [--comfort]`,
+`spct sga [--no-endgame]`, `spct gamepairs`). DecisionTimeStats already exists
+separately as a C# tool.
 
 ## Architecture
 
@@ -40,6 +41,7 @@ tools/eas/eas.c       EAS report: engine-aggressiveness scoring, rating lists.
 tools/iws/iws.c       IWS report: filter spectacular wins into two tiers.
 tools/sgs/sgs.c       SGS report: sacrifice games by depth, plus statistics.
 tools/sga/sga.c       SGA report: short games and short sacs per engine.
+tools/gp/gp.c         GamePairs: score engine matches by opening pairs.
 data/patterns/        -y/-z material-pattern files (sacrifice / endgame /
                       imbalance detection).
 data/anno/            EAS annotator-tag and termination-filter files.
@@ -193,6 +195,27 @@ short games that ended before an endgame, and writes the same files with
 `nameList` does it, and average lengths are computed as `summary.exe` does
 (see the EAS note under Validation), so no external tools are needed.
 
+## Run GamePairs
+
+```bash
+./build/spct.exe gamepairs yourmatch.pgn --plies 16 --ref-engine "Stockfish 17"     [--ref-elo 3500] [--ordo PATH | --no-ordo]
+```
+
+The gamepair rescorer (`Auto_Gamepairs_Rescorer_V1.6.bat`). For engine matches
+played with each opening twice, once with each colour, it scores each pair of
+games as one result: 2-0 and 1.5-0.5 count as a win, 1-1 as a draw. It writes
+the pairs to `Gamepairs_final.pgn` and rates them with Ordo into
+`Gamepairs_rating.txt` and `Gamepairs_head-to-head.txt`. `--plies` is the
+length of the opening lines (the batch's `opening_plies`). `--ref-engine` and
+`--ref-elo` are Ordo's anchor; run without a file, it asks for all four.
+
+As the batch did, it runs Ordo as an external program: `--ordo PATH`, else
+`$SPCT_ORDO`, else the `ordo-win64.exe` installed next to `spct.exe` (the
+installer ships Ordo 1.2.6; `build.bat` bundles it from `ORDO_EXE` or your copy
+of Stefan's GamePairs tool), else `ordo-win64.exe` or `ordo.exe` on PATH. Without Ordo (or with
+`--no-ordo`) it still writes the pairs and their counts. Like the batch, it
+handles at most 995 head-to-head pairings.
+
 ## Validation
 
 `tests/check.sh` is the regression gate: it re-runs every report variant on the
@@ -208,6 +231,14 @@ commented variant, an edge set (truncated and FEN-cut sacrifice games, `*` in
 tags, UTF-8 names), 15,000 engine games and a mega-database sample with queen
 sacrifices. The exceptions are the counting note above and the tag-order note
 below.
+
+GamePairs matches the batch byte for byte on all three outputs, Ordo's
+rating list and head-to-head included, using the same Ordo 1.2.6 the batch
+ships. The test input was a synthetic tournament with every pair outcome,
+openings played once or three times, games shorter than the opening, unfinished
+games, and engine names that are prefixes of each other, cut at 8, 16 and 20
+plies. It also matches on a 2,000-game engine round robin (738 pairings),
+including when Ordo refuses to run.
 
 SGA (both variants) matches the batches byte for byte on every output, all four
 rating lists and both PGN files: on GM blitz, on its variant with duplicates,

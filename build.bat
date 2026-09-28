@@ -79,6 +79,23 @@ copy /y README.md "%STAGE%\README.txt" >nul || goto :fail
 copy /y LICENSE "%STAGE%\LICENSE.txt" >nul || goto :fail
 copy /y NOTICE.md "%STAGE%\NOTICE.txt" >nul || goto :fail
 
+rem Ordo (GPLv3, Miguel A. Ballicora) rates the pairs of spct gamepairs; it
+rem is bundled next to spct.exe, where spct looks for it. Taken from
+rem ORDO_EXE, else your copy of Stefan's GamePairs tool, else PATH.
+set "ORDO_SRC="
+if defined ORDO_EXE if exist "%ORDO_EXE%" set "ORDO_SRC=%ORDO_EXE%"
+if not defined ORDO_SRC if exist "archive\GamePairs_rescoring_tool\bin\ordo-win64.exe" set "ORDO_SRC=archive\GamePairs_rescoring_tool\bin\ordo-win64.exe"
+if not defined ORDO_SRC for /f "delims=" %%O in ('where ordo-win64 2^>nul') do if not defined ORDO_SRC set "ORDO_SRC=%%O"
+if not defined ORDO_SRC goto :no_ordo
+copy /y "%ORDO_SRC%" "%STAGE%\ordo-win64.exe" >nul || goto :fail
+copy /y installer\ORDO.txt "%STAGE%\ORDO.txt" >nul || goto :fail
+echo     bundled Ordo: %ORDO_SRC%
+goto :ordo_done
+:no_ordo
+echo     Ordo not found - not bundled; spct gamepairs will need --ordo.
+echo     Set ORDO_EXE to an ordo-win64.exe to bundle it.
+:ordo_done
+
 rem The staged exe must find its data\ folder from anywhere: run it on the
 rem sample file in an empty temp folder.
 set "SELFTEST=%TEMP%\spct-selftest-%RANDOM%"

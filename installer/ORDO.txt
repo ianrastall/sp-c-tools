@@ -1,0 +1,19 @@
+Ordo - ratings for chess engines and players
+============================================
+
+ordo-win64.exe in this folder is Ordo 1.2.6, (C) 2015 Miguel A. Ballicora.
+SPCT runs it (unmodified) to rate the game pairs of "spct gamepairs", exactly
+as Stefan Pohl's Auto_Gamepairs_Rescorer_V1.6.bat does.
+
+Ordo is free software: you can redistribute it and/or modify it under the
+terms of the GNU General Public License as published by the Free Software
+Foundation, either version 3 of the License, or (at your option) any later
+version. The license text is in LICENSE.txt.
+
+Its source code is available from the author's repository:
+
+    https://github.com/michiguel/Ordo  (release v1.2.6)
+
+Ordo is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+A PARTICULAR PURPOSE. See the GNU General Public License for more details.

@@ -35,7 +35,8 @@ add_executable(spct
     ${CMAKE_SOURCE_DIR}/tools/eas/eas.c
     ${CMAKE_SOURCE_DIR}/tools/iws/iws.c
     ${CMAKE_SOURCE_DIR}/tools/sgs/sgs.c
-    ${CMAKE_SOURCE_DIR}/tools/sga/sga.c)
+    ${CMAKE_SOURCE_DIR}/tools/sga/sga.c
+    ${CMAKE_SOURCE_DIR}/tools/gp/gp.c)
 target_link_libraries(spct PRIVATE spctcore)
 target_compile_definitions(spct PRIVATE SPCT_VERSION="${SPCT_VERSION}")
 

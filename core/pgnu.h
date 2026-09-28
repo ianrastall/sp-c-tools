@@ -20,6 +20,9 @@
  * Exits with a message if none contains the pattern files. Cached. */
 const char *pgnu_data_dir(void);
 
+/* The directory holding the running executable ("" if unknown). */
+void pgnu_exe_dir(char *out, size_t n);
+
 /* One-time setup: the working directory for intermediate PGNs. Creates it. */
 void pgnu_init(const char *work_dir);
 
