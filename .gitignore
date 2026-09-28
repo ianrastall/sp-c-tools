@@ -2,6 +2,10 @@
 # Keep a local copy for reference and oracle checks; see NOTICE.md.
 /archive/
 
+# Third-party reference material (Crafty, pgn-extract upstream tree, Ordo
+# manual, Pollock's pgn-tools); kept locally, not redistributed here.
+/assets/
+
 # Build artifacts
 /build/
 *.o
