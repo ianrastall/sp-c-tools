@@ -1,0 +1,26 @@
+*************************************************************** 
+*** Sacrifice Games Search and Statistics Comfort Tool V1.2 *** 
+***           (C) 2024, Stefan Pohl, www.sp-cc.de           *** 
+*************************************************************** 
+*** Sacrifice-statistics of the file stress.pgn 
+*************************************************************** 
+************************************************************************************* 
+Number of games found in the source file: 1371 
+************************************************************************************* 
+Number of won games found in the source file: 923 
+************************************************************************************* 
+Max. allowed length of games, investigated: 80 moves 
+************************************************************************************* 
+Number of Queen sacrifices (5+)  : 0 (00.00% of all games) (00.00% of won games) 
+Number of 5+ pawnunits sacrifices: 0 (00.00% of all games) (00.00% of won games) 
+Number of 3 pawnunits sacrifices : 6 (00.44% of all games) (00.65% of won games) 
+Number of 2 pawnunits sacrifices : 11 (00.80% of all games) (01.19% of won games) 
+Number of all sacrifices         : 17 (01.24% of all games) (01.84% of won games) 
+************************************************************************************* 
+*** Mention: Games containing more than one sac can lead to mismatches in the sac-localisation! 
+*** And in each game only one sac can be marked in the comments. 
+*** Mention: The regular SGS-tool and the EAS-tool will find around +50% more sac-games! 
+*** (Additionally to the one pawn sacs, which the SGS comfort tool ignores) 
+**************************************************** 
+*** SGS-tool (C) 2024 Stefan Pohl (www.sp-cc.de) *** 
+**************************************************** 

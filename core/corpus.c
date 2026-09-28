@@ -38,6 +38,27 @@ static Material_details *L_no_endgame = NULL;  /* no_endgame (-z) */
 static Material_details *L_imbalance = NULL;   /* imbalance (-z) */
 static int have_material = 0;
 
+/* Registered probes: pattern paths, and their lists for the current load. */
+static char probe_path[CORPUS_MAX_PROBES][2][1300];
+static Material_details *L_probe[CORPUS_MAX_PROBES][2];
+static int n_probes = 0;
+
+int corpus_add_probe(const char *white_path, const char *black_path)
+{
+    if (n_probes >= CORPUS_MAX_PROBES) {
+        fprintf(stderr, "spct: too many corpus probes\n");
+        exit(1);
+    }
+    snprintf(probe_path[n_probes][0], sizeof probe_path[0][0], "%s", white_path);
+    snprintf(probe_path[n_probes][1], sizeof probe_path[0][1], "%s", black_path);
+    return n_probes++;
+}
+
+void corpus_clear_probes(void)
+{
+    n_probes = 0;
+}
+
 static void die(const char *msg)
 {
     fprintf(stderr, "spct: %s\n", msg);
@@ -109,6 +130,7 @@ static void corpus_hook(const Game *g)
     c->sac1_ply = -1;
     c->no_endgame = 0;
     c->imbalance = 0;
+    for (int i = 0; i < CORPUS_MAX_PROBES; i++) c->probe_ply[i] = -1;
     /* The spct_game_* matchers replay the game with pgn-extract's own -y/-z
      * matcher; casting away const is safe (they do not mutate it here). */
     Game *gm = (Game *) g;
@@ -132,6 +154,11 @@ static void corpus_hook(const Game *g)
             c->sac_depth++;
         c->no_endgame = spct_game_matches_material(gm, L_no_endgame) ? 1 : 0;
         c->imbalance = spct_game_matches_material(gm, L_imbalance) ? 1 : 0;
+    }
+    if (c->result == 1 || c->result == -1) {
+        int side = c->result == 1 ? 0 : 1;
+        for (int i = 0; i < n_probes; i++)
+            c->probe_ply[i] = spct_game_material_match_ply(gm, L_probe[i][side]);
     }
 
     g_count++;
@@ -203,6 +230,9 @@ int corpus_load(const char *pgn_path, const char *pattern_dir,
         L_imbalance = spct_build_material_list(p, TRUE);
         have_material = 1;
     }
+    for (int i = 0; i < n_probes; i++)
+        for (int side = 0; side < 2; side++)
+            L_probe[i][side] = spct_build_material_list(probe_path[i][side], FALSE);
     spct_game_hook = corpus_hook;
     /* -r (check only): parse and process every game, produce no output. */
     char *av[] = { "pgn-extract", "--quiet", "-r", (char *)pgn_path, NULL };
@@ -318,4 +348,20 @@ void corpus_sac_free(CorpusSacSets *s)
         s->list[k] = NULL;
         s->n[k] = 0;
     }
+}
+
+char *corpus_text(int idx, long *len)
+{
+    const CorpusGame *c = &g_arr[idx];
+    char *buf = (char *) malloc((size_t)c->text_len + 1);
+    if (buf == NULL) die("out of memory (game text)");
+    FILE *in = fopen(g_path, "rb");
+    if (in == NULL) die("cannot reopen the corpus file");
+    if (fseek(in, c->text_off, SEEK_SET) != 0 ||
+        fread(buf, 1, (size_t)c->text_len, in) != (size_t)c->text_len)
+        die("short read in corpus file");
+    fclose(in);
+    buf[c->text_len] = '\0';
+    if (len) *len = c->text_len;
+    return buf;
 }

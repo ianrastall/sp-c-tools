@@ -1,0 +1,57 @@
+*****************************************************************************
+*** Engine Aggressiveness Tool V6.0 Score points Ratinglist (SPCT C port)
+*****************************************************************************
+*** Evaluated file: tags.pgn
+*****************************************************************************
+                         early           bad  avg.win
+Rank  EAS-Score  sacs    sacs   shorts  draws  moves  Engine/player
+---------------------------------------------------------------------------
+  1   710000  00.00%  00.00%  100.0%  100.0%     15   Alpha   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
+  2    75000  00.00%  00.00%  00.00%  100.0%      0   Beta   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
+-------------------------------------------------------------------
+*** Average length of all won games: 15 moves
+*** Movelimit for early sac bonus  : 10 moves
+*****************************************************************************
+*** EAS single-statistics (6 categories, each with Top5 engines):
+*****************************************************************************
+A: Early sacrifices (percent of all sacs):
+     [1] 00.00%    Beta
+     [2] 00.00%    Alpha
+B: Most sacrifices overall:
+     [1] 00.00%    Beta
+     [2] 00.00%    Alpha
+C: Very short wins (15 moves or less):
+     [1] 50.00%    Alpha
+     [2] 00.00%    Beta
+D: Most short wins overall:
+     [1] 100.0%    Alpha
+     [2] 00.00%    Beta
+E: Average length of all won games (shortest):
+     [1] 0 moves   Beta
+     [2] 15 moves  Alpha
+F: Smallest number of bad draws:
+     [1] 100.0%    Beta
+     [2] 100.0%    Alpha
+*****************************************************************************
+*** 2nd Ratinglist with more stats in percent-values
+*****************************************************************************
+*** Average length of all won games                  : 15 moves
+*** Calculated limit for short wins giving EAS-points: 30 moves
+*** Movelimit for early sac bonus                    : 10 moves
+Rank EAS-Score wins amoves  allsacs =[ sacQ + sac5 + sac4 + sac3 + sac2 + sac1] esacs  shorts =[ s10 + s15 + s20 + s25 + s30] bdraws Engine
+-------------------------------------------------------------------------------------------------------------------------------------------------
+  1   710000     2    15  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  100.0% =[50.00% +00.00% +50.00% +00.00% +00.00%] 100.0% Alpha
+  2    75000     0     0  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00%] 100.0% Beta
+*****************************************************************************
+*** 3rd Ratinglist, showing EAS-points instead of percents
+*****************************************************************************
+                            early          bad
+Rank  EAS-Score    sacs    sacs   shorts   draws    Engine/player
+-------------------------------------------------------------------------------------
+  1   710000       0       0  710000       0    Alpha
+  2    75000       0   75000       0       0    Beta
+********************************************************************************************
+*** 0 games with non-regular endings are stored in errorgames.pgn
+****************************************************
+*** EAS-Tool (C) Stefan Pohl (www.sp-cc.de), C port
+****************************************************

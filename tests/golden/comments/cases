@@ -3,3 +3,4 @@ iws iws
 sgs sgs
 sgs_m250 sgs --moves 250
 sgs_l2 sgs --level 2 --moves 100
+sgs_comfort sgs --comfort --moves 100

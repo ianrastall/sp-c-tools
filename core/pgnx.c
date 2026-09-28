@@ -56,8 +56,14 @@ pgnx_prepare_pass(void)
         tables_ready = TRUE;
     }
 
-    /* Per-pass state that would otherwise leak across passes. */
+    /* Per-pass state that would otherwise leak across passes. The game
+     * header starts at the original tag count, but the lexer's tag table
+     * persists and keeps (with the same indices) any non-standard tags an
+     * earlier pass met; the lexer only grows the header for tags it has not
+     * seen, so grow it here to cover them all. */
     init_game_header();
+    if (spct_known_tag_count() > ORIGINAL_NUMBER_OF_TAGS)
+        increase_game_header_tags_length(spct_known_tag_count());
     init_tag_lists();
     reset_line_number();
     reset_input_source_list();

@@ -27,6 +27,8 @@ actual differences. Only hashes are stored for PGN outputs, so no game text from
 local corpora is committed.
 
 - `sample` — the committed toy file; always runs.
+- `tags` — committed; the sample games with non-standard tags (`WhiteTeam`,
+  `ChessBase`, …), which once crashed every multi-pass run.
 - `parity` — the 1071-game GM blitz corpus behind the oracle check below. It's
   gitignored, so this corpus is skipped unless your local copy matches
   `golden/parity/input.sha256`.

@@ -1300,6 +1300,16 @@ current_file_number(void)
     return current_file_num;
 }
 
+/* SPCT patch: the number of tag names the lexer knows, including those
+ * added (make_new_tag) in earlier passes. The table persists across passes
+ * but the game header is re-created at its original size each pass, so the
+ * pass runner grows the header back to this. */
+unsigned
+spct_known_tag_count(void)
+{
+    return tag_list_length;
+}
+
 /* SPCT spike patch: reset the input-source list so the parser can be
  * driven repeatedly within a single process. Frees the file-name and
  * file-type arrays, rewinds the file index, and clears the read buffer.

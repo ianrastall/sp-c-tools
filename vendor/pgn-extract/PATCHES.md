@@ -63,6 +63,15 @@ exit to release state and files) and expose a per-game classifier hook.
    this index is <= N, which lets EAS's early-sacrifice test run from one
    label instead of a truncate-and-rematch pass pair per engine.
 
+8. **`lex.c` / `lex.h` — added `spct_known_tag_count()`.**
+   Returns the lexer's `tag_list_length`. The lexer's tag-name table persists
+   across passes (so non-standard tags keep the same index), but the game
+   header is re-created at its original size each pass, and the lexer only
+   grows the header when it meets a tag it has not seen before. Without this,
+   a pass after one that met a non-standard tag (e.g. `WhiteTeam`) aborted
+   with "Illegal tag index". `pgnx_prepare_pass()` uses the count to grow the
+   header back.
+
 ## Not changed
 
 Everything else is upstream 26-04 verbatim, including the parser, board and

@@ -22,6 +22,9 @@
 /* Sacrifice levels in chain order: 1..5 pawn units, then the queen. */
 #define CORPUS_SAC_LEVELS 6
 
+/* Extra material probes a report can register (corpus_add_probe). */
+#define CORPUS_MAX_PROBES 8
+
 typedef struct {
     char white[CORPUS_NAME_LEN];
     char black[CORPUS_NAME_LEN];
@@ -57,7 +60,18 @@ typedef struct {
     int sac1_ply;      /* position index of the first 1-pawn-sac match, -1 if none */
     int no_endgame;    /* matches the no_endgame -z pattern (endgame reached) */
     int imbalance;     /* matches the imbalance -z pattern */
+    /* Registered probes (corpus_add_probe), decisive games only: position
+     * index of the first match of probe i's pattern for the winner's colour
+     * (also where --markmatches would put its comment), -1 if none. */
+    int probe_ply[CORPUS_MAX_PROBES];
 } CorpusGame;
+
+/* Register an extra -y material probe, evaluated for every decisive game by
+ * the next corpus_load: white_path is used for white wins, black_path for
+ * black wins. Returns its index into probe_ply. Probes stay registered until
+ * corpus_clear_probes. */
+int corpus_add_probe(const char *white_path, const char *black_path);
+void corpus_clear_probes(void);
 
 /* Stream pgn_path once, filling an internal table. If pattern_dir is non-NULL
  * the material labels above are computed too (from data files in that dir).
@@ -74,6 +88,10 @@ int corpus_load(const char *pgn_path, const char *pattern_dir,
 /* Append the text of games idx[0..n) (corpus indices, in that order) to the
  * file at path, exactly as a pgn-extract pass writing them would. */
 void corpus_append(const char *path, const int *idx, int n);
+
+/* A malloc'd, NUL-terminated copy of game idx's text; *len gets its length
+ * (without the NUL) if len is non-NULL. The caller frees it. */
+char *corpus_text(int idx, long *len);
 
 /* The batch's "-c exclude -D -o out in": keep the games of in[0..n) whose
  * duplicate key is not shared by any game in exclude[0..ne) and is not a

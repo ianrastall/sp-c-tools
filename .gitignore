@@ -21,6 +21,7 @@
 # Large test corpora (bring your own; see tests/README)
 /tests/data/*.pgn
 !/tests/data/sample.pgn
+!/tests/data/tags.pgn
 
 # Editor / OS cruft
 .vscode/

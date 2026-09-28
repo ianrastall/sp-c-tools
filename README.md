@@ -13,9 +13,9 @@ length, endgame reached, material imbalance, …), then aggregate or filter thos
 labels.** So this is one binary, `spct`, with a subcommand per report, over a
 shared classification core with pgn-extract folded in and driven **in-process**.
 
-Status: **EAS, IWS and SGS are ported and validated** (as `spct eas`,
-`spct iws`, `spct sgs`). Others (the SGS comfort tool, SGA, GamePairs) are
-planned; DecisionTimeStats already exists separately as a C# tool.
+Status: **EAS, IWS and SGS (including the SGS comfort tool) are ported and
+validated** (as `spct eas`, `spct iws`, `spct sgs [--comfort]`). Others (SGA,
+GamePairs) are planned; DecisionTimeStats already exists separately as a C# tool.
 
 ## Architecture
 
@@ -132,8 +132,22 @@ Note: the port counts games as parsed games. The batch counted lines containing
 `[White ` (`find /C`), which also counts any comment that quotes such a tag. On
 ordinary files the numbers are identical.
 
-The SGS *comfort* tool (which marks the sacrifice move with a comment) is not
-ported yet.
+### SGS comfort tool
+
+```bash
+./build/spct.exe sgs --comfort yourgames.pgn [--moves N]
+```
+
+The port of `SGS_Comfort_Tool_V1.2.bat`. It looks for sacrifices of 2+ pawn
+units only, strips comments, NAGs and variations, and puts
+`{SGS-tool: sac found}` (or `Queen sac found`) in front of the move where it
+places the sacrifice. As Stefan's readme says, that placement is a heuristic:
+a game gets one comment, and games with several sacrifices can be marked at
+the wrong one. It writes `sacgames_2_pawns.pgn`, `sacgames_3_pawns.pgn`,
+`sacgames_5_pawns.pgn`, `sacgames_queensacs.pgn` and `statistics.txt`. The
+batch edits every game as text, one at a time. The port computes the same
+positions from the per-game labels, so a file the batch needs minutes for takes
+a second or two.
 
 ## Validation
 
@@ -143,10 +157,13 @@ test corpora and compares all outputs to recorded goldens (see `tests/README.md`
 `tests/oracle.sh` runs one of Stefan's original batch tools (from your own copy
 of his release) on a file, optionally with a different `pgn-extract.exe`. With a
 stock build of the pgn-extract version SPCT vendors, a comparison isolates the
-port itself. SGS matches the batch byte for byte on every output, over every
-level, move limit and prompt edge case, on three corpora (plain, with
-duplicates, error terminations and FEN starts, and heavily commented). The only
-exception is the counting note above.
+port itself. SGS and the comfort tool match the batches byte for byte on every
+output, over every level, move limit and prompt edge case. The corpora were GM
+blitz, the same plus duplicates, error terminations and FEN starts, a heavily
+commented variant, an edge set (truncated and FEN-cut sacrifice games, `*` in
+tags, UTF-8 names), 15,000 engine games and a mega-database sample with queen
+sacrifices. The exceptions are the counting note above and the tag-order note
+below.
 
 EAS was checked against a stock pgn-extract "oracle" that replays the batch's
 exact pass sequence: win counts, short-win buckets, and the sacrifice-detection
@@ -154,6 +171,14 @@ exact pass sequence: win counts, short-win buckets, and the sacrifice-detection
 See `NOTICE.md` for the v24-11 vs v26-04 caveat. Besides material matching, the
 versions order some tags differently (e.g. `WhiteFideId`/`BlackFideId`), so
 games written by the port can differ from the released tools' in tag order.
+
+Tag order can also differ for tags pgn-extract doesn't know (e.g. ChessBase's
+`WhiteTeamCountry`). pgn-extract prints those in the order it first met them.
+The batches run one pgn-extract per step, so that order depends on whichever
+intermediate file the last step read. The port lists them in the order they
+first appear in your source file. The tags and their values are the same either
+way; on ChessBase Magazine data, sorting each game's tags makes every SGS and
+comfort output identical to the batch's.
 
 ## License
 

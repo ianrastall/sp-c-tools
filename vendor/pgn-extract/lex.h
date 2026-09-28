@@ -87,6 +87,7 @@ void print_error_context(FILE *fp);
 char *read_line(FILE *fpin);
 void reset_line_number(void);
 void reset_input_source_list(void);
+unsigned spct_known_tag_count(void);
 void restart_lex_for_new_game(void);
 void save_assessment(const char *assess);
 TokenType skip_to_next_game(TokenType token);
