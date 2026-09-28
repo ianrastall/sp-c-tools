@@ -15,7 +15,8 @@
 #   tests/golden/<name>/cases          one case per line: "<case> <spct args...>"
 #                                      (the corpus file is appended as last arg)
 #   tests/golden/<name>/<case>.sha256  hashes of that case's outputs
-#   tests/golden/<name>/<case>.statistics.txt   readable EAS report snapshot
+#   tests/golden/<name>/<case>.statistics.txt   readable report snapshot
+#                                      (EAS or SGS statistics, if the case has one)
 #
 # A corpus whose PGN is missing (large corpora are gitignored) or differs
 # from input.sha256 is skipped with a note, not failed.
@@ -27,7 +28,17 @@ UPDATE=0
 [ "${1:-}" = "--update" ] && UPDATE=1
 
 OUTPUTS="stdout.txt statistics_EAS_ratinglist.txt interesting_wins.pgn \
-         very_interesting_wins.pgn errorgames.pgn"
+         very_interesting_wins.pgn errorgames.pgn statistics.txt \
+         sacgames_1_pawns.pgn sacgames_2_pawns.pgn sacgames_3_pawns.pgn \
+         sacgames_4_pawns.pgn sacgames_5_pawns.pgn sacgames_queensacs.pgn \
+         games_with_sacrifices.pgn"
+
+# The human-readable report a case produced, if any.
+report_of() {
+    for r in statistics_EAS_ratinglist.txt statistics.txt; do
+        [ -f "$1/$r" ] && { echo "$1/$r"; return; }
+    done
+}
 
 echo "== build"
 "$ROOT/build.sh" spct >/dev/null || { echo "FAIL: build spct"; exit 1; }
@@ -82,18 +93,17 @@ for gdir in "$GOLDEN"/*/; do
         want="$gdir/$case.sha256"
         if [ $UPDATE -eq 1 ]; then
             cp "$got" "$want"
-            [ -f "$run/statistics_EAS_ratinglist.txt" ] &&
-                cp "$run/statistics_EAS_ratinglist.txt" "$gdir/$case.statistics.txt"
+            rep="$(report_of "$run")"
+            [ -n "$rep" ] && cp "$rep" "$gdir/$case.statistics.txt"
             printf "   %-16s recorded\n" "$case"
         elif [ $rc -eq 0 ] && diff -q "$want" "$got" >/dev/null; then
             printf "   %-16s ok\n" "$case"
         else
             printf "   %-16s FAIL (exit %d)\n" "$case" $rc
             diff "$want" "$got" | sed 's/^/     /'
-            if [ -f "$gdir/$case.statistics.txt" ] &&
-               [ -f "$run/statistics_EAS_ratinglist.txt" ]; then
-                diff "$gdir/$case.statistics.txt" \
-                     "$run/statistics_EAS_ratinglist.txt" | head -20 | sed 's/^/     /'
+            rep="$(report_of "$run")"
+            if [ -f "$gdir/$case.statistics.txt" ] && [ -n "$rep" ]; then
+                diff "$gdir/$case.statistics.txt" "$rep" | head -20 | sed 's/^/     /'
             fi
             sed 's/^/     stderr: /' "$run/stderr.txt" | head -5
             fail=1

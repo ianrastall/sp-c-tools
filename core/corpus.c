@@ -98,11 +98,13 @@ static void corpus_hook(const Game *g)
 
     c->hash_final = g->final_hash_value;
     c->hash_cumul = g->cumulative_hash_value;
+    c->start_line = g->start_line;
     c->text_off = c->text_len = 0;
 
     c->mat_def_white = 0;
     c->mat_def_black = 0;
     c->reached_endgame_draw = 0;
+    c->sac_mask = 0;
     c->sac_depth = 0;
     c->sac1_ply = -1;
     c->no_endgame = 0;
@@ -117,17 +119,17 @@ static void corpus_hook(const Game *g)
         c->mat_def_black = spct_game_matches_material(gm, L_sac[1][0]) ? 1 : 0;
     }
     else if (have_material && (c->result == 1 || c->result == -1)) {
-        /* Wins: the winner's sacrifice chain. The batch narrows the win
-         * files level by level, so level K is tested only on games that
-         * matched every level below it. */
+        /* Wins: test every sacrifice level for the winner's colour. The
+         * chain the batch builds by narrowing the win files level by level
+         * (level K tested only on games that matched every level below) is
+         * then the run of set bits from level 1. */
         Material_details **L = L_sac[c->result == 1 ? 0 : 1];
         c->sac1_ply = spct_game_material_match_ply(gm, L[0]);
-        if (c->sac1_ply >= 0) {
-            c->sac_depth = 1;
-            while (c->sac_depth < CORPUS_SAC_LEVELS &&
-                   spct_game_matches_material(gm, L[c->sac_depth]))
-                c->sac_depth++;
-        }
+        if (c->sac1_ply >= 0) c->sac_mask |= 1;
+        for (int k = 1; k < CORPUS_SAC_LEVELS; k++)
+            if (spct_game_matches_material(gm, L[k])) c->sac_mask |= 1 << k;
+        while (c->sac_depth < CORPUS_SAC_LEVELS && (c->sac_mask >> c->sac_depth & 1))
+            c->sac_depth++;
         c->no_endgame = spct_game_matches_material(gm, L_no_endgame) ? 1 : 0;
         c->imbalance = spct_game_matches_material(gm, L_imbalance) ? 1 : 0;
     }
@@ -135,9 +137,10 @@ static void corpus_hook(const Game *g)
     g_count++;
 }
 
-/* Record each game's byte range. The file is pgn-extract output with
- * comments stripped, so a game starts exactly at a '[' line that follows a
- * non-tag line (or the start of the file), and runs to the next start. */
+/* Record each game's byte range: from the line of its first tag (the
+ * parser's start_line, 1-based) to the next game's, or to the end of the
+ * file. The file is pgn-extract output, so nothing lies between games but
+ * the blank separator line, which stays with the game before it. */
 static void index_text(const char *path)
 {
     FILE *f = fopen(path, "rb");
@@ -145,28 +148,30 @@ static void index_text(const char *path)
     char buf[65536];
     size_t k;
     long pos = 0;
-    int at_line_start = 1, prev_tag = 0, cur_tag = 0, found = 0;
+    unsigned long line = 1;     /* line number of the byte at pos */
+    int at_line_start = 1, next = 0;
     while ((k = fread(buf, 1, sizeof buf, f)) > 0) {
         for (size_t i = 0; i < k; i++, pos++) {
             if (at_line_start) {
-                cur_tag = buf[i] == '[';
-                if (cur_tag && !prev_tag) {
-                    if (found < g_count) g_arr[found].text_off = pos;
-                    found++;
+                while (next < g_count && g_arr[next].start_line == line) {
+                    if (buf[i] != '[') {
+                        fprintf(stderr, "spct: %s line %lu: expected a tag at the start "
+                                "of game %d\n", path, line, next + 1);
+                        exit(1);
+                    }
+                    g_arr[next++].text_off = pos;
                 }
                 at_line_start = 0;
             }
             if (buf[i] == '\n') {
                 at_line_start = 1;
-                prev_tag = cur_tag;
-                cur_tag = 0;
+                line++;
             }
         }
     }
     fclose(f);
-    if (found != g_count) {
-        fprintf(stderr, "spct: %s has %d game headers but %d parsed games\n",
-                path, found, g_count);
+    if (next != g_count) {
+        fprintf(stderr, "spct: %s: located %d of %d parsed games\n", path, next, g_count);
         exit(1);
     }
     for (int i = 0; i < g_count; i++)

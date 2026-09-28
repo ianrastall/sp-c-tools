@@ -31,11 +31,31 @@ local corpora is committed.
   gitignored, so this corpus is skipped unless your local copy matches
   `golden/parity/input.sha256`.
 - `stress` — parity plus duplicate games, error terminations and FEN-start
-  games, which parity lacks. Regenerate it with `tests/mkstress.py` (needs
-  parity and a stock pgn-extract; see the script's header).
+  games, which parity lacks.
+- `comments` — stress with clock/eval comments (some wrapping onto lines that
+  start with `[`), NAGs and variations, for SGS, which keeps them.
+
+Regenerate `stress` and `comments` with `tests/mkstress.py` (needs parity and a
+stock pgn-extract; see the script's header).
 
 Run it before committing any change to the core, the patterns, or a report.
 Output is expected to stay byte-identical unless a change is meant to alter it.
+
+## Oracle runs
+
+`tests/oracle.sh` runs one of Stefan's original batch tools on a file,
+answering its prompts, and collects what it wrote. His tools aren't in the repo
+(see `NOTICE.md`), so point it at your own copy. Example, SGS full search at 100
+moves with a stock pgn-extract v26-04 (built from the upstream source):
+
+```bash
+tests/oracle.sh --pgn-extract /path/to/pgn-extract-26-04.exe \
+    /path/to/Sacrifice_Games_Search_Tool Sacrifice_Games_Search_Tool_V3.2.bat \
+    tests/data/parity.pgn /tmp/sgs-oracle parity 0 100
+```
+
+Compare its output with `spct sgs parity.pgn --level 0 --moves 100` run in
+another directory.
 
 ## Oracle check (EAS)
 

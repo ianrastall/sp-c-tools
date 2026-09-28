@@ -41,6 +41,11 @@ void pgnu_truncate(const char *path);
  * transient ring buffer. */
 char *pgnu_flag(const char *prefix, const char *value);
 
+/* The batches' :percent routine, exactly: count/base as "NN.NN%" (or
+ * "100.0%"), with its digit-by-digit rounding, plus the value x100. */
+typedef struct { char s[10]; long x100; } PgnuPct;
+PgnuPct pgnu_pct(long base, long count);
+
 /* Length-sort src into dst ascending, using the given move-length buckets
  * (lo[i]==0 means no lower bound, hi[i]==0 means no upper bound). */
 void pgnu_sortlength(const char *src, const char *dst,

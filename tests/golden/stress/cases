@@ -4,3 +4,8 @@ eas_hardavg eas --hardavg 45
 iws iws
 iws_moves60 iws --moves 60
 iws_player iws --player Carlsen
+sgs sgs
+sgs_l1 sgs --level 1 --moves 60
+sgs_m100 sgs --moves 100
+sgs_l2 sgs --level 2 --moves 100
+sgs_l9 sgs --level 9 --moves 250

@@ -26,7 +26,7 @@ LIBS="-lm -lregex"
 mkdir -p "$OBJ" "$BIN"
 
 case "$TARGET" in
-    spct)  TOOL_SRCS="tools/spct/spct.c tools/eas/eas.c tools/iws/iws.c" ;;
+    spct)  TOOL_SRCS="tools/spct/spct.c tools/eas/eas.c tools/iws/iws.c tools/sgs/sgs.c" ;;
     smoke) TOOL_SRCS="tools/smoke/smoke.c" ;;
     *) echo "unknown target '$TARGET' (try: spct, smoke)" >&2; exit 1 ;;
 esac

@@ -31,7 +31,8 @@ target_compile_options(spctcore PRIVATE -w)
 add_executable(spct
     ${CMAKE_SOURCE_DIR}/tools/spct/spct.c
     ${CMAKE_SOURCE_DIR}/tools/eas/eas.c
-    ${CMAKE_SOURCE_DIR}/tools/iws/iws.c)
+    ${CMAKE_SOURCE_DIR}/tools/iws/iws.c
+    ${CMAKE_SOURCE_DIR}/tools/sgs/sgs.c)
 target_link_libraries(spct PRIVATE spctcore)
 
 add_executable(smoke ${CMAKE_SOURCE_DIR}/tools/smoke/smoke.c)

@@ -2,3 +2,5 @@ eas eas
 eas_gauntlet eas --gauntlet
 iws iws
 iws_player iws --player Alpha
+sgs sgs
+sgs_l1 sgs --level 1 --moves 60

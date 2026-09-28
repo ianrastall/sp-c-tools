@@ -15,6 +15,7 @@
 /* Subcommand entry points (each treats argv[0] as the command name). */
 int cmd_eas(int argc, char *argv[]);
 int cmd_iws(int argc, char *argv[]);
+int cmd_sgs(int argc, char *argv[]);
 
 static int usage(const char *prog)
 {
@@ -26,7 +27,9 @@ static int usage(const char *prog)
         "  eas   Engine Aggressiveness Statistics - rating lists, interesting_wins,\n"
         "        errorgames; --gauntlet, --hardavg N\n"
         "  iws   Interesting Wins Search - two-tier spectacular-game filter;\n"
-        "        --moves N, --player NAME\n\n"
+        "        --moves N, --player NAME\n"
+        "  sgs   Sacrifice Games Search - sacrifice games by depth + statistics;\n"
+        "        --level 0|1-5|9 (0 = full search), --moves N\n\n"
         "Run a command with no file to get its interactive prompt.\n",
         prog);
     return 2;
@@ -38,6 +41,7 @@ int main(int argc, char *argv[])
     const char *cmd = argv[1];
     if (strcmp(cmd, "eas") == 0) return cmd_eas(argc - 1, argv + 1);
     if (strcmp(cmd, "iws") == 0) return cmd_iws(argc - 1, argv + 1);
+    if (strcmp(cmd, "sgs") == 0) return cmd_sgs(argc - 1, argv + 1);
     if (strcmp(cmd, "-h") == 0 || strcmp(cmd, "--help") == 0) { usage(argv[0]); return 0; }
     fprintf(stderr, "spct: unknown command '%s'\n\n", cmd);
     return usage(argv[0]);

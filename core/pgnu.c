@@ -206,3 +206,25 @@ void pgnu_annotate_append(const char *src, const char *annoline, const char *dst
     fclose(in);
     fclose(out);
 }
+
+PgnuPct pgnu_pct(long base, long count)
+{
+    PgnuPct r;
+    if (base <= 0) { strcpy(r.s, "00.00%"); r.x100 = 0; return r; }
+    long long l_base = (1000000000LL / base) * count;
+    long long l_percent = l_base / 1000000;
+    long long l_rest1 = l_percent % 10;
+    l_percent /= 10;
+    long long l_rest2 = (l_base / 100000) % 10;
+    long long l_rest3 = (l_base / 10000) % 10;
+    if (l_rest3 >= 5) l_rest2 += 1;
+    if (l_rest2 >= 10) { l_rest2 -= 10; l_rest1 += 1; }
+    if (l_rest1 >= 10) { l_rest1 -= 10; l_percent += 1; }
+    if (l_percent < 10)
+        snprintf(r.s, sizeof r.s, "0%lld.%lld%lld%%", l_percent, l_rest1, l_rest2);
+    else
+        snprintf(r.s, sizeof r.s, "%lld.%lld%lld%%", l_percent, l_rest1, l_rest2);
+    r.x100 = (long)(l_percent * 100 + l_rest1 * 10 + l_rest2);
+    if (l_percent > 99) { strcpy(r.s, "100.0%"); r.x100 = 10000; }
+    return r;
+}

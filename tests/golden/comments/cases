@@ -1,0 +1,5 @@
+eas eas
+iws iws
+sgs sgs
+sgs_m250 sgs --moves 250
+sgs_l2 sgs --level 2 --moves 100

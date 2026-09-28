@@ -1,0 +1,26 @@
+*************************************************************** 
+***     Sacrifice Games Search and Statistics Tool V3.2     *** 
+***           (C) 2024, Stefan Pohl, www.sp-cc.de           *** 
+*************************************************************** 
+*** Sacrifice-statistics of the file stress.pgn 
+*************************************************************** 
+************************************************************************************* 
+Source pgn-file: stress.pgn 
+************************************************************************************* 
+Number of games found in the source file: 1371 
+************************************************************************************* 
+Number of won games found in the source file: 1128 
+************************************************************************************* 
+Max. allowed length of games, investigated: 100 moves 
+************************************************************************************* 
+Number of Queen sacrifices (5+)  : 0 (00.00% of all games) (00.00% of won games) 
+Number of 5+ pawnunits sacrifices: 0 (00.00% of all games) (00.00% of won games) 
+Number of 4 pawnunits sacrifices : 3 (00.22% of all games) (00.27% of won games) 
+Number of 3 pawnunits sacrifices : 4 (00.29% of all games) (00.35% of won games) 
+Number of 2 pawnunits sacrifices : 23 (01.68% of all games) (02.04% of won games) 
+Number of 1 pawnunits sacrifices : 45 (03.28% of all games) (03.99% of won games) 
+Number of all sacrifices         : 75 (05.47% of all games) (06.65% of won games) 
+************************************************************************************* 
+**************************************************** 
+*** SGS-tool (C) 2024 Stefan Pohl (www.sp-cc.de) *** 
+**************************************************** 

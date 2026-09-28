@@ -35,7 +35,10 @@ typedef struct {
     /* pgn-extract's duplicate key (-D, -c): final + cumulative position hash. */
     unsigned long long hash_final, hash_cumul;
 
-    /* Byte range of this game's text in the loaded file. */
+    /* Byte range of this game's text in the loaded file, located from the
+     * parser's own line number of the game's first tag (so comments that
+     * wrap onto a line starting with '[' cannot be mistaken for a game). */
+    unsigned long start_line;
     long text_off, text_len;
 
     /* Material labels, filled only when corpus_load gets a pattern dir. */
@@ -44,6 +47,10 @@ typedef struct {
     int mat_def_black;         /* black had a >=1 pawn-unit deficit (1_pawnsac_black) */
     int reached_endgame_draw;  /* matches the no_endgame_draws -z pattern */
     /* Decisive games, for the winner's colour: */
+    int sac_mask;      /* bit K set iff the level-K pattern (0..5 = 1,2,3,4,5,
+                        * queen) matches on its own, as a single -y pass would.
+                        * Levels are not strictly nested (the 1-pawn pattern
+                        * needs a longer run), so this is not the chain. */
     int sac_depth;     /* length of the matched chain 1,2,3,4,5,queen (0..6):
                         * the game is in the batch's results_optK file iff
                         * sac_depth >= level K (queen = 6) */

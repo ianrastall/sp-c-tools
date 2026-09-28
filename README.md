@@ -13,9 +13,9 @@ length, endgame reached, material imbalance, …), then aggregate or filter thos
 labels.** So this is one binary, `spct`, with a subcommand per report, over a
 shared classification core with pgn-extract folded in and driven **in-process**.
 
-Status: **EAS and IWS are ported and validated** (as `spct eas` / `spct iws`).
-Others (SGS, SGA, GamePairs) are planned; DecisionTimeStats already exists
-separately as a C# tool.
+Status: **EAS, IWS and SGS are ported and validated** (as `spct eas`,
+`spct iws`, `spct sgs`). Others (the SGS comfort tool, SGA, GamePairs) are
+planned; DecisionTimeStats already exists separately as a C# tool.
 
 ## Architecture
 
@@ -38,6 +38,7 @@ core/pgnu.[ch]        Shared plumbing: data-dir lookup, work paths, the pass
 tools/spct/spct.c     Front-end: dispatches <command> to a report.
 tools/eas/eas.c       EAS report: engine-aggressiveness scoring, rating lists.
 tools/iws/iws.c       IWS report: filter spectacular wins into two tiers.
+tools/sgs/sgs.c       SGS report: sacrifice games by depth, plus statistics.
 data/patterns/        -y/-z material-pattern files (sacrifice / endgame /
                       imbalance detection).
 data/anno/            EAS annotator-tag and termination-filter files.
@@ -107,15 +108,52 @@ Filters the spectacular wins (no statistics) into two tiers:
 `--player NAME` restricts to that engine/player's wins. Runs in one pass over
 the whole file — no per-engine loop.
 
+## Run SGS
+
+```bash
+./build/spct.exe sgs yourgames.pgn [--level L] [--moves N]
+# or, interactively (the batch's three questions):
+./build/spct.exe sgs
+```
+
+Finds the won games in which the loser held a material advantage for several
+consecutive moves, i.e. the winner sacrificed. Comments, NAGs and variations are
+kept.
+- `--level 0` (default): full search. Each game goes to its highest category,
+  `sacgames_1_pawns.pgn` … `sacgames_5_pawns.pgn` or `sacgames_queensacs.pgn`,
+  and `statistics.txt` gets the counts.
+- `--level 1`..`5`, or `9` for queen sacrifices: one search for that many pawn
+  units or more. The games go to `games_with_sacrifices.pgn` (white wins, then
+  black wins), with no statistics.
+- `--moves N`: the longest won game to consider (default 80; below 40 means 80,
+  and 250 is the maximum). Wins shorter than 15 moves are never considered.
+
+Note: the port counts games as parsed games. The batch counted lines containing
+`[White ` (`find /C`), which also counts any comment that quotes such a tag. On
+ordinary files the numbers are identical.
+
+The SGS *comfort* tool (which marks the sacrifice move with a comment) is not
+ported yet.
+
 ## Validation
 
 `tests/check.sh` is the regression gate: it re-runs every report variant on the
 test corpora and compares all outputs to recorded goldens (see `tests/README.md`).
 
+`tests/oracle.sh` runs one of Stefan's original batch tools (from your own copy
+of his release) on a file, optionally with a different `pgn-extract.exe`. With a
+stock build of the pgn-extract version SPCT vendors, a comparison isolates the
+port itself. SGS matches the batch byte for byte on every output, over every
+level, move limit and prompt edge case, on three corpora (plain, with
+duplicates, error terminations and FEN starts, and heavily commented). The only
+exception is the counting note above.
+
 EAS was checked against a stock pgn-extract "oracle" that replays the batch's
 exact pass sequence: win counts, short-win buckets, and the sacrifice-detection
 + dedup chain reproduce the port's numbers exactly on real GM tournament data.
-See `NOTICE.md` for the v24-11 vs v26-04 material-match caveat.
+See `NOTICE.md` for the v24-11 vs v26-04 caveat. Besides material matching, the
+versions order some tags differently (e.g. `WhiteFideId`/`BlackFideId`), so
+games written by the port can differ from the released tools' in tag order.
 
 ## License
 
