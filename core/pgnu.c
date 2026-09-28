@@ -241,3 +241,44 @@ int pgnu_moveaverage(long long total_plies, long long count)
     if (dec % 10 != 0 && dec >= 50) whole++;
     return (int)(whole / 2);
 }
+
+/* Portable stand-in: the order sort.exe gives the printable ASCII
+ * characters (measured), letters case-folded; other bytes after them. */
+static int sort_weight(unsigned char c)
+{
+    static const char order[] =
+        "'- !\"#$%&()*,./:;?@[\\]^_`{|}~+<=>0123456789abcdefghijklmnopqrstuvwxyz";
+    if (c >= 'A' && c <= 'Z') c = (unsigned char)(c - 'A' + 'a');
+    const char *p = c ? strchr(order, c) : NULL;
+    return p ? (int)(p - order) : 256 + c;
+}
+
+int pgnu_sort_compare(const char *a, const char *b)
+{
+#ifdef _WIN32
+    /* sort.exe reads lines in the console (OEM) code page and compares them
+     * with the user locale's string sort, ignoring case. */
+    int la = MultiByteToWideChar(CP_OEMCP, 0, a, -1, NULL, 0);
+    int lb = MultiByteToWideChar(CP_OEMCP, 0, b, -1, NULL, 0);
+    WCHAR *wa = (WCHAR *) malloc((size_t)la * sizeof(WCHAR));
+    WCHAR *wb = (WCHAR *) malloc((size_t)lb * sizeof(WCHAR));
+    if (wa != NULL && wb != NULL) {
+        MultiByteToWideChar(CP_OEMCP, 0, a, -1, wa, la);
+        MultiByteToWideChar(CP_OEMCP, 0, b, -1, wb, lb);
+        int r = CompareStringW(LOCALE_USER_DEFAULT, NORM_IGNORECASE | SORT_STRINGSORT,
+                               wa, la - 1, wb, lb - 1);
+        free(wa);
+        free(wb);
+        if (r != 0) return r - 2;   /* CSTR_LESS_THAN = 1 ... CSTR_GREATER_THAN = 3 */
+    } else {
+        free(wa);
+        free(wb);
+    }
+#endif
+    for (;; a++, b++) {
+        if (*a == '\0' || *b == '\0')
+            return (*a != '\0') - (*b != '\0');
+        int wa2 = sort_weight((unsigned char)*a), wb2 = sort_weight((unsigned char)*b);
+        if (wa2 != wb2) return wa2 < wb2 ? -1 : 1;
+    }
+}

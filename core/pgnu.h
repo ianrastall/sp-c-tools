@@ -54,6 +54,13 @@ PgnuPct pgnu_pct(long base, long count);
  * printed with one decimal (x.5 .. x.9) is never rounded up - and halved. */
 int pgnu_moveaverage(long long total_plies, long long count);
 
+/* Compare two lines the way Windows sort.exe orders them (the batches sort
+ * their work files with it): the user locale's case-insensitive string sort
+ * of the lines decoded from the console code page. Lines that differ only in
+ * case compare equal (sort.exe leaves those in no particular order). Off
+ * Windows, a measured table of sort.exe's ASCII order stands in. */
+int pgnu_sort_compare(const char *a, const char *b);
+
 /* Length-sort src into dst ascending, using the given move-length buckets
  * (lo[i]==0 means no lower bound, hi[i]==0 means no upper bound). */
 void pgnu_sortlength(const char *src, const char *dst,

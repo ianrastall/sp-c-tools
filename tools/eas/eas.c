@@ -140,7 +140,7 @@ static int build_interesting_wins(void)
 }
 
 /* ---- engine roster (names come from the streaming corpus) ---- */
-#define MAX_ENGINES 512
+#define MAX_ENGINES 4096
 #define NAME_LEN 200
 static char engines[MAX_ENGINES][NAME_LEN];
 static long engine_gamecount[MAX_ENGINES];
@@ -201,8 +201,6 @@ typedef struct {
 
 static EngineResult results[MAX_ENGINES];
 static int num_results = 0;
-
-static void write_single_stats(FILE *o, int sh4);
 
 /* ---- process one engine ----
  * Everything below is answered from the corpus labels; the batch's
@@ -407,13 +405,17 @@ static void process_engine(const char *engine, int avg_length_all_wins,
         if (CORPUS_MOVES_LE(c->ply_offset + c->plies, sh4)) L_tmp[m++] = L_all[i];
     }
     corpus_append(P("collect_shorts.pgn"), L_tmp, m);
-    /* wins that ended before an endgame was reached (allwins minus reached) */
+    /* Wins that ended before an endgame was reached (allwins minus reached),
+     * and wins with a material imbalance. The batch built these two
+     * categories after its engine loop, from the allwins.pgn the last engine
+     * left behind, so only the last engine's games count: start them over. */
+    pgnu_truncate(P("collect_no_endgame.pgn"));
+    pgnu_truncate(P("collect_imbalance.pgn"));
     m = 0;
     for (int i = 0; i < nall; i++)
         if (CORP[L_all[i]].no_endgame) L_tmp[m++] = L_all[i];
     int nne = corpus_dedup(L_all, nall, L_tmp, m, L_tmp2);
     corpus_append(P("collect_no_endgame.pgn"), L_tmp2, nne);
-    /* wins with a material imbalance */
     m = 0;
     for (int i = 0; i < nall; i++)
         if (CORP[L_all[i]].imbalance) L_tmp[m++] = L_all[i];
@@ -422,134 +424,224 @@ static void process_engine(const char *engine, int avg_length_all_wins,
     num_results++;
 }
 
-/* ---- output ---- */
-static int cmp_eas(const void *a, const void *b)
+/* ---- the report, exactly as the batch assembles it ----
+ * Per engine the batch echoed one line into each of three work files and
+ * one into each of six single-statistics files; it then ordered them with
+ * Windows sort.exe and numbered them. The lines are rendered here from the
+ * batch's own text (eas_templates.h) and ordered with pgnu_sort_compare. */
+#include "eas_templates.h"
+
+typedef struct { const char *k; char v[CORPUS_NAME_LEN + 8]; } KV;
+typedef struct { KV kv[48]; int n; } Vars;
+
+static void var_set(Vars *vs, const char *k, const char *v)
 {
-    const EngineResult *x = a, *y = b;
-    if (y->eas != x->eas) return (y->eas > x->eas) ? 1 : -1;
-    return 0;
+    if (vs->n >= 48) die("internal: too many report values");
+    vs->kv[vs->n].k = k;
+    snprintf(vs->kv[vs->n].v, sizeof vs->kv[0].v, "%s", v);
+    vs->n++;
 }
 
-static int medal_cat;
-static int cmp_cat(const void *a, const void *b)
+static void var_setl(Vars *vs, const char *k, long v)
 {
-    const EngineResult *x = a, *y = b;
-    long xv = 0, yv = 0;
-    switch (medal_cat) {
-        case 0: xv = x->A_early.x100; yv = y->A_early.x100; break;
-        case 1: xv = x->B_allsacs.x100; yv = y->B_allsacs.x100; break;
-        case 2: xv = x->C_shortC.x100; yv = y->C_shortC.x100; break;
-        case 3: xv = x->D_allshorts.x100; yv = y->D_allshorts.x100; break;
-        case 4: return x->E_avglen - y->E_avglen;               /* ascending */
-        case 5: return (int)(x->F_baddraws.x100 - y->F_baddraws.x100);/* asc */
-    }
-    if (yv != xv) return (yv > xv) ? 1 : -1;
-    return 0;
+    char b[32];
+    snprintf(b, sizeof b, "%ld", v);
+    var_set(vs, k, b);
 }
 
-static void write_single_stats(FILE *o, int sh4)
+/* Fill %name% placeholders; NULL if one names a variable that is not set
+ * (the batch's echo of such a line did not reach the file). */
+static char *render(const char *tmpl, const Vars *vs)
 {
-    static const char *titles[6] = {
-        "A: Early sacrifices (percent of all sacs)",
-        "B: Most sacrifices overall",
-        "C: Very short wins",
-        "D: Most short wins overall",
-        "E: Average length of all won games (shortest)",
-        "F: Smallest number of bad draws",
-    };
-    static EngineResult tmp[MAX_ENGINES];
-    for (int c = 0; c < 6; c++) {
-        memcpy(tmp, results, num_results * sizeof(EngineResult));
-        medal_cat = c;
-        qsort(tmp, num_results, sizeof tmp[0], cmp_cat);
-        if (c == 2) fprintf(o, "%s (%d moves or less):\n", titles[c], sh4);
-        else fprintf(o, "%s:\n", titles[c]);
-        int top = num_results < 5 ? num_results : 5;
-        for (int i = 0; i < top; i++) {
-            EngineResult *R = &tmp[i];
-            char val[32];
-            switch (c) {
-                case 0: snprintf(val, sizeof val, "%s", R->A_early.s); break;
-                case 1: snprintf(val, sizeof val, "%s", R->B_allsacs.s); break;
-                case 2: snprintf(val, sizeof val, "%s", R->C_shortC.s); break;
-                case 3: snprintf(val, sizeof val, "%s", R->D_allshorts.s); break;
-                case 4: snprintf(val, sizeof val, "%d moves", R->E_avglen); break;
-                case 5: snprintf(val, sizeof val, "%s", R->F_baddraws.s); break;
-            }
-            fprintf(o, "     [%d] %-9s %s\n", i + 1, val, R->name);
-        }
+    size_t cap = strlen(tmpl) + 1;
+    for (int i = 0; i < vs->n; i++) cap += strlen(vs->kv[i].v);
+    char *out = (char *) malloc(cap * 2 + 16), *o = out;
+    if (out == NULL) die("out of memory");
+    for (const char *p = tmpl; *p; ) {
+        const char *q = *p == '%' ? strchr(p + 1, '%') : NULL;
+        if (q == NULL) { *o++ = *p++; continue; }
+        size_t kl = (size_t)(q - p - 1);
+        const char *val = NULL;
+        for (int i = 0; i < vs->n && val == NULL; i++)
+            if (strlen(vs->kv[i].k) == kl && strncmp(vs->kv[i].k, p + 1, kl) == 0)
+                val = vs->kv[i].v;
+        if (val == NULL) { free(out); return NULL; }
+        size_t vl = strlen(val);
+        memcpy(o, val, vl);
+        o += vl;
+        p = q + 1;
     }
+    *o = '\0';
+    return out;
+}
+
+/* The batch's :format_* routines: right-align in a fixed width. A value
+ * too wide for the routine leaves %formatted% as the previous call set it. */
+static char g_formatted[32] = "";
+
+static const char *fmt_width(long v, int width, long max)
+{
+    if (v <= max) {
+        char digits[24];
+        snprintf(digits, sizeof digits, "%ld", v);
+        int pad = 1;   /* the batch's thresholds are 9, 99, 999, ... */
+        for (long t = 9; v > t && pad <= width; t = t * 10 + 9) pad++;
+        snprintf(g_formatted, sizeof g_formatted, "%*s%s", width - pad, "", digits);
+    }
+    return g_formatted;
+}
+static const char *fmt_eas(long v) { return fmt_width(v, 7, 9999999L); }
+static const char *fmt_wins(long v) { return fmt_width(v, 6, 999999L); }
+static const char *fmt_engwins(long v) { return fmt_width(v, 3, 999L); }
+static const char *fmt_engines(long v) { return fmt_width(v, 4, 9999L); }
+
+/* Rendered lines per engine: the three lists and single-stats A..F. */
+typedef struct { char *w1, *w2, *w3, *ss[6]; } EngineLines;
+static EngineLines lines_of[MAX_ENGINES];
+static char avg_all_fmt[32];   /* %avg_length_all_wins% after the loop */
+
+static void render_engine(const EngineResult *R, int avg_length_all_wins, EngineLines *L)
+{
+    Vars v = { .n = 0 };
+    char quoted[CORPUS_NAME_LEN + 4];
+    snprintf(quoted, sizeof quoted, "\"%s\"", R->name);
+
+    /* Single-stats lines were echoed while the name still had its quotes. */
+    char ma[16];
+    snprintf(ma, sizeof ma, "%s%d", R->avg_len_eng_wins <= 9 ? "00" :
+             R->avg_len_eng_wins <= 99 ? "0" : "", R->avg_len_eng_wins);
+    const char *ssval[6] = { R->early.s, R->all_sacs.s, R->C_shortC.s,
+                             R->all_shorts.s, ma, R->bad_draws.s };
+    const char *sstmpl[6] = { EAS_SS_A, EAS_SS_B, EAS_SS_C, EAS_SS_D, EAS_SS_E, EAS_SS_F };
+    for (int k = 0; k < 6; k++) {
+        Vars s = { .n = 0 };
+        var_set(&s, k == 4 ? "ma_moveaverage" : "percent", ssval[k]);
+        var_set(&s, "engine", quoted);
+        L->ss[k] = render(sstmpl[k], &s);
+    }
+
+    /* The work lines, formatted in the batch's order of :format_* calls. */
+    var_set(&v, "engine_eas", fmt_eas(R->eas));
+    var_set(&v, "eas_bad_draws", fmt_eas(R->eas_bad_draws));
+    var_set(&v, "eas_short_wins", fmt_eas(R->eas_short_wins));
+    var_set(&v, "eas_sacs", fmt_eas(R->eas_sacs));
+    var_set(&v, "eas_earlysacs", fmt_eas(R->eas_earlysacs));
+    var_set(&v, "winform", fmt_wins(R->numb_wins));
+    var_set(&v, "avg_length_eng_wins", fmt_engwins(R->avg_len_eng_wins));
+    snprintf(avg_all_fmt, sizeof avg_all_fmt, "%s", fmt_engwins(avg_length_all_wins));
+    var_set(&v, "percent_all_sacs", R->all_sacs.s);
+    var_set(&v, "earlysacs_percent", R->early.s);
+    var_set(&v, "percent_all_shorts", R->all_shorts.s);
+    var_set(&v, "percent_bad_draws", R->bad_draws.s);
+    var_set(&v, "perc_sac9", R->sac9.s);
+    var_set(&v, "perc_sac5", R->sac5.s);
+    var_set(&v, "perc_sac4", R->sac4.s);
+    var_set(&v, "perc_sac3", R->sac3.s);
+    var_set(&v, "perc_sac2", R->sac2.s);
+    var_set(&v, "perc_sac1", R->sac1.s);
+    var_set(&v, "perc_40mvs", R->s40.s);
+    var_set(&v, "perc_45mvs", R->s45.s);
+    var_set(&v, "perc_50mvs", R->s50.s);
+    var_set(&v, "perc_55mvs", R->s55.s);
+    var_set(&v, "perc_60mvs", R->s60.s);
+    var_set(&v, "engine", R->name);   /* the quotes are stripped by then */
+    L->w1 = render(R->warning ? EAS_W1_WARN : EAS_W1, &v);
+    L->w2 = render(EAS_W2, &v);
+    L->w3 = render(EAS_W3, &v);
+}
+
+/* Order the given lines as sort.exe (reverse=1: sort /r) would; lines it
+ * finds equal fall back to byte order. */
+static int g_reverse;
+static int cmp_sortexe(const void *a, const void *b)
+{
+    const char *x = *(char *const *)a, *y = *(char *const *)b;
+    int c = pgnu_sort_compare(x, y);
+    if (c == 0) c = strcmp(x, y);
+    return g_reverse ? -c : c;
+}
+
+static char **sorted_copy(char *const *src, int n, int reverse)
+{
+    char **v = (char **) malloc((size_t)(n ? n : 1) * sizeof(char *));
+    if (v == NULL) die("out of memory");
+    memcpy(v, src, (size_t)n * sizeof(char *));
+    g_reverse = reverse;
+    qsort(v, (size_t)n, sizeof(char *), cmp_sortexe);
+    return v;
+}
+
+static void put_block(FILE *o, const char *const *block, const Vars *vs)
+{
+    for (int i = 0; block[i] != NULL; i++) {
+        char *s = render(block[i], vs);
+        if (s != NULL) { fputs(s, o); fputc('\n', o); free(s); }
+    }
+}
+
+/* One ranked list: "<rank>  <work line> " per engine, best first. */
+static void put_list(FILE *o, char **work, int n)
+{
+    char **v = sorted_copy(work, n, 1);
+    for (int i = 0; i < n; i++)
+        fprintf(o, "%s  %s \n", fmt_engines(i + 1), v[i]);
+    free(v);
 }
 
 static void write_ratinglist(const char *gamebase, int avg_length_all_wins,
                              int shortwin_movelimit, int earlysac_limit,
-                             int sh1, int sh2, int sh3, int sh4, int sh5,
-                             int numb_errors)
+                             int sh1, int sh2, int sh3, int sh4, int sh5)
 {
-    qsort(results, num_results, sizeof results[0], cmp_eas);
-    FILE *o = fopen("statistics_EAS_ratinglist.txt", "wb");
+    int n = num_results;
+    if (n == 0) snprintf(avg_all_fmt, sizeof avg_all_fmt, "%d", avg_length_all_wins);
+    Vars g = { .n = 0 };
+    var_set(&g, "gamebase", gamebase);
+    var_set(&g, "avg_length_all_wins", avg_all_fmt);
+    var_setl(&g, "earlysac_limit", earlysac_limit);
+    var_setl(&g, "shortwin_movelimit", shortwin_movelimit);
+    var_setl(&g, "sh_level1", sh1);
+    var_setl(&g, "sh_level2", sh2);
+    var_setl(&g, "sh_level3", sh3);
+    var_setl(&g, "sh_level4", sh4);
+    var_setl(&g, "sh_level5", sh5);
+
+    /* The medal table: each category's lines sorted (A-D reversed), the
+     * first five taken with their quotes removed. */
+    static const char *cat = "ABCDEF";
+    static const char *place[5] = { "gold", "silver", "bronze", "fourth", "fifth" };
+    static char keys[6][5][24];
+    char **col = (char **) malloc((size_t)(n ? n : 1) * sizeof(char *));
+    if (col == NULL) die("out of memory");
+    for (int k = 0; k < 6; k++) {
+        for (int i = 0; i < n; i++) col[i] = lines_of[i].ss[k];
+        char **v = sorted_copy(col, n, k < 4);
+        for (int p = 0; p < 5 && p < n; p++) {
+            char medal[CORPUS_NAME_LEN + 32], *m = medal;
+            for (const char *s = v[p]; *s && m < medal + sizeof medal - 1; s++)
+                if (*s != '"') *m++ = *s;
+            *m = '\0';
+            snprintf(keys[k][p], sizeof keys[k][p], "eas_%c_%smedal", cat[k], place[p]);
+            var_set(&g, keys[k][p], medal);
+        }
+        free(v);
+    }
+
+    FILE *o = fopen("statistics_EAS_ratinglist.txt", "w");
     if (!o) die("cannot write statistics_EAS_ratinglist.txt");
-
-    fprintf(o, "*****************************************************************************\n");
-    fprintf(o, "*** Engine Aggressiveness Tool V6.0 Score points Ratinglist (SPCT C port)\n");
-    fprintf(o, "*****************************************************************************\n");
-    fprintf(o, "*** Evaluated file: %s\n", gamebase);
-    fprintf(o, "*****************************************************************************\n");
-    fprintf(o, "                         early           bad  avg.win\n");
-    fprintf(o, "Rank  EAS-Score  sacs    sacs   shorts  draws  moves  Engine/player\n");
-    fprintf(o, "---------------------------------------------------------------------------\n");
-    for (int i = 0; i < num_results; i++) {
-        EngineResult *R = &results[i];
-        fprintf(o, "%3d %8ld  %6s  %6s  %6s  %6s  %5d   %s%s\n",
-                i + 1, R->eas, R->all_sacs.s, R->early.s, R->all_shorts.s,
-                R->bad_draws.s, R->avg_len_eng_wins, R->name,
-                R->warning ? "   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX" : "");
-    }
-    fprintf(o, "-------------------------------------------------------------------\n");
-    fprintf(o, "*** Average length of all won games: %d moves\n", avg_length_all_wins);
-    fprintf(o, "*** Movelimit for early sac bonus  : %d moves\n", earlysac_limit);
-
-    fprintf(o, "*****************************************************************************\n");
-    fprintf(o, "*** EAS single-statistics (6 categories, each with Top5 engines):\n");
-    fprintf(o, "*****************************************************************************\n");
-    write_single_stats(o, sh4);
-
-    fprintf(o, "*****************************************************************************\n");
-    fprintf(o, "*** 2nd Ratinglist with more stats in percent-values\n");
-    fprintf(o, "*****************************************************************************\n");
-    fprintf(o, "*** Average length of all won games                  : %d moves\n", avg_length_all_wins);
-    fprintf(o, "*** Calculated limit for short wins giving EAS-points: %d moves\n", shortwin_movelimit);
-    fprintf(o, "*** Movelimit for early sac bonus                    : %d moves\n", earlysac_limit);
-    fprintf(o, "Rank EAS-Score wins amoves  allsacs =[ sacQ + sac5 + sac4 + sac3 + sac2 + sac1] esacs  shorts =[ s%d + s%d + s%d + s%d + s%d] bdraws Engine\n",
-            sh5, sh4, sh3, sh2, sh1);
-    fprintf(o, "-------------------------------------------------------------------------------------------------------------------------------------------------\n");
-    for (int i = 0; i < num_results; i++) {
-        EngineResult *R = &results[i];
-        fprintf(o, "%3d %8ld %5d %5d  %6s =[%6s +%6s +%6s +%6s +%6s +%6s] %6s  %6s =[%6s +%6s +%6s +%6s +%6s] %6s %s\n",
-                i + 1, R->eas, R->numb_wins, R->avg_len_eng_wins,
-                R->all_sacs.s, R->sac9.s, R->sac5.s, R->sac4.s, R->sac3.s, R->sac2.s, R->sac1.s,
-                R->early.s, R->all_shorts.s, R->s40.s, R->s45.s, R->s50.s, R->s55.s, R->s60.s,
-                R->bad_draws.s, R->name);
-    }
-
-    fprintf(o, "*****************************************************************************\n");
-    fprintf(o, "*** 3rd Ratinglist, showing EAS-points instead of percents\n");
-    fprintf(o, "*****************************************************************************\n");
-    fprintf(o, "                            early          bad\n");
-    fprintf(o, "Rank  EAS-Score    sacs    sacs   shorts   draws    Engine/player\n");
-    fprintf(o, "-------------------------------------------------------------------------------------\n");
-    for (int i = 0; i < num_results; i++) {
-        EngineResult *R = &results[i];
-        fprintf(o, "%3d %8ld  %6ld  %6ld  %6ld  %6ld    %s\n",
-                i + 1, R->eas, R->eas_sacs, R->eas_earlysacs,
-                R->eas_short_wins, R->eas_bad_draws, R->name);
-    }
-    fprintf(o, "********************************************************************************************\n");
-    fprintf(o, "*** %d games with non-regular endings are stored in errorgames.pgn\n", numb_errors);
-    fprintf(o, "****************************************************\n");
-    fprintf(o, "*** EAS-Tool (C) Stefan Pohl (www.sp-cc.de), C port\n");
-    fprintf(o, "****************************************************\n");
+    put_block(o, EAS_HEAD, &g);
+    for (int i = 0; i < n; i++) col[i] = lines_of[i].w1;
+    put_list(o, col, n);
+    put_block(o, EAS_AFTER1, &g);
+    put_block(o, EAS_MEDALS, &g);
+    put_block(o, EAS_HEAD2, &g);
+    for (int i = 0; i < n; i++) col[i] = lines_of[i].w2;
+    put_list(o, col, n);
+    put_block(o, EAS_HEAD3, &g);
+    for (int i = 0; i < n; i++) col[i] = lines_of[i].w3;
+    put_list(o, col, n);
+    put_block(o, EAS_TAIL, &g);
     fclose(o);
+    free(col);
 }
 
 int cmd_eas(int argc, char *argv[])
@@ -646,11 +738,14 @@ int cmd_eas(int argc, char *argv[])
         printf("Gauntlet engine: %s (%ld games)\n", engines[gi], engine_gamecount[gi]);
         process_engine(engines[gi], avg_length_all_wins,
                        sh1, sh2, sh3, sh4, sh5, earlysac_limit, errorcollect);
+        render_engine(&results[0], avg_length_all_wins, &lines_of[0]);
     } else {
         for (int i = 0; i < num_engines; i++) {
             printf("  [%d/%d] %s\n", i + 1, num_engines, engines[i]);
             process_engine(engines[i], avg_length_all_wins,
                            sh1, sh2, sh3, sh4, sh5, earlysac_limit, errorcollect);
+            render_engine(&results[num_results - 1], avg_length_all_wins,
+                          &lines_of[num_results - 1]);
         }
     }
 
@@ -660,7 +755,7 @@ int cmd_eas(int argc, char *argv[])
     int numb_interesting = build_interesting_wins();
 
     write_ratinglist(gamebase, avg_length_all_wins, shortwin_movelimit,
-                     earlysac_limit, sh1, sh2, sh3, sh4, sh5, numb_errors);
+                     earlysac_limit, sh1, sh2, sh3, sh4, sh5);
 
     printf("Done. See statistics_EAS_ratinglist.txt (%d engines evaluated).\n",
            num_results);

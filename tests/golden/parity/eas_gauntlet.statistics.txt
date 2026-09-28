@@ -1,48 +1,60 @@
-*****************************************************************************
-*** Engine Aggressiveness Tool V6.0 Score points Ratinglist (SPCT C port)
-*****************************************************************************
-*** Evaluated file: parity.pgn
-*****************************************************************************
-                         early           bad  avg.win
-Rank  EAS-Score  sacs    sacs   shorts  draws  moves  Engine/player
+***************************************************************************** 
+*** Engine Aggressiveness Tool V6.0 Score points Ratinglist 
+***************************************************************************** 
+*** Meanwhile, the scoring-system of the EAS-Tool got really complex, so 
+*** please check out the ReadMe-file, where you find the explanation... 
+***************************************************************************** 
+*** Evaluated file: parity.pgn 
+***************************************************************************** 
+                         early           bad  avg.win 
+Rank  EAS-Score  sacs    sacs   shorts  draws  moves  Engine/player 
 ---------------------------------------------------------------------------
-  1   120889  10.00%  00.00%  00.00%  00.00%     48   Al Modiahki,M   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
+   1    120889  10.00%  00.00%  00.00%  00.00%   48   Al Modiahki,M   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
 -------------------------------------------------------------------
-*** Average length of all won games: 45 moves
-*** Movelimit for early sac bonus  : 22 moves
-*****************************************************************************
-*** EAS single-statistics (6 categories, each with Top5 engines):
-*****************************************************************************
-A: Early sacrifices (percent of all sacs):
-     [1] 00.00%    Al Modiahki,M
-B: Most sacrifices overall:
-     [1] 10.00%    Al Modiahki,M
-C: Very short wins (15 moves or less):
-     [1] 00.00%    Al Modiahki,M
-D: Most short wins overall:
-     [1] 00.00%    Al Modiahki,M
-E: Average length of all won games (shortest):
-     [1] 48 moves  Al Modiahki,M
-F: Smallest number of bad draws:
-     [1] 00.00%    Al Modiahki,M
-*****************************************************************************
-*** 2nd Ratinglist with more stats in percent-values
-*****************************************************************************
-*** Average length of all won games                  : 45 moves
-*** Calculated limit for short wins giving EAS-points: 30 moves
-*** Movelimit for early sac bonus                    : 22 moves
-Rank EAS-Score wins amoves  allsacs =[ sacQ + sac5 + sac4 + sac3 + sac2 + sac1] esacs  shorts =[ s10 + s15 + s20 + s25 + s30] bdraws Engine
--------------------------------------------------------------------------------------------------------------------------------------------------
-  1   120889    10    48  10.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +10.00%] 00.00%  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00%] 00.00% Al Modiahki,M
-*****************************************************************************
-*** 3rd Ratinglist, showing EAS-points instead of percents
-*****************************************************************************
-                            early          bad
-Rank  EAS-Score    sacs    sacs   shorts   draws    Engine/player
+*** Average length of all won games:             45 moves
+*** Movelimit for early sac bonus  :             22 moves
+********************************************************************************************* 
+********************************************************************************************* 
+********************************************************************************************* 
+*** EAS single-statistics (6 categories, each with Top5 engines): 
+********************************************************************************************* 
+A: Early sacrifices (percents of all sacs)           : [1]:00.00% Al Modiahki,M  
+B: Most sacrifices overall                           : [1]:10.00% Al Modiahki,M  
+C: Very short wins (15 moves or less)                : [1]:00.00% Al Modiahki,M  
+D: Most short wins overall                           : [1]:00.00% Al Modiahki,M  
+E: Average length of all won games                   : [1]:048 Al Modiahki,M  
+F: Smallest number of bad draws                      : [1]:00.00% Al Modiahki,M  
+********************************************************************************************* 
+********************************************************************************************* 
+***************************************************************************** 
+***************************************************************************** 
+***************************************************************************** 
+*** 2nd Ratinglist with more stats in percent-values ************************ 
+***************************************************************************** 
+*** Average length of all won games                  : 45 moves 
+*** Calculated limit for short wins giving EAS-points: 30 moves 
+*** Movelimit for early sac bonus                    : 22 moves 
+***************************************************************************** 
+                       avg.win                                                               early                                                            bad   
+Rank  EAS-Score   wins  moves   sacs    sacsQ    sacs5+   sacs4    sacs3    sacs2    sacs1   sacs   all shorts short10  short15  short20  short25  short30   draws    Engine/player
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   1    120889       10   48   10.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 10.00%] 00.00%   00.00% = [00.00% + 00.00% + 00.00% + 00.00% + 00.00%]  00.00%   Al Modiahki,M  
+***************************************************************************** 
+***************************************************************************** 
+***************************************************************************** 
+*** 3rd Ratinglist, showing EAS-points instead of percents ****************** 
+***************************************************************************** 
+*** (Mention, 5000 EAS-points are added to early sac bonus, for each move,*** 
+*** the average length of won games of the engine is shorter than the     *** 
+*** average length of all wins in the source.pgn.)                        *** 
+***************************************************************************** 
+***************************************************************************** 
+                             early              bad 
+Rank  EAS-Score      sacs     sacs   shorts    draws    Engine/player 
 -------------------------------------------------------------------------------------
-  1   120889   10000       0       0  110889    Al Modiahki,M
-********************************************************************************************
-*** 0 games with non-regular endings are stored in errorgames.pgn
-****************************************************
-*** EAS-Tool (C) Stefan Pohl (www.sp-cc.de), C port
-****************************************************
+   1    120889      10000        0        0   110889    Al Modiahki,M  
+******************************************************************************************** 
+******************************************************************************************** 
+**************************************************** 
+*** EAS-Tool (C) 2025 Stefan Pohl (www.sp-cc.de) *** 
+**************************************************** 

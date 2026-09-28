@@ -1,48 +1,60 @@
-*****************************************************************************
-*** Engine Aggressiveness Tool V6.0 Score points Ratinglist (SPCT C port)
-*****************************************************************************
-*** Evaluated file: stress.pgn
-*****************************************************************************
-                         early           bad  avg.win
-Rank  EAS-Score  sacs    sacs   shorts  draws  moves  Engine/player
+***************************************************************************** 
+*** Engine Aggressiveness Tool V6.0 Score points Ratinglist 
+***************************************************************************** 
+*** Meanwhile, the scoring-system of the EAS-Tool got really complex, so 
+*** please check out the ReadMe-file, where you find the explanation... 
+***************************************************************************** 
+*** Evaluated file: stress.pgn 
+***************************************************************************** 
+                         early           bad  avg.win 
+Rank  EAS-Score  sacs    sacs   shorts  draws  moves  Engine/player 
 ---------------------------------------------------------------------------
-  1    98600  12.50%  00.00%  00.00%  16.67%     56   Ringoir,T   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
+   1     98600  12.50%  00.00%  00.00%  16.67%   56   Ringoir,T   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
 -------------------------------------------------------------------
-*** Average length of all won games: 44 moves
-*** Movelimit for early sac bonus  : 22 moves
-*****************************************************************************
-*** EAS single-statistics (6 categories, each with Top5 engines):
-*****************************************************************************
-A: Early sacrifices (percent of all sacs):
-     [1] 00.00%    Ringoir,T
-B: Most sacrifices overall:
-     [1] 12.50%    Ringoir,T
-C: Very short wins (15 moves or less):
-     [1] 00.00%    Ringoir,T
-D: Most short wins overall:
-     [1] 00.00%    Ringoir,T
-E: Average length of all won games (shortest):
-     [1] 56 moves  Ringoir,T
-F: Smallest number of bad draws:
-     [1] 16.67%    Ringoir,T
-*****************************************************************************
-*** 2nd Ratinglist with more stats in percent-values
-*****************************************************************************
-*** Average length of all won games                  : 44 moves
-*** Calculated limit for short wins giving EAS-points: 30 moves
-*** Movelimit for early sac bonus                    : 22 moves
-Rank EAS-Score wins amoves  allsacs =[ sacQ + sac5 + sac4 + sac3 + sac2 + sac1] esacs  shorts =[ s10 + s15 + s20 + s25 + s30] bdraws Engine
--------------------------------------------------------------------------------------------------------------------------------------------------
-  1    98600     8    56  12.50% =[00.00% +00.00% +00.00% +00.00% +12.50% +00.00%] 00.00%  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00%] 16.67% Ringoir,T
-*****************************************************************************
-*** 3rd Ratinglist, showing EAS-points instead of percents
-*****************************************************************************
-                            early          bad
-Rank  EAS-Score    sacs    sacs   shorts   draws    Engine/player
+*** Average length of all won games:             44 moves
+*** Movelimit for early sac bonus  :             22 moves
+********************************************************************************************* 
+********************************************************************************************* 
+********************************************************************************************* 
+*** EAS single-statistics (6 categories, each with Top5 engines): 
+********************************************************************************************* 
+A: Early sacrifices (percents of all sacs)           : [1]:00.00% Ringoir,T  
+B: Most sacrifices overall                           : [1]:12.50% Ringoir,T  
+C: Very short wins (15 moves or less)                : [1]:00.00% Ringoir,T  
+D: Most short wins overall                           : [1]:00.00% Ringoir,T  
+E: Average length of all won games                   : [1]:056 Ringoir,T  
+F: Smallest number of bad draws                      : [1]:16.67% Ringoir,T  
+********************************************************************************************* 
+********************************************************************************************* 
+***************************************************************************** 
+***************************************************************************** 
+***************************************************************************** 
+*** 2nd Ratinglist with more stats in percent-values ************************ 
+***************************************************************************** 
+*** Average length of all won games                  : 44 moves 
+*** Calculated limit for short wins giving EAS-points: 30 moves 
+*** Movelimit for early sac bonus                    : 22 moves 
+***************************************************************************** 
+                       avg.win                                                               early                                                            bad   
+Rank  EAS-Score   wins  moves   sacs    sacsQ    sacs5+   sacs4    sacs3    sacs2    sacs1   sacs   all shorts short10  short15  short20  short25  short30   draws    Engine/player
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   1     98600        8   56   12.50% =[00.00% + 00.00% + 00.00% + 00.00% + 12.50% + 00.00%] 00.00%   00.00% = [00.00% + 00.00% + 00.00% + 00.00% + 00.00%]  16.67%   Ringoir,T  
+***************************************************************************** 
+***************************************************************************** 
+***************************************************************************** 
+*** 3rd Ratinglist, showing EAS-points instead of percents ****************** 
+***************************************************************************** 
+*** (Mention, 5000 EAS-points are added to early sac bonus, for each move,*** 
+*** the average length of won games of the engine is shorter than the     *** 
+*** average length of all wins in the source.pgn.)                        *** 
+***************************************************************************** 
+***************************************************************************** 
+                             early              bad 
+Rank  EAS-Score      sacs     sacs   shorts    draws    Engine/player 
 -------------------------------------------------------------------------------------
-  1    98600   62500       0       0   36100    Ringoir,T
-********************************************************************************************
-*** 0 games with non-regular endings are stored in errorgames.pgn
-****************************************************
-*** EAS-Tool (C) Stefan Pohl (www.sp-cc.de), C port
-****************************************************
+   1     98600      62500        0        0    36100    Ringoir,T  
+******************************************************************************************** 
+******************************************************************************************** 
+**************************************************** 
+*** EAS-Tool (C) 2025 Stefan Pohl (www.sp-cc.de) *** 
+**************************************************** 

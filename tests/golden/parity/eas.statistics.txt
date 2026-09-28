@@ -1,417 +1,429 @@
-*****************************************************************************
-*** Engine Aggressiveness Tool V6.0 Score points Ratinglist (SPCT C port)
-*****************************************************************************
-*** Evaluated file: parity.pgn
-*****************************************************************************
-                         early           bad  avg.win
-Rank  EAS-Score  sacs    sacs   shorts  draws  moves  Engine/player
+***************************************************************************** 
+*** Engine Aggressiveness Tool V6.0 Score points Ratinglist 
+***************************************************************************** 
+*** Meanwhile, the scoring-system of the EAS-Tool got really complex, so 
+*** please check out the ReadMe-file, where you find the explanation... 
+***************************************************************************** 
+*** Evaluated file: parity.pgn 
+***************************************************************************** 
+                         early           bad  avg.win 
+Rank  EAS-Score  sacs    sacs   shorts  draws  moves  Engine/player 
 ---------------------------------------------------------------------------
-  1  1225000  00.00%  00.00%  100.0%  00.00%      0   AlHuwar,J   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
-  2   702664  12.50%  100.0%  37.50%  00.00%     37   Adly,A   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
-  3   665889  100.0%  00.00%  00.00%  00.00%     34   Othman,AM   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
-  4   516086  14.29%  100.0%  14.29%  00.00%     51   Nielsen,PH   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
-  5   483949  14.29%  00.00%  28.57%  50.00%     32   Salgado Lopez,I   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
-  6   470889  00.00%  00.00%  50.00%  00.00%     32   Kayumov,S   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
-  7   462206  00.00%  00.00%  50.00%  20.00%     31   Maletin,P   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
-  8   377736  11.11%  100.0%  00.00%  28.57%     47   Dreev,A   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
-  9   366662  14.29%  00.00%  28.57%  00.00%     33   Volokitin,And   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 10   355000  50.00%  00.00%  50.00%  00.00%     42   Nezad,H   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 11   344639  25.00%  00.00%  12.50%  00.00%     51   Vallejo Pons,F   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 12   337889  10.00%  00.00%  20.00%  00.00%     45   Georgiev,Ki   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 13   325889  30.00%  00.00%  30.00%  00.00%     37   Salem,AR   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 14   317931  22.22%  00.00%  11.11%  40.00%     44   Fressinet,L   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 15   316984  00.00%  00.00%  33.33%  00.00%     36   Savchenko,B   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 16   311983  00.00%  00.00%  33.33%  00.00%     39   Amin,B   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 17   280889  50.00%  00.00%  50.00%  00.00%     39   Al Qudaimi,B   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 18   265000  00.00%  00.00%  100.0%  00.00%     28   Suhail,A   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 19   258889  10.00%  00.00%  20.00%  00.00%     41   Yu Yangyi   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 20   256702  08.33%  00.00%  33.33%  00.00%     35   Korobov,A   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 21   255114  30.00%  33.33%  00.00%  00.00%     49   Lu Shanglei   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 22   251681  25.00%  00.00%  00.00%  50.00%     53   Michalik,P   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 23   228061  14.29%  00.00%  14.29%  00.00%     41   Fier,A   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 24   227775  00.00%  00.00%  50.00%  33.33%     34   Jobava,Ba   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 25   225000  00.00%  00.00%  00.00%  00.00%      0   Hj,Azahari Md Aliuddin   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 26   225000  00.00%  00.00%  00.00%  00.00%      0   Ehlvest,J   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 27   225000  00.00%  00.00%  00.00%  00.00%      0   Saleh,Nag   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 28   225000  00.00%  00.00%  00.00%  00.00%      0   Alahakoon,I   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 29   225000  00.00%  00.00%  00.00%  00.00%      0   Byambaa,Z   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 30   225000  00.00%  00.00%  00.00%  100.0%      0   Saeed,I   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 31   221239  14.29%  00.00%  14.29%  10.00%     44   Andriasian,Z   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 32   220889  10.00%  00.00%  10.00%  00.00%     53   Cheparinov,I   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 33   208025  00.00%  00.00%  40.00%  33.33%     36   Riazantsev,A   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 34   207243  18.18%  00.00%  18.18%  00.00%     48   Mamedyarov,S   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 35   205889  10.00%  00.00%  20.00%  00.00%     47   Anton Guijarro,D   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 36   200046  00.00%  00.00%  33.33%  50.00%     37   Al Sayed,Mohamad   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 37   197547  22.22%  00.00%  11.11%  00.00%     45   Sargissian,G   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 38   196889  10.00%  00.00%  20.00%  00.00%     45   Polgar,Ju   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 39   192551  00.00%  00.00%  11.11%  00.00%     38   Kasimdzhanov,R   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 40   188661  11.11%  00.00%  11.11%  00.00%     41   Dubov,Daniil   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 41   186700  00.00%  00.00%  16.67%  100.0%     41   Goloshchapov,A   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 42   185898  00.00%  00.00%  16.67%  00.00%     39   Anand,V   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 43   178889  10.00%  00.00%  10.00%  00.00%     47   Matlakov,M   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 44   178106  22.22%  00.00%  11.11%  00.00%     42   Inarkiev,E   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 45   177184  00.00%  00.00%  40.00%  40.00%     54   Aleksandrov,A   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 46   176810  11.11%  00.00%  11.11%  25.00%     38   Laznicka,V   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 47   176097  00.00%  00.00%  50.00%  16.67%     41   Durarbayli,V   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 48   174116  25.00%  00.00%  37.50%  14.29%     37   Safarli,E   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 49   170907  00.00%  00.00%  14.29%  00.00%     58   Shyam,SM   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 50   165181  28.57%  00.00%  14.29%  00.00%     47   Kovalev,Vl   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 51   161611  00.00%  00.00%  14.29%  00.00%     40   Debashis,D   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 52   160901  14.29%  00.00%  14.29%  00.00%     43   Ipatov,Alexander   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 53   160889  10.00%  00.00%  00.00%  00.00%     46   Caruana,F   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 54   156889  00.00%  00.00%  20.00%  00.00%     43   Zhigalko,S   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 55   156221  14.29%  00.00%  14.29%  09.09%     49   Nguyen Ngoc Truong Son   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 56   155889  00.00%  00.00%  00.00%  00.00%     36   Glek,I   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 57   154465  18.18%  00.00%  00.00%  33.33%     58   Yudin,S   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 58   153729  00.00%  00.00%  14.29%  00.00%     45   Carlsen,M   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 59   151611  00.00%  00.00%  14.29%  00.00%     42   Efimenko,Z   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 60   149472  00.00%  00.00%  14.29%  00.00%     47   Vakhidov,T   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 61   147184  00.00%  00.00%  20.00%  40.00%     42   Harikrishna,P   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 62   140895  00.00%  00.00%  16.67%  00.00%     47   Breckenridge,S   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 63   138229  00.00%  00.00%  36.36%  25.00%     36   Morozevich,A   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 64   136611  00.00%  00.00%  14.29%  00.00%     48   Sandipan,C   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 65   136100  20.00%  00.00%  00.00%  16.67%     61   Ringoir,T   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 66   135889  25.00%  00.00%  00.00%  00.00%     49   Sokolov,Ivan   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 67   132262  00.00%  00.00%  18.18%  00.00%     40   Bologan,V   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 68   124446  11.11%  00.00%  22.22%  20.00%     45   Van Wely,L   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 69   121999  11.11%  00.00%  00.00%  00.00%     49   Vitiugov,N   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 70   120889  10.00%  00.00%  00.00%  00.00%     48   Al Modiahki,M   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 71   120025  20.00%  00.00%  10.00%  75.00%     47   Fedoseev,Vl3   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 72   113900  12.50%  00.00%  12.50%  20.00%     45   Onischuk,V   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 73   110889  00.00%  00.00%  00.00%  00.00%     45   Sriram,J   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 74   110889  00.00%  00.00%  00.00%  00.00%     55   Kryvoruchko,Y   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 75   110889  00.00%  00.00%  00.00%  00.00%     52   Gundavaa,B   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 76   110889  00.00%  00.00%  00.00%  00.00%     53   Milov,V   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 77   110889  00.00%  00.00%  00.00%  00.00%     52   Taleb,M   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 78   102576  10.00%  00.00%  10.00%  57.14%     35   Mamedov,Rau   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 79    99269  11.11%  00.00%  11.11%  42.86%     41   Tomashevsky,E   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 80    99000  22.22%  00.00%  22.22%  66.67%     49   Guseinov,G   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 81    96529  00.00%  00.00%  25.00%  11.11%     49   Ghaem Maghami,E   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 82    95150  12.50%  00.00%  12.50%  20.00%     41   Karjakin,Sergey   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 83    92423  07.69%  00.00%  07.69%  50.00%     46   Nakamura,Hi   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 84    90712  00.00%  00.00%  09.09%  20.00%     45   Aronian,L   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 85    74023  00.00%  00.00%  11.11%  33.33%     36   Ganguly,S   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 86    71097  00.00%  00.00%  11.11%  16.67%     44   Vachier Lagrave,M   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 87    70184  20.00%  00.00%  00.00%  40.00%     44   Iturrizaga,E   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 88    65701  16.67%  00.00%  16.67%  33.33%     43   Potkin,V   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 89    61900  00.00%  00.00%  10.00%  20.00%     42   Bacrot,E   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 90    60005  08.33%  00.00%  08.33%  50.00%     38   Svidler,P   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 91    59994  00.00%  00.00%  33.33%  00.00%     56   Omar,Noa   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 92    59271  11.11%  00.00%  00.00%  42.86%     51   Malakhov,V   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 93    58325  08.33%  00.00%  08.33%  50.00%     48   Le Quang Liem   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 94    57403  00.00%  00.00%  14.29%  50.00%     39   Hansen,Eric   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 95    51529  00.00%  00.00%  00.00%  11.11%     49   Grischuk,A   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 96    45000  00.00%  00.00%  00.00%  100.0%     36   Tissir,M   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 97    44600  25.00%  00.00%  00.00%  25.00%     48   Movsesian,S   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 98    44521  14.29%  00.00%  00.00%  50.00%     46   Nepomniachtchi,I   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
- 99    44158  00.00%  00.00%  11.11%  28.57%     47   Eljanov,P   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
-100    41677  00.00%  00.00%  22.22%  50.00%     45   Naiditsch,A   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
-101    41616  00.00%  00.00%  00.00%  14.29%     50   Radjabov,T   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
-102    41616  00.00%  00.00%  00.00%  14.29%     50   Tkachiev,V   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
-103    41616  00.00%  00.00%  00.00%  14.29%     46   Mchedlishvili,M   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
-104    39598  00.00%  00.00%  11.11%  25.00%     49   Wang Hao   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
-105    38900  10.00%  00.00%  00.00%  20.00%     54   Wojtaszek,R   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
-106    34600  00.00%  00.00%  00.00%  25.00%     42   Meier,Geo   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
-107    33900  00.00%  00.00%  00.00%  20.00%     44   Ragger,M   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
-108    30710  11.11%  00.00%  00.00%  25.00%     45   Najer,E   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
-109    29181  00.00%  00.00%  12.50%  50.00%     44   Lenic,L   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
-110    25722  00.00%  00.00%  14.29%  00.00%     48   Vakhidov,J   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
-111    17684  12.50%  00.00%  00.00%  40.00%     49   Moiseenko,A1   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
-112     1681  00.00%  00.00%  00.00%  50.00%     55   Bartel,Mat   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
-113      441  00.00%  00.00%  00.00%  60.00%     53   Moradiabadi,E   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
-114        0  00.00%  00.00%  00.00%  00.00%     53   Faisal,Ab   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
-115        0  00.00%  00.00%  00.00%  00.00%     67   Al Hageri,B   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
-116        0  00.00%  00.00%  00.00%  00.00%     57   Hilwani,T   XXXXX WARNING: not enough games (need 50+ wins, 30+ draws) XXXXX
+   1   1225000  00.00%  00.00%  100.0%  00.00%    0   AlHuwar,J   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+   2    702664  12.50%  100.0%  37.50%  00.00%   37   Adly,A   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+   3    665889  100.0%  00.00%  00.00%  00.00%   34   Othman,AM   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+   4    516086  14.29%  100.0%  14.29%  00.00%   51   Nielsen,PH   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+   5    483949  14.29%  00.00%  28.57%  50.00%   32   Salgado Lopez,I   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+   6    470889  00.00%  00.00%  50.00%  00.00%   32   Kayumov,S   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+   7    462206  00.00%  00.00%  50.00%  20.00%   31   Maletin,P   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+   8    377736  11.11%  100.0%  00.00%  28.57%   47   Dreev,A   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+   9    366662  14.29%  00.00%  28.57%  00.00%   33   Volokitin,And   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  10    355000  50.00%  00.00%  50.00%  00.00%   42   Nezad,H   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  11    344639  25.00%  00.00%  12.50%  00.00%   51   Vallejo Pons,F   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  12    337889  10.00%  00.00%  20.00%  00.00%   45   Georgiev,Ki   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  13    325889  30.00%  00.00%  30.00%  00.00%   37   Salem,AR   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  14    317931  22.22%  00.00%  11.11%  40.00%   44   Fressinet,L   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  15    316984  00.00%  00.00%  33.33%  00.00%   36   Savchenko,B   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  16    311983  00.00%  00.00%  33.33%  00.00%   39   Amin,B   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  17    280889  50.00%  00.00%  50.00%  00.00%   39   Al Qudaimi,B   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  18    265000  00.00%  00.00%  100.0%  00.00%   28   Suhail,A   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  19    258889  10.00%  00.00%  20.00%  00.00%   41   Yu Yangyi   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  20    256702  08.33%  00.00%  33.33%  00.00%   35   Korobov,A   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  21    255114  30.00%  33.33%  00.00%  00.00%   49   Lu Shanglei   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  22    251681  25.00%  00.00%  00.00%  50.00%   53   Michalik,P   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  23    228061  14.29%  00.00%  14.29%  00.00%   41   Fier,A   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  24    227775  00.00%  00.00%  50.00%  33.33%   34   Jobava,Ba   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  25    225000  00.00%  00.00%  00.00%  100.0%    0   Saeed,I   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  26    225000  00.00%  00.00%  00.00%  00.00%    0   Saleh,Nag   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  27    225000  00.00%  00.00%  00.00%  00.00%    0   Hj,Azahari Md Aliuddin   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  28    225000  00.00%  00.00%  00.00%  00.00%    0   Ehlvest,J   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  29    225000  00.00%  00.00%  00.00%  00.00%    0   Byambaa,Z   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  30    225000  00.00%  00.00%  00.00%  00.00%    0   Alahakoon,I   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  31    221239  14.29%  00.00%  14.29%  10.00%   44   Andriasian,Z   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  32    220889  10.00%  00.00%  10.00%  00.00%   53   Cheparinov,I   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  33    208025  00.00%  00.00%  40.00%  33.33%   36   Riazantsev,A   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  34    207243  18.18%  00.00%  18.18%  00.00%   48   Mamedyarov,S   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  35    205889  10.00%  00.00%  20.00%  00.00%   47   Anton Guijarro,D   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  36    200046  00.00%  00.00%  33.33%  50.00%   37   Al Sayed,Mohamad   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  37    197547  22.22%  00.00%  11.11%  00.00%   45   Sargissian,G   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  38    196889  10.00%  00.00%  20.00%  00.00%   45   Polgar,Ju   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  39    192551  00.00%  00.00%  11.11%  00.00%   38   Kasimdzhanov,R   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  40    188661  11.11%  00.00%  11.11%  00.00%   41   Dubov,Daniil   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  41    186700  00.00%  00.00%  16.67%  100.0%   41   Goloshchapov,A   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  42    185898  00.00%  00.00%  16.67%  00.00%   39   Anand,V   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  43    178889  10.00%  00.00%  10.00%  00.00%   47   Matlakov,M   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  44    178106  22.22%  00.00%  11.11%  00.00%   42   Inarkiev,E   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  45    177184  00.00%  00.00%  40.00%  40.00%   54   Aleksandrov,A   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  46    176810  11.11%  00.00%  11.11%  25.00%   38   Laznicka,V   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  47    176097  00.00%  00.00%  50.00%  16.67%   41   Durarbayli,V   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  48    174116  25.00%  00.00%  37.50%  14.29%   37   Safarli,E   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  49    170907  00.00%  00.00%  14.29%  00.00%   58   Shyam,SM   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  50    165181  28.57%  00.00%  14.29%  00.00%   47   Kovalev,Vl   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  51    161611  00.00%  00.00%  14.29%  00.00%   40   Debashis,D   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  52    160901  14.29%  00.00%  14.29%  00.00%   43   Ipatov,Alexander   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  53    160889  10.00%  00.00%  00.00%  00.00%   46   Caruana,F   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  54    156889  00.00%  00.00%  20.00%  00.00%   43   Zhigalko,S   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  55    156221  14.29%  00.00%  14.29%  09.09%   49   Nguyen Ngoc Truong Son   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  56    155889  00.00%  00.00%  00.00%  00.00%   36   Glek,I   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  57    154465  18.18%  00.00%  00.00%  33.33%   58   Yudin,S   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  58    153729  00.00%  00.00%  14.29%  00.00%   45   Carlsen,M   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  59    151611  00.00%  00.00%  14.29%  00.00%   42   Efimenko,Z   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  60    149472  00.00%  00.00%  14.29%  00.00%   47   Vakhidov,T   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  61    147184  00.00%  00.00%  20.00%  40.00%   42   Harikrishna,P   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  62    140895  00.00%  00.00%  16.67%  00.00%   47   Breckenridge,S   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  63    138229  00.00%  00.00%  36.36%  25.00%   36   Morozevich,A   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  64    136611  00.00%  00.00%  14.29%  00.00%   48   Sandipan,C   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  65    136100  20.00%  00.00%  00.00%  16.67%   61   Ringoir,T   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  66    135889  25.00%  00.00%  00.00%  00.00%   49   Sokolov,Ivan   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  67    132262  00.00%  00.00%  18.18%  00.00%   40   Bologan,V   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  68    124446  11.11%  00.00%  22.22%  20.00%   45   Van Wely,L   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  69    121999  11.11%  00.00%  00.00%  00.00%   49   Vitiugov,N   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  70    120889  10.00%  00.00%  00.00%  00.00%   48   Al Modiahki,M   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  71    120025  20.00%  00.00%  10.00%  75.00%   47   Fedoseev,Vl3   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  72    113900  12.50%  00.00%  12.50%  20.00%   45   Onischuk,V   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  73    110889  00.00%  00.00%  00.00%  00.00%   55   Kryvoruchko,Y   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  74    110889  00.00%  00.00%  00.00%  00.00%   53   Milov,V   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  75    110889  00.00%  00.00%  00.00%  00.00%   52   Taleb,M   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  76    110889  00.00%  00.00%  00.00%  00.00%   52   Gundavaa,B   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  77    110889  00.00%  00.00%  00.00%  00.00%   45   Sriram,J   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  78    102576  10.00%  00.00%  10.00%  57.14%   35   Mamedov,Rau   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  79     99269  11.11%  00.00%  11.11%  42.86%   41   Tomashevsky,E   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  80     99000  22.22%  00.00%  22.22%  66.67%   49   Guseinov,G   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  81     96529  00.00%  00.00%  25.00%  11.11%   49   Ghaem Maghami,E   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  82     95150  12.50%  00.00%  12.50%  20.00%   41   Karjakin,Sergey   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  83     92423  07.69%  00.00%  07.69%  50.00%   46   Nakamura,Hi   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  84     90712  00.00%  00.00%  09.09%  20.00%   45   Aronian,L   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  85     74023  00.00%  00.00%  11.11%  33.33%   36   Ganguly,S   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  86     71097  00.00%  00.00%  11.11%  16.67%   44   Vachier Lagrave,M   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  87     70184  20.00%  00.00%  00.00%  40.00%   44   Iturrizaga,E   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  88     65701  16.67%  00.00%  16.67%  33.33%   43   Potkin,V   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  89     61900  00.00%  00.00%  10.00%  20.00%   42   Bacrot,E   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  90     60005  08.33%  00.00%  08.33%  50.00%   38   Svidler,P   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  91     59994  00.00%  00.00%  33.33%  00.00%   56   Omar,Noa   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  92     59271  11.11%  00.00%  00.00%  42.86%   51   Malakhov,V   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  93     58325  08.33%  00.00%  08.33%  50.00%   48   Le Quang Liem   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  94     57403  00.00%  00.00%  14.29%  50.00%   39   Hansen,Eric   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  95     51529  00.00%  00.00%  00.00%  11.11%   49   Grischuk,A   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  96     45000  00.00%  00.00%  00.00%  100.0%   36   Tissir,M   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  97     44600  25.00%  00.00%  00.00%  25.00%   48   Movsesian,S   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  98     44521  14.29%  00.00%  00.00%  50.00%   46   Nepomniachtchi,I   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+  99     44158  00.00%  00.00%  11.11%  28.57%   47   Eljanov,P   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+ 100     41677  00.00%  00.00%  22.22%  50.00%   45   Naiditsch,A   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+ 101     41616  00.00%  00.00%  00.00%  14.29%   50   Tkachiev,V   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+ 102     41616  00.00%  00.00%  00.00%  14.29%   50   Radjabov,T   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+ 103     41616  00.00%  00.00%  00.00%  14.29%   46   Mchedlishvili,M   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+ 104     39598  00.00%  00.00%  11.11%  25.00%   49   Wang Hao   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+ 105     38900  10.00%  00.00%  00.00%  20.00%   54   Wojtaszek,R   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+ 106     34600  00.00%  00.00%  00.00%  25.00%   42   Meier,Geo   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+ 107     33900  00.00%  00.00%  00.00%  20.00%   44   Ragger,M   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+ 108     30710  11.11%  00.00%  00.00%  25.00%   45   Najer,E   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+ 109     29181  00.00%  00.00%  12.50%  50.00%   44   Lenic,L   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+ 110     25722  00.00%  00.00%  14.29%  00.00%   48   Vakhidov,J   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+ 111     17684  12.50%  00.00%  00.00%  40.00%   49   Moiseenko,A1   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+ 112      1681  00.00%  00.00%  00.00%  50.00%   55   Bartel,Mat   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+ 113       441  00.00%  00.00%  00.00%  60.00%   53   Moradiabadi,E   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+ 114         0  00.00%  00.00%  00.00%  00.00%   67   Al Hageri,B   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+ 115         0  00.00%  00.00%  00.00%  00.00%   57   Hilwani,T   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
+ 116         0  00.00%  00.00%  00.00%  00.00%   53   Faisal,Ab   XXXXX WARNING: Not enough games, EAS-score not reliable [50+ wins and 30+ draws needed] XXXXX  
 -------------------------------------------------------------------
-*** Average length of all won games: 45 moves
-*** Movelimit for early sac bonus  : 22 moves
-*****************************************************************************
-*** EAS single-statistics (6 categories, each with Top5 engines):
-*****************************************************************************
-A: Early sacrifices (percent of all sacs):
-     [1] 100.0%    Adly,A
-     [2] 100.0%    Dreev,A
-     [3] 100.0%    Nielsen,PH
-     [4] 33.33%    Lu Shanglei
-     [5] 00.00%    Kayumov,S
-B: Most sacrifices overall:
-     [1] 100.0%    Othman,AM
-     [2] 50.00%    Nezad,H
-     [3] 50.00%    Al Qudaimi,B
-     [4] 30.00%    Salem,AR
-     [5] 30.00%    Lu Shanglei
-C: Very short wins (15 moves or less):
-     [1] 100.0%    AlHuwar,J
-     [2] 33.33%    Maletin,P
-     [3] 25.00%    Kayumov,S
-     [4] 20.00%    Aleksandrov,A
-     [5] 16.67%    Goloshchapov,A
-D: Most short wins overall:
-     [1] 100.0%    Suhail,A
-     [2] 100.0%    AlHuwar,J
-     [3] 50.00%    Durarbayli,V
-     [4] 50.00%    Nezad,H
-     [5] 50.00%    Jobava,Ba
-E: Average length of all won games (shortest):
-     [1] 0 moves   AlHuwar,J
-     [2] 0 moves   Saeed,I
-     [3] 0 moves   Byambaa,Z
-     [4] 0 moves   Alahakoon,I
-     [5] 0 moves   Saleh,Nag
-F: Smallest number of bad draws:
-     [1] 00.00%    AlHuwar,J
-     [2] 00.00%    Adly,A
-     [3] 00.00%    Othman,AM
-     [4] 00.00%    Nielsen,PH
-     [5] 00.00%    Al Hageri,B
-*****************************************************************************
-*** 2nd Ratinglist with more stats in percent-values
-*****************************************************************************
-*** Average length of all won games                  : 45 moves
-*** Calculated limit for short wins giving EAS-points: 30 moves
-*** Movelimit for early sac bonus                    : 22 moves
-Rank EAS-Score wins amoves  allsacs =[ sacQ + sac5 + sac4 + sac3 + sac2 + sac1] esacs  shorts =[ s10 + s15 + s20 + s25 + s30] bdraws Engine
--------------------------------------------------------------------------------------------------------------------------------------------------
-  1  1225000     1     0  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  100.0% =[100.0% +00.00% +00.00% +00.00% +00.00%] 00.00% AlHuwar,J
-  2   702664     8    37  12.50% =[00.00% +00.00% +00.00% +00.00% +12.50% +00.00%] 100.0%  37.50% =[12.50% +00.00% +00.00% +12.50% +12.50%] 00.00% Adly,A
-  3   665889     1    34  100.0% =[00.00% +00.00% +00.00% +00.00% +100.0% +00.00%] 00.00%  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00%] 00.00% Othman,AM
-  4   516086     7    51  14.29% =[00.00% +00.00% +00.00% +00.00% +14.29% +00.00%] 100.0%  14.29% =[00.00% +00.00% +00.00% +00.00% +14.29%] 00.00% Nielsen,PH
-  5   483949     7    32  14.29% =[00.00% +00.00% +14.29% +00.00% +00.00% +00.00%] 00.00%  28.57% =[14.29% +00.00% +14.29% +00.00% +00.00%] 50.00% Salgado Lopez,I
-  6   470889     4    32  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  50.00% =[25.00% +00.00% +00.00% +00.00% +25.00%] 00.00% Kayumov,S
-  7   462206     6    31  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  50.00% =[33.33% +00.00% +00.00% +00.00% +16.67%] 20.00% Maletin,P
-  8   377736     9    47  11.11% =[00.00% +00.00% +00.00% +00.00% +11.11% +00.00%] 100.0%  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00%] 28.57% Dreev,A
-  9   366662     7    33  14.29% =[00.00% +00.00% +00.00% +00.00% +00.00% +14.29%] 00.00%  28.57% =[14.29% +00.00% +00.00% +14.29% +00.00%] 00.00% Volokitin,And
- 10   355000     4    42  50.00% =[00.00% +00.00% +00.00% +00.00% +50.00% +00.00%] 00.00%  50.00% =[00.00% +00.00% +00.00% +00.00% +50.00%] 00.00% Nezad,H
- 11   344639     8    51  25.00% =[00.00% +00.00% +12.50% +00.00% +00.00% +12.50%] 00.00%  12.50% =[00.00% +00.00% +00.00% +12.50% +00.00%] 00.00% Vallejo Pons,F
- 12   337889    10    45  10.00% =[00.00% +00.00% +00.00% +10.00% +00.00% +00.00%] 00.00%  20.00% =[10.00% +00.00% +00.00% +10.00% +00.00%] 00.00% Georgiev,Ki
- 13   325889    10    37  30.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +30.00%] 00.00%  30.00% =[10.00% +00.00% +00.00% +10.00% +10.00%] 00.00% Salem,AR
- 14   317931     9    44  22.22% =[00.00% +00.00% +11.11% +11.11% +00.00% +00.00%] 00.00%  11.11% =[00.00% +00.00% +00.00% +11.11% +00.00%] 40.00% Fressinet,L
- 15   316984     9    36  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  33.33% =[11.11% +00.00% +00.00% +11.11% +11.11%] 00.00% Savchenko,B
- 16   311983     9    39  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  33.33% =[11.11% +00.00% +00.00% +22.22% +00.00%] 00.00% Amin,B
- 17   280889     2    39  50.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +50.00%] 00.00%  50.00% =[00.00% +00.00% +00.00% +00.00% +50.00%] 00.00% Al Qudaimi,B
- 18   265000     1    28  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  100.0% =[00.00% +00.00% +00.00% +00.00% +100.0%] 00.00% Suhail,A
- 19   258889    10    41  10.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +10.00%] 00.00%  20.00% =[10.00% +00.00% +00.00% +00.00% +10.00%] 00.00% Yu Yangyi
- 20   256702    12    35  08.33% =[00.00% +00.00% +00.00% +00.00% +00.00% +08.33%] 00.00%  33.33% =[00.00% +00.00% +08.33% +08.33% +16.67%] 00.00% Korobov,A
- 21   255114    10    49  30.00% =[00.00% +00.00% +00.00% +00.00% +20.00% +10.00%] 33.33%  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00%] 00.00% Lu Shanglei
- 22   251681     4    53  25.00% =[00.00% +00.00% +00.00% +25.00% +00.00% +00.00%] 00.00%  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00%] 50.00% Michalik,P
- 23   228061     7    41  14.29% =[00.00% +00.00% +00.00% +00.00% +14.29% +00.00%] 00.00%  14.29% =[00.00% +00.00% +00.00% +00.00% +14.29%] 00.00% Fier,A
- 24   227775     8    34  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  50.00% =[00.00% +12.50% +00.00% +12.50% +25.00%] 33.33% Jobava,Ba
- 25   225000     0     0  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00%] 00.00% Hj,Azahari Md Aliuddin
- 26   225000     0     0  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00%] 00.00% Ehlvest,J
- 27   225000     0     0  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00%] 00.00% Saleh,Nag
- 28   225000     0     0  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00%] 00.00% Alahakoon,I
- 29   225000     0     0  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00%] 00.00% Byambaa,Z
- 30   225000     0     0  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00%] 100.0% Saeed,I
- 31   221239     7    44  14.29% =[00.00% +00.00% +00.00% +00.00% +00.00% +14.29%] 00.00%  14.29% =[14.29% +00.00% +00.00% +00.00% +00.00%] 10.00% Andriasian,Z
- 32   220889    10    53  10.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +10.00%] 00.00%  10.00% =[10.00% +00.00% +00.00% +00.00% +00.00%] 00.00% Cheparinov,I
- 33   208025    10    36  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  40.00% =[10.00% +00.00% +00.00% +00.00% +30.00%] 33.33% Riazantsev,A
- 34   207243    11    48  18.18% =[00.00% +00.00% +00.00% +00.00% +00.00% +18.18%] 00.00%  18.18% =[00.00% +09.09% +00.00% +00.00% +09.09%] 00.00% Mamedyarov,S
- 35   205889    10    47  10.00% =[00.00% +00.00% +00.00% +00.00% +10.00% +00.00%] 00.00%  20.00% =[00.00% +00.00% +00.00% +10.00% +10.00%] 00.00% Anton Guijarro,D
- 36   200046     6    37  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  33.33% =[00.00% +16.67% +00.00% +16.67% +00.00%] 50.00% Al Sayed,Mohamad
- 37   197547     9    45  22.22% =[00.00% +00.00% +00.00% +00.00% +11.11% +11.11%] 00.00%  11.11% =[00.00% +00.00% +00.00% +00.00% +11.11%] 00.00% Sargissian,G
- 38   196889    10    45  10.00% =[00.00% +00.00% +00.00% +00.00% +10.00% +00.00%] 00.00%  20.00% =[00.00% +00.00% +00.00% +00.00% +20.00%] 00.00% Polgar,Ju
- 39   192551     9    38  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  11.11% =[00.00% +00.00% +11.11% +00.00% +00.00%] 00.00% Kasimdzhanov,R
- 40   188661     9    41  11.11% =[00.00% +00.00% +00.00% +00.00% +00.00% +11.11%] 00.00%  11.11% =[00.00% +00.00% +11.11% +00.00% +00.00%] 00.00% Dubov,Daniil
- 41   186700     6    41  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  16.67% =[16.67% +00.00% +00.00% +00.00% +00.00%] 100.0% Goloshchapov,A
- 42   185898    12    39  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  16.67% =[00.00% +00.00% +00.00% +16.67% +00.00%] 00.00% Anand,V
- 43   178889    10    47  10.00% =[00.00% +00.00% +00.00% +00.00% +10.00% +00.00%] 00.00%  10.00% =[00.00% +00.00% +00.00% +00.00% +10.00%] 00.00% Matlakov,M
- 44   178106     9    42  22.22% =[00.00% +00.00% +00.00% +00.00% +00.00% +22.22%] 00.00%  11.11% =[00.00% +00.00% +00.00% +11.11% +00.00%] 00.00% Inarkiev,E
- 45   177184     5    54  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  40.00% =[00.00% +20.00% +00.00% +00.00% +20.00%] 40.00% Aleksandrov,A
- 46   176810     9    38  11.11% =[00.00% +00.00% +00.00% +00.00% +00.00% +11.11%] 00.00%  11.11% =[11.11% +00.00% +00.00% +00.00% +00.00%] 25.00% Laznicka,V
- 47   176097     6    41  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  50.00% =[00.00% +00.00% +00.00% +33.33% +16.67%] 16.67% Durarbayli,V
- 48   174116     8    37  25.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +25.00%] 00.00%  37.50% =[00.00% +00.00% +00.00% +00.00% +37.50%] 14.29% Safarli,E
- 49   170907     7    58  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  14.29% =[00.00% +00.00% +14.29% +00.00% +00.00%] 00.00% Shyam,SM
- 50   165181     7    47  28.57% =[00.00% +00.00% +00.00% +00.00% +00.00% +28.57%] 00.00%  14.29% =[00.00% +00.00% +00.00% +00.00% +14.29%] 00.00% Kovalev,Vl
- 51   161611     7    40  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  14.29% =[00.00% +00.00% +00.00% +00.00% +14.29%] 00.00% Debashis,D
- 52   160901     7    43  14.29% =[00.00% +00.00% +00.00% +00.00% +00.00% +14.29%] 00.00%  14.29% =[00.00% +00.00% +00.00% +00.00% +14.29%] 00.00% Ipatov,Alexander
- 53   160889    10    46  10.00% =[00.00% +00.00% +00.00% +00.00% +10.00% +00.00%] 00.00%  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00%] 00.00% Caruana,F
- 54   156889    10    43  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  20.00% =[00.00% +00.00% +00.00% +00.00% +20.00%] 00.00% Zhigalko,S
- 55   156221     7    49  14.29% =[00.00% +00.00% +00.00% +00.00% +14.29% +00.00%] 00.00%  14.29% =[00.00% +00.00% +00.00% +00.00% +14.29%] 09.09% Nguyen Ngoc Truong Son
- 56   155889     5    36  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00%] 00.00% Glek,I
- 57   154465    11    58  18.18% =[00.00% +00.00% +09.09% +00.00% +00.00% +09.09%] 00.00%  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00%] 33.33% Yudin,S
- 58   153729    14    45  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  14.29% =[00.00% +00.00% +07.14% +00.00% +07.14%] 00.00% Carlsen,M
- 59   151611     7    42  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  14.29% =[00.00% +00.00% +00.00% +00.00% +14.29%] 00.00% Efimenko,Z
- 60   149472     7    47  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  14.29% =[00.00% +00.00% +00.00% +14.29% +00.00%] 00.00% Vakhidov,T
- 61   147184    10    42  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  20.00% =[10.00% +00.00% +00.00% +10.00% +00.00%] 40.00% Harikrishna,P
- 62   140895     6    47  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  16.67% =[00.00% +00.00% +00.00% +00.00% +16.67%] 00.00% Breckenridge,S
- 63   138229    11    36  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  36.36% =[00.00% +00.00% +00.00% +09.09% +27.27%] 25.00% Morozevich,A
- 64   136611     7    48  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  14.29% =[00.00% +00.00% +00.00% +00.00% +14.29%] 00.00% Sandipan,C
- 65   136100     5    61  20.00% =[00.00% +00.00% +00.00% +00.00% +20.00% +00.00%] 00.00%  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00%] 16.67% Ringoir,T
- 66   135889     8    49  25.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +25.00%] 00.00%  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00%] 00.00% Sokolov,Ivan
- 67   132262    11    40  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  18.18% =[09.09% +00.00% +00.00% +00.00% +09.09%] 00.00% Bologan,V
- 68   124446     9    45  11.11% =[00.00% +00.00% +00.00% +00.00% +11.11% +00.00%] 00.00%  22.22% =[00.00% +00.00% +00.00% +00.00% +22.22%] 20.00% Van Wely,L
- 69   121999     9    49  11.11% =[00.00% +00.00% +00.00% +00.00% +00.00% +11.11%] 00.00%  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00%] 00.00% Vitiugov,N
- 70   120889    10    48  10.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +10.00%] 00.00%  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00%] 00.00% Al Modiahki,M
- 71   120025    10    47  20.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +20.00%] 00.00%  10.00% =[10.00% +00.00% +00.00% +00.00% +00.00%] 75.00% Fedoseev,Vl3
- 72   113900     8    45  12.50% =[00.00% +00.00% +00.00% +00.00% +12.50% +00.00%] 00.00%  12.50% =[00.00% +00.00% +00.00% +00.00% +12.50%] 20.00% Onischuk,V
- 73   110889     5    45  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00%] 00.00% Sriram,J
- 74   110889     9    55  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00%] 00.00% Kryvoruchko,Y
- 75   110889     7    52  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00%] 00.00% Gundavaa,B
- 76   110889     6    53  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00%] 00.00% Milov,V
- 77   110889     3    52  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00%] 00.00% Taleb,M
- 78   102576    10    35  10.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +10.00%] 00.00%  10.00% =[00.00% +00.00% +10.00% +00.00% +00.00%] 57.14% Mamedov,Rau
- 79    99269     9    41  11.11% =[00.00% +00.00% +00.00% +00.00% +11.11% +00.00%] 00.00%  11.11% =[00.00% +00.00% +00.00% +00.00% +11.11%] 42.86% Tomashevsky,E
- 80    99000     9    49  22.22% =[00.00% +00.00% +00.00% +00.00% +00.00% +22.22%] 00.00%  22.22% =[00.00% +00.00% +11.11% +11.11% +00.00%] 66.67% Guseinov,G
- 81    96529     4    49  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  25.00% =[00.00% +00.00% +00.00% +00.00% +25.00%] 11.11% Ghaem Maghami,E
- 82    95150     8    41  12.50% =[00.00% +00.00% +00.00% +00.00% +00.00% +12.50%] 00.00%  12.50% =[00.00% +00.00% +00.00% +12.50% +00.00%] 20.00% Karjakin,Sergey
- 83    92423    13    46  07.69% =[00.00% +00.00% +00.00% +07.69% +00.00% +00.00%] 00.00%  07.69% =[00.00% +00.00% +00.00% +00.00% +07.69%] 50.00% Nakamura,Hi
- 84    90712    11    45  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  09.09% =[00.00% +09.09% +00.00% +00.00% +00.00%] 20.00% Aronian,L
- 85    74023     9    36  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  11.11% =[00.00% +00.00% +00.00% +00.00% +11.11%] 33.33% Ganguly,S
- 86    71097     9    44  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  11.11% =[00.00% +00.00% +00.00% +11.11% +00.00%] 16.67% Vachier Lagrave,M
- 87    70184    10    44  20.00% =[00.00% +00.00% +00.00% +00.00% +10.00% +10.00%] 00.00%  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00%] 40.00% Iturrizaga,E
- 88    65701     6    43  16.67% =[00.00% +00.00% +00.00% +00.00% +00.00% +16.67%] 00.00%  16.67% =[00.00% +00.00% +00.00% +00.00% +16.67%] 33.33% Potkin,V
- 89    61900    10    42  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  10.00% =[00.00% +00.00% +00.00% +00.00% +10.00%] 20.00% Bacrot,E
- 90    60005    12    38  08.33% =[00.00% +00.00% +00.00% +00.00% +00.00% +08.33%] 00.00%  08.33% =[00.00% +00.00% +00.00% +00.00% +08.33%] 50.00% Svidler,P
- 91    59994     3    56  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  33.33% =[00.00% +00.00% +00.00% +00.00% +33.33%] 00.00% Omar,Noa
- 92    59271     9    51  11.11% =[00.00% +00.00% +00.00% +00.00% +11.11% +00.00%] 00.00%  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00%] 42.86% Malakhov,V
- 93    58325    12    48  08.33% =[00.00% +00.00% +00.00% +00.00% +08.33% +00.00%] 00.00%  08.33% =[00.00% +00.00% +00.00% +00.00% +08.33%] 50.00% Le Quang Liem
- 94    57403     7    39  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  14.29% =[00.00% +00.00% +00.00% +00.00% +14.29%] 50.00% Hansen,Eric
- 95    51529     8    49  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00%] 11.11% Grischuk,A
- 96    45000     1    36  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00%] 100.0% Tissir,M
- 97    44600     8    48  25.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +25.00%] 00.00%  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00%] 25.00% Movsesian,S
- 98    44521    14    46  14.29% =[00.00% +00.00% +00.00% +00.00% +07.14% +07.14%] 00.00%  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00%] 50.00% Nepomniachtchi,I
- 99    44158     9    47  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  11.11% =[00.00% +00.00% +00.00% +11.11% +00.00%] 28.57% Eljanov,P
-100    41677     9    45  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  22.22% =[00.00% +00.00% +00.00% +00.00% +22.22%] 50.00% Naiditsch,A
-101    41616     9    50  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00%] 14.29% Radjabov,T
-102    41616     5    50  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00%] 14.29% Tkachiev,V
-103    41616     5    46  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00%] 14.29% Mchedlishvili,M
-104    39598     9    49  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  11.11% =[00.00% +00.00% +00.00% +00.00% +11.11%] 25.00% Wang Hao
-105    38900    10    54  10.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +10.00%] 00.00%  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00%] 20.00% Wojtaszek,R
-106    34600    10    42  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00%] 25.00% Meier,Geo
-107    33900     8    44  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00%] 20.00% Ragger,M
-108    30710     9    45  11.11% =[00.00% +00.00% +00.00% +00.00% +00.00% +11.11%] 00.00%  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00%] 25.00% Najer,E
-109    29181     8    44  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  12.50% =[00.00% +00.00% +00.00% +00.00% +12.50%] 50.00% Lenic,L
-110    25722     7    48  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  14.29% =[00.00% +00.00% +00.00% +00.00% +14.29%] 00.00% Vakhidov,J
-111    17684     8    49  12.50% =[00.00% +00.00% +00.00% +00.00% +00.00% +12.50%] 00.00%  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00%] 40.00% Moiseenko,A1
-112     1681     7    55  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00%] 50.00% Bartel,Mat
-113      441     6    53  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00%] 60.00% Moradiabadi,E
-114        0     1    53  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00%] 00.00% Faisal,Ab
-115        0     1    67  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00%] 00.00% Al Hageri,B
-116        0     2    57  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00% +00.00%] 00.00%  00.00% =[00.00% +00.00% +00.00% +00.00% +00.00%] 00.00% Hilwani,T
-*****************************************************************************
-*** 3rd Ratinglist, showing EAS-points instead of percents
-*****************************************************************************
-                            early          bad
-Rank  EAS-Score    sacs    sacs   shorts   draws    Engine/player
+*** Average length of all won games:             45 moves
+*** Movelimit for early sac bonus  :             22 moves
+********************************************************************************************* 
+********************************************************************************************* 
+********************************************************************************************* 
+*** EAS single-statistics (6 categories, each with Top5 engines): 
+********************************************************************************************* 
+A: Early sacrifices (percents of all sacs)           : [1]:33.33% Lu Shanglei  
+                                                       [2]:100.0% Nielsen,PH  
+                                                       [3]:100.0% Dreev,A  
+                                                       [4]:100.0% Adly,A  
+                                                       [5]:00.00% Zhigalko,S  
+B: Most sacrifices overall                           : [1]:50.00% Nezad,H  
+                                                       [2]:50.00% Al Qudaimi,B  
+                                                       [3]:30.00% Salem,AR  
+                                                       [4]:30.00% Lu Shanglei  
+                                                       [5]:28.57% Kovalev,Vl  
+C: Very short wins (15 moves or less)                : [1]:33.33% Maletin,P  
+                                                       [2]:25.00% Kayumov,S  
+                                                       [3]:20.00% Aleksandrov,A  
+                                                       [4]:16.67% Goloshchapov,A  
+                                                       [5]:16.67% Al Sayed,Mohamad  
+D: Most short wins overall                           : [1]:50.00% Nezad,H  
+                                                       [2]:50.00% Maletin,P  
+                                                       [3]:50.00% Kayumov,S  
+                                                       [4]:50.00% Jobava,Ba  
+                                                       [5]:50.00% Durarbayli,V  
+E: Average length of all won games                   : [1]:000 Alahakoon,I  
+                                                       [2]:000 AlHuwar,J  
+                                                       [3]:000 Byambaa,Z  
+                                                       [4]:000 Ehlvest,J  
+                                                       [5]:000 Hj,Azahari Md Aliuddin  
+F: Smallest number of bad draws                      : [1]:00.00% Adly,A  
+                                                       [2]:00.00% Al Hageri,B  
+                                                       [3]:00.00% Al Modiahki,M  
+                                                       [4]:00.00% Al Qudaimi,B  
+                                                       [5]:00.00% Alahakoon,I  
+********************************************************************************************* 
+********************************************************************************************* 
+***************************************************************************** 
+***************************************************************************** 
+***************************************************************************** 
+*** 2nd Ratinglist with more stats in percent-values ************************ 
+***************************************************************************** 
+*** Average length of all won games                  : 45 moves 
+*** Calculated limit for short wins giving EAS-points: 30 moves 
+*** Movelimit for early sac bonus                    : 22 moves 
+***************************************************************************** 
+                       avg.win                                                               early                                                            bad   
+Rank  EAS-Score   wins  moves   sacs    sacsQ    sacs5+   sacs4    sacs3    sacs2    sacs1   sacs   all shorts short10  short15  short20  short25  short30   draws    Engine/player
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   1   1225000        1    0   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   100.0% = [100.0% + 00.00% + 00.00% + 00.00% + 00.00%]  00.00%   AlHuwar,J  
+   2    702664        8   37   12.50% =[00.00% + 00.00% + 00.00% + 00.00% + 12.50% + 00.00%] 100.0%   37.50% = [12.50% + 00.00% + 00.00% + 12.50% + 12.50%]  00.00%   Adly,A  
+   3    665889        1   34   100.0% =[00.00% + 00.00% + 00.00% + 00.00% + 100.0% + 00.00%] 00.00%   00.00% = [00.00% + 00.00% + 00.00% + 00.00% + 00.00%]  00.00%   Othman,AM  
+   4    516086        7   51   14.29% =[00.00% + 00.00% + 00.00% + 00.00% + 14.29% + 00.00%] 100.0%   14.29% = [00.00% + 00.00% + 00.00% + 00.00% + 14.29%]  00.00%   Nielsen,PH  
+   5    483949        7   32   14.29% =[00.00% + 00.00% + 14.29% + 00.00% + 00.00% + 00.00%] 00.00%   28.57% = [14.29% + 00.00% + 14.29% + 00.00% + 00.00%]  50.00%   Salgado Lopez,I  
+   6    470889        4   32   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   50.00% = [25.00% + 00.00% + 00.00% + 00.00% + 25.00%]  00.00%   Kayumov,S  
+   7    462206        6   31   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   50.00% = [33.33% + 00.00% + 00.00% + 00.00% + 16.67%]  20.00%   Maletin,P  
+   8    377736        9   47   11.11% =[00.00% + 00.00% + 00.00% + 00.00% + 11.11% + 00.00%] 100.0%   00.00% = [00.00% + 00.00% + 00.00% + 00.00% + 00.00%]  28.57%   Dreev,A  
+   9    366662        7   33   14.29% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 14.29%] 00.00%   28.57% = [14.29% + 00.00% + 00.00% + 14.29% + 00.00%]  00.00%   Volokitin,And  
+  10    355000        4   42   50.00% =[00.00% + 00.00% + 00.00% + 00.00% + 50.00% + 00.00%] 00.00%   50.00% = [00.00% + 00.00% + 00.00% + 00.00% + 50.00%]  00.00%   Nezad,H  
+  11    344639        8   51   25.00% =[00.00% + 00.00% + 12.50% + 00.00% + 00.00% + 12.50%] 00.00%   12.50% = [00.00% + 00.00% + 00.00% + 12.50% + 00.00%]  00.00%   Vallejo Pons,F  
+  12    337889       10   45   10.00% =[00.00% + 00.00% + 00.00% + 10.00% + 00.00% + 00.00%] 00.00%   20.00% = [10.00% + 00.00% + 00.00% + 10.00% + 00.00%]  00.00%   Georgiev,Ki  
+  13    325889       10   37   30.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 30.00%] 00.00%   30.00% = [10.00% + 00.00% + 00.00% + 10.00% + 10.00%]  00.00%   Salem,AR  
+  14    317931        9   44   22.22% =[00.00% + 00.00% + 11.11% + 11.11% + 00.00% + 00.00%] 00.00%   11.11% = [00.00% + 00.00% + 00.00% + 11.11% + 00.00%]  40.00%   Fressinet,L  
+  15    316984        9   36   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   33.33% = [11.11% + 00.00% + 00.00% + 11.11% + 11.11%]  00.00%   Savchenko,B  
+  16    311983        9   39   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   33.33% = [11.11% + 00.00% + 00.00% + 22.22% + 00.00%]  00.00%   Amin,B  
+  17    280889        2   39   50.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 50.00%] 00.00%   50.00% = [00.00% + 00.00% + 00.00% + 00.00% + 50.00%]  00.00%   Al Qudaimi,B  
+  18    265000        1   28   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   100.0% = [00.00% + 00.00% + 00.00% + 00.00% + 100.0%]  00.00%   Suhail,A  
+  19    258889       10   41   10.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 10.00%] 00.00%   20.00% = [10.00% + 00.00% + 00.00% + 00.00% + 10.00%]  00.00%   Yu Yangyi  
+  20    256702       12   35   08.33% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 08.33%] 00.00%   33.33% = [00.00% + 00.00% + 08.33% + 08.33% + 16.67%]  00.00%   Korobov,A  
+  21    255114       10   49   30.00% =[00.00% + 00.00% + 00.00% + 00.00% + 20.00% + 10.00%] 33.33%   00.00% = [00.00% + 00.00% + 00.00% + 00.00% + 00.00%]  00.00%   Lu Shanglei  
+  22    251681        4   53   25.00% =[00.00% + 00.00% + 00.00% + 25.00% + 00.00% + 00.00%] 00.00%   00.00% = [00.00% + 00.00% + 00.00% + 00.00% + 00.00%]  50.00%   Michalik,P  
+  23    228061        7   41   14.29% =[00.00% + 00.00% + 00.00% + 00.00% + 14.29% + 00.00%] 00.00%   14.29% = [00.00% + 00.00% + 00.00% + 00.00% + 14.29%]  00.00%   Fier,A  
+  24    227775        8   34   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   50.00% = [00.00% + 12.50% + 00.00% + 12.50% + 25.00%]  33.33%   Jobava,Ba  
+  25    225000        0    0   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   00.00% = [00.00% + 00.00% + 00.00% + 00.00% + 00.00%]  100.0%   Saeed,I  
+  26    225000        0    0   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   00.00% = [00.00% + 00.00% + 00.00% + 00.00% + 00.00%]  00.00%   Saleh,Nag  
+  27    225000        0    0   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   00.00% = [00.00% + 00.00% + 00.00% + 00.00% + 00.00%]  00.00%   Hj,Azahari Md Aliuddin  
+  28    225000        0    0   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   00.00% = [00.00% + 00.00% + 00.00% + 00.00% + 00.00%]  00.00%   Ehlvest,J  
+  29    225000        0    0   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   00.00% = [00.00% + 00.00% + 00.00% + 00.00% + 00.00%]  00.00%   Byambaa,Z  
+  30    225000        0    0   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   00.00% = [00.00% + 00.00% + 00.00% + 00.00% + 00.00%]  00.00%   Alahakoon,I  
+  31    221239        7   44   14.29% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 14.29%] 00.00%   14.29% = [14.29% + 00.00% + 00.00% + 00.00% + 00.00%]  10.00%   Andriasian,Z  
+  32    220889       10   53   10.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 10.00%] 00.00%   10.00% = [10.00% + 00.00% + 00.00% + 00.00% + 00.00%]  00.00%   Cheparinov,I  
+  33    208025       10   36   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   40.00% = [10.00% + 00.00% + 00.00% + 00.00% + 30.00%]  33.33%   Riazantsev,A  
+  34    207243       11   48   18.18% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 18.18%] 00.00%   18.18% = [00.00% + 09.09% + 00.00% + 00.00% + 09.09%]  00.00%   Mamedyarov,S  
+  35    205889       10   47   10.00% =[00.00% + 00.00% + 00.00% + 00.00% + 10.00% + 00.00%] 00.00%   20.00% = [00.00% + 00.00% + 00.00% + 10.00% + 10.00%]  00.00%   Anton Guijarro,D  
+  36    200046        6   37   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   33.33% = [00.00% + 16.67% + 00.00% + 16.67% + 00.00%]  50.00%   Al Sayed,Mohamad  
+  37    197547        9   45   22.22% =[00.00% + 00.00% + 00.00% + 00.00% + 11.11% + 11.11%] 00.00%   11.11% = [00.00% + 00.00% + 00.00% + 00.00% + 11.11%]  00.00%   Sargissian,G  
+  38    196889       10   45   10.00% =[00.00% + 00.00% + 00.00% + 00.00% + 10.00% + 00.00%] 00.00%   20.00% = [00.00% + 00.00% + 00.00% + 00.00% + 20.00%]  00.00%   Polgar,Ju  
+  39    192551        9   38   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   11.11% = [00.00% + 00.00% + 11.11% + 00.00% + 00.00%]  00.00%   Kasimdzhanov,R  
+  40    188661        9   41   11.11% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 11.11%] 00.00%   11.11% = [00.00% + 00.00% + 11.11% + 00.00% + 00.00%]  00.00%   Dubov,Daniil  
+  41    186700        6   41   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   16.67% = [16.67% + 00.00% + 00.00% + 00.00% + 00.00%]  100.0%   Goloshchapov,A  
+  42    185898       12   39   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   16.67% = [00.00% + 00.00% + 00.00% + 16.67% + 00.00%]  00.00%   Anand,V  
+  43    178889       10   47   10.00% =[00.00% + 00.00% + 00.00% + 00.00% + 10.00% + 00.00%] 00.00%   10.00% = [00.00% + 00.00% + 00.00% + 00.00% + 10.00%]  00.00%   Matlakov,M  
+  44    178106        9   42   22.22% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 22.22%] 00.00%   11.11% = [00.00% + 00.00% + 00.00% + 11.11% + 00.00%]  00.00%   Inarkiev,E  
+  45    177184        5   54   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   40.00% = [00.00% + 20.00% + 00.00% + 00.00% + 20.00%]  40.00%   Aleksandrov,A  
+  46    176810        9   38   11.11% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 11.11%] 00.00%   11.11% = [11.11% + 00.00% + 00.00% + 00.00% + 00.00%]  25.00%   Laznicka,V  
+  47    176097        6   41   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   50.00% = [00.00% + 00.00% + 00.00% + 33.33% + 16.67%]  16.67%   Durarbayli,V  
+  48    174116        8   37   25.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 25.00%] 00.00%   37.50% = [00.00% + 00.00% + 00.00% + 00.00% + 37.50%]  14.29%   Safarli,E  
+  49    170907        7   58   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   14.29% = [00.00% + 00.00% + 14.29% + 00.00% + 00.00%]  00.00%   Shyam,SM  
+  50    165181        7   47   28.57% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 28.57%] 00.00%   14.29% = [00.00% + 00.00% + 00.00% + 00.00% + 14.29%]  00.00%   Kovalev,Vl  
+  51    161611        7   40   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   14.29% = [00.00% + 00.00% + 00.00% + 00.00% + 14.29%]  00.00%   Debashis,D  
+  52    160901        7   43   14.29% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 14.29%] 00.00%   14.29% = [00.00% + 00.00% + 00.00% + 00.00% + 14.29%]  00.00%   Ipatov,Alexander  
+  53    160889       10   46   10.00% =[00.00% + 00.00% + 00.00% + 00.00% + 10.00% + 00.00%] 00.00%   00.00% = [00.00% + 00.00% + 00.00% + 00.00% + 00.00%]  00.00%   Caruana,F  
+  54    156889       10   43   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   20.00% = [00.00% + 00.00% + 00.00% + 00.00% + 20.00%]  00.00%   Zhigalko,S  
+  55    156221        7   49   14.29% =[00.00% + 00.00% + 00.00% + 00.00% + 14.29% + 00.00%] 00.00%   14.29% = [00.00% + 00.00% + 00.00% + 00.00% + 14.29%]  09.09%   Nguyen Ngoc Truong Son  
+  56    155889        5   36   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   00.00% = [00.00% + 00.00% + 00.00% + 00.00% + 00.00%]  00.00%   Glek,I  
+  57    154465       11   58   18.18% =[00.00% + 00.00% + 09.09% + 00.00% + 00.00% + 09.09%] 00.00%   00.00% = [00.00% + 00.00% + 00.00% + 00.00% + 00.00%]  33.33%   Yudin,S  
+  58    153729       14   45   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   14.29% = [00.00% + 00.00% + 07.14% + 00.00% + 07.14%]  00.00%   Carlsen,M  
+  59    151611        7   42   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   14.29% = [00.00% + 00.00% + 00.00% + 00.00% + 14.29%]  00.00%   Efimenko,Z  
+  60    149472        7   47   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   14.29% = [00.00% + 00.00% + 00.00% + 14.29% + 00.00%]  00.00%   Vakhidov,T  
+  61    147184       10   42   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   20.00% = [10.00% + 00.00% + 00.00% + 10.00% + 00.00%]  40.00%   Harikrishna,P  
+  62    140895        6   47   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   16.67% = [00.00% + 00.00% + 00.00% + 00.00% + 16.67%]  00.00%   Breckenridge,S  
+  63    138229       11   36   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   36.36% = [00.00% + 00.00% + 00.00% + 09.09% + 27.27%]  25.00%   Morozevich,A  
+  64    136611        7   48   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   14.29% = [00.00% + 00.00% + 00.00% + 00.00% + 14.29%]  00.00%   Sandipan,C  
+  65    136100        5   61   20.00% =[00.00% + 00.00% + 00.00% + 00.00% + 20.00% + 00.00%] 00.00%   00.00% = [00.00% + 00.00% + 00.00% + 00.00% + 00.00%]  16.67%   Ringoir,T  
+  66    135889        8   49   25.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 25.00%] 00.00%   00.00% = [00.00% + 00.00% + 00.00% + 00.00% + 00.00%]  00.00%   Sokolov,Ivan  
+  67    132262       11   40   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   18.18% = [09.09% + 00.00% + 00.00% + 00.00% + 09.09%]  00.00%   Bologan,V  
+  68    124446        9   45   11.11% =[00.00% + 00.00% + 00.00% + 00.00% + 11.11% + 00.00%] 00.00%   22.22% = [00.00% + 00.00% + 00.00% + 00.00% + 22.22%]  20.00%   Van Wely,L  
+  69    121999        9   49   11.11% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 11.11%] 00.00%   00.00% = [00.00% + 00.00% + 00.00% + 00.00% + 00.00%]  00.00%   Vitiugov,N  
+  70    120889       10   48   10.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 10.00%] 00.00%   00.00% = [00.00% + 00.00% + 00.00% + 00.00% + 00.00%]  00.00%   Al Modiahki,M  
+  71    120025       10   47   20.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 20.00%] 00.00%   10.00% = [10.00% + 00.00% + 00.00% + 00.00% + 00.00%]  75.00%   Fedoseev,Vl3  
+  72    113900        8   45   12.50% =[00.00% + 00.00% + 00.00% + 00.00% + 12.50% + 00.00%] 00.00%   12.50% = [00.00% + 00.00% + 00.00% + 00.00% + 12.50%]  20.00%   Onischuk,V  
+  73    110889        9   55   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   00.00% = [00.00% + 00.00% + 00.00% + 00.00% + 00.00%]  00.00%   Kryvoruchko,Y  
+  74    110889        7   52   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   00.00% = [00.00% + 00.00% + 00.00% + 00.00% + 00.00%]  00.00%   Gundavaa,B  
+  75    110889        6   53   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   00.00% = [00.00% + 00.00% + 00.00% + 00.00% + 00.00%]  00.00%   Milov,V  
+  76    110889        5   45   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   00.00% = [00.00% + 00.00% + 00.00% + 00.00% + 00.00%]  00.00%   Sriram,J  
+  77    110889        3   52   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   00.00% = [00.00% + 00.00% + 00.00% + 00.00% + 00.00%]  00.00%   Taleb,M  
+  78    102576       10   35   10.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 10.00%] 00.00%   10.00% = [00.00% + 00.00% + 10.00% + 00.00% + 00.00%]  57.14%   Mamedov,Rau  
+  79     99269        9   41   11.11% =[00.00% + 00.00% + 00.00% + 00.00% + 11.11% + 00.00%] 00.00%   11.11% = [00.00% + 00.00% + 00.00% + 00.00% + 11.11%]  42.86%   Tomashevsky,E  
+  80     99000        9   49   22.22% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 22.22%] 00.00%   22.22% = [00.00% + 00.00% + 11.11% + 11.11% + 00.00%]  66.67%   Guseinov,G  
+  81     96529        4   49   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   25.00% = [00.00% + 00.00% + 00.00% + 00.00% + 25.00%]  11.11%   Ghaem Maghami,E  
+  82     95150        8   41   12.50% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 12.50%] 00.00%   12.50% = [00.00% + 00.00% + 00.00% + 12.50% + 00.00%]  20.00%   Karjakin,Sergey  
+  83     92423       13   46   07.69% =[00.00% + 00.00% + 00.00% + 07.69% + 00.00% + 00.00%] 00.00%   07.69% = [00.00% + 00.00% + 00.00% + 00.00% + 07.69%]  50.00%   Nakamura,Hi  
+  84     90712       11   45   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   09.09% = [00.00% + 09.09% + 00.00% + 00.00% + 00.00%]  20.00%   Aronian,L  
+  85     74023        9   36   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   11.11% = [00.00% + 00.00% + 00.00% + 00.00% + 11.11%]  33.33%   Ganguly,S  
+  86     71097        9   44   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   11.11% = [00.00% + 00.00% + 00.00% + 11.11% + 00.00%]  16.67%   Vachier Lagrave,M  
+  87     70184       10   44   20.00% =[00.00% + 00.00% + 00.00% + 00.00% + 10.00% + 10.00%] 00.00%   00.00% = [00.00% + 00.00% + 00.00% + 00.00% + 00.00%]  40.00%   Iturrizaga,E  
+  88     65701        6   43   16.67% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 16.67%] 00.00%   16.67% = [00.00% + 00.00% + 00.00% + 00.00% + 16.67%]  33.33%   Potkin,V  
+  89     61900       10   42   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   10.00% = [00.00% + 00.00% + 00.00% + 00.00% + 10.00%]  20.00%   Bacrot,E  
+  90     60005       12   38   08.33% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 08.33%] 00.00%   08.33% = [00.00% + 00.00% + 00.00% + 00.00% + 08.33%]  50.00%   Svidler,P  
+  91     59994        3   56   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   33.33% = [00.00% + 00.00% + 00.00% + 00.00% + 33.33%]  00.00%   Omar,Noa  
+  92     59271        9   51   11.11% =[00.00% + 00.00% + 00.00% + 00.00% + 11.11% + 00.00%] 00.00%   00.00% = [00.00% + 00.00% + 00.00% + 00.00% + 00.00%]  42.86%   Malakhov,V  
+  93     58325       12   48   08.33% =[00.00% + 00.00% + 00.00% + 00.00% + 08.33% + 00.00%] 00.00%   08.33% = [00.00% + 00.00% + 00.00% + 00.00% + 08.33%]  50.00%   Le Quang Liem  
+  94     57403        7   39   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   14.29% = [00.00% + 00.00% + 00.00% + 00.00% + 14.29%]  50.00%   Hansen,Eric  
+  95     51529        8   49   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   00.00% = [00.00% + 00.00% + 00.00% + 00.00% + 00.00%]  11.11%   Grischuk,A  
+  96     45000        1   36   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   00.00% = [00.00% + 00.00% + 00.00% + 00.00% + 00.00%]  100.0%   Tissir,M  
+  97     44600        8   48   25.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 25.00%] 00.00%   00.00% = [00.00% + 00.00% + 00.00% + 00.00% + 00.00%]  25.00%   Movsesian,S  
+  98     44521       14   46   14.29% =[00.00% + 00.00% + 00.00% + 00.00% + 07.14% + 07.14%] 00.00%   00.00% = [00.00% + 00.00% + 00.00% + 00.00% + 00.00%]  50.00%   Nepomniachtchi,I  
+  99     44158        9   47   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   11.11% = [00.00% + 00.00% + 00.00% + 11.11% + 00.00%]  28.57%   Eljanov,P  
+ 100     41677        9   45   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   22.22% = [00.00% + 00.00% + 00.00% + 00.00% + 22.22%]  50.00%   Naiditsch,A  
+ 101     41616        9   50   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   00.00% = [00.00% + 00.00% + 00.00% + 00.00% + 00.00%]  14.29%   Radjabov,T  
+ 102     41616        5   50   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   00.00% = [00.00% + 00.00% + 00.00% + 00.00% + 00.00%]  14.29%   Tkachiev,V  
+ 103     41616        5   46   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   00.00% = [00.00% + 00.00% + 00.00% + 00.00% + 00.00%]  14.29%   Mchedlishvili,M  
+ 104     39598        9   49   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   11.11% = [00.00% + 00.00% + 00.00% + 00.00% + 11.11%]  25.00%   Wang Hao  
+ 105     38900       10   54   10.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 10.00%] 00.00%   00.00% = [00.00% + 00.00% + 00.00% + 00.00% + 00.00%]  20.00%   Wojtaszek,R  
+ 106     34600       10   42   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   00.00% = [00.00% + 00.00% + 00.00% + 00.00% + 00.00%]  25.00%   Meier,Geo  
+ 107     33900        8   44   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   00.00% = [00.00% + 00.00% + 00.00% + 00.00% + 00.00%]  20.00%   Ragger,M  
+ 108     30710        9   45   11.11% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 11.11%] 00.00%   00.00% = [00.00% + 00.00% + 00.00% + 00.00% + 00.00%]  25.00%   Najer,E  
+ 109     29181        8   44   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   12.50% = [00.00% + 00.00% + 00.00% + 00.00% + 12.50%]  50.00%   Lenic,L  
+ 110     25722        7   48   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   14.29% = [00.00% + 00.00% + 00.00% + 00.00% + 14.29%]  00.00%   Vakhidov,J  
+ 111     17684        8   49   12.50% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 12.50%] 00.00%   00.00% = [00.00% + 00.00% + 00.00% + 00.00% + 00.00%]  40.00%   Moiseenko,A1  
+ 112      1681        7   55   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   00.00% = [00.00% + 00.00% + 00.00% + 00.00% + 00.00%]  50.00%   Bartel,Mat  
+ 113       441        6   53   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   00.00% = [00.00% + 00.00% + 00.00% + 00.00% + 00.00%]  60.00%   Moradiabadi,E  
+ 114         0        2   57   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   00.00% = [00.00% + 00.00% + 00.00% + 00.00% + 00.00%]  00.00%   Hilwani,T  
+ 115         0        1   67   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   00.00% = [00.00% + 00.00% + 00.00% + 00.00% + 00.00%]  00.00%   Al Hageri,B  
+ 116         0        1   53   00.00% =[00.00% + 00.00% + 00.00% + 00.00% + 00.00% + 00.00%] 00.00%   00.00% = [00.00% + 00.00% + 00.00% + 00.00% + 00.00%]  00.00%   Faisal,Ab  
+***************************************************************************** 
+***************************************************************************** 
+***************************************************************************** 
+*** 3rd Ratinglist, showing EAS-points instead of percents ****************** 
+***************************************************************************** 
+*** (Mention, 5000 EAS-points are added to early sac bonus, for each move,*** 
+*** the average length of won games of the engine is shorter than the     *** 
+*** average length of all wins in the source.pgn.)                        *** 
+***************************************************************************** 
+***************************************************************************** 
+                             early              bad 
+Rank  EAS-Score      sacs     sacs   shorts    draws    Engine/player 
 -------------------------------------------------------------------------------------
-  1  1225000       0  225000  1000000       0    AlHuwar,J
-  2   702664   62500  348025  181250  110889    Adly,A
-  3   665889  500000   55000       0  110889    Othman,AM
-  4   516086   71450  308025   25722  110889    Nielsen,PH
-  5   483949  214350   65000  202918    1681    Salgado Lopez,I
-  6   470889       0   65000  295000  110889    Kayumov,S
-  7   462206       0   70000  363306   28900    Maletin,P
-  8   377736   55550  308025       0   14161    Dreev,A
-  9   366662   14290   60000  181483  110889    Volokitin,And
- 10   355000  250000   15000   90000       0    Nezad,H
- 11   344639  200000       0   33750  110889    Vallejo Pons,F
- 12   337889  100000       0  127000  110889    Georgiev,Ki
- 13   325889   30000   40000  145000  110889    Salem,AR
- 14   317931  277750    5000   29997    5184    Fressinet,L
- 15   316984       0   45000  161095  110889    Savchenko,B
- 16   311983       0   30000  171094  110889    Amin,B
- 17   280889   50000   30000   90000  110889    Al Qudaimi,B
- 18   265000       0   85000  180000       0    Suhail,A
- 19   258889   10000   20000  118000  110889    Yu Yangyi
- 20   256702    8330   50000   87483  110889    Korobov,A
- 21   255114  110000   34225       0  110889    Lu Shanglei
- 22   251681  250000       0       0    1681    Michalik,P
- 23   228061   71450   20000   25722  110889    Fier,A
- 24   227775       0   55000  163750    9025    Jobava,Ba
- 25   225000       0  225000       0       0    Hj,Azahari Md Aliuddin
- 26   225000       0  225000       0       0    Ehlvest,J
- 27   225000       0  225000       0       0    Saleh,Nag
- 28   225000       0  225000       0       0    Alahakoon,I
- 29   225000       0  225000       0       0    Byambaa,Z
- 30   225000       0  225000       0       0    Saeed,I
- 31   221239   14290    5000  142900   59049    Andriasian,Z
- 32   220889   10000       0  100000  110889    Cheparinov,I
- 33   208025       0   45000  154000    9025    Riazantsev,A
- 34   207243   18180       0   78174  110889    Mamedyarov,S
- 35   205889   50000       0   45000  110889    Anton Guijarro,D
- 36   200046       0   40000  158365    1681    Al Sayed,Mohamad
- 37   197547   66660       0   19998  110889    Sargissian,G
- 38   196889   50000       0   36000  110889    Polgar,Ju
- 39   192551       0   35000   46662  110889    Kasimdzhanov,R
- 40   188661   11110   20000   46662  110889    Dubov,Daniil
- 41   186700       0   20000  166700       0    Goloshchapov,A
- 42   185898       0   30000   45009  110889    Anand,V
- 43   178889   50000       0   18000  110889    Matlakov,M
- 44   178106   22220   15000   29997  110889    Inarkiev,E
- 45   177184       0       0  172000    5184    Aleksandrov,A
- 46   176810   11110   35000  111100   19600    Laznicka,V
- 47   176097       0   20000  119997   36100    Durarbayli,V
- 48   174116   25000   40000   67500   41616    Safarli,E
- 49   170907       0       0   60018  110889    Shyam,SM
- 50   165181   28570       0   25722  110889    Kovalev,Vl
- 51   161611       0   25000   25722  110889    Debashis,D
- 52   160901   14290   10000   25722  110889    Ipatov,Alexander
- 53   160889   50000       0       0  110889    Caruana,F
- 54   156889       0   10000   36000  110889    Zhigalko,S
- 55   156221   71450       0   25722   59049    Nguyen Ngoc Truong Son
- 56   155889       0   45000       0  110889    Glek,I
- 57   154465  145440       0       0    9025    Yudin,S
- 58   153729       0       0   42840  110889    Carlsen,M
- 59   151611       0   15000   25722  110889    Efimenko,Z
- 60   149472       0       0   38583  110889    Vakhidov,T
- 61   147184       0   15000  127000    5184    Harikrishna,P
- 62   140895       0       0   30006  110889    Breckenridge,S
- 63   138229       0   45000   73629   19600    Morozevich,A
- 64   136611       0       0   25722  110889    Sandipan,C
- 65   136100  100000       0       0   36100    Ringoir,T
- 66   135889   25000       0       0  110889    Sokolov,Ivan
- 67   132262       0   25000  107262       0    Bologan,V
- 68   124446   55550       0   39996   28900    Van Wely,L
- 69   121999   11110       0       0  110889    Vitiugov,N
- 70   120889   10000       0       0  110889    Al Modiahki,M
- 71   120025   20000       0  100000      25    Fedoseev,Vl3
- 72   113900   62500       0   22500   28900    Onischuk,V
- 73   110889       0       0       0  110889    Sriram,J
- 74   110889       0       0       0  110889    Kryvoruchko,Y
- 75   110889       0       0       0  110889    Gundavaa,B
- 76   110889       0       0       0  110889    Milov,V
- 77   110889       0       0       0  110889    Taleb,M
- 78   102576   10000   50000   42000     576    Mamedov,Rau
- 79    99269   55550   20000   19998    3721    Tomashevsky,E
- 80    99000   22220       0   76659     121    Guseinov,G
- 81    96529       0       0   45000   51529    Ghaem Maghami,E
- 82    95150   12500   20000   33750   28900    Karjakin,Sergey
- 83    92423   76900       0   13842    1681    Nakamura,Hi
- 84    90712       0       0   61812   28900    Aronian,L
- 85    74023       0   45000   19998    9025    Ganguly,S
- 86    71097       0    5000   29997   36100    Vachier Lagrave,M
- 87    70184   60000    5000       0    5184    Iturrizaga,E
- 88    65701   16670   10000   30006    9025    Potkin,V
- 89    61900       0   15000   18000   28900    Bacrot,E
- 90    60005    8330   35000   14994    1681    Svidler,P
- 91    59994       0       0   59994       0    Omar,Noa
- 92    59271   55550       0       0    3721    Malakhov,V
- 93    58325   41650       0   14994    1681    Le Quang Liem
- 94    57403       0   30000   25722    1681    Hansen,Eric
- 95    51529       0       0       0   51529    Grischuk,A
- 96    45000       0   45000       0       0    Tissir,M
- 97    44600   25000       0       0   19600    Movsesian,S
- 98    44521   42840       0       0    1681    Nepomniachtchi,I
- 99    44158       0       0   29997   14161    Eljanov,P
-100    41677       0       0   39996    1681    Naiditsch,A
-101    41616       0       0       0   41616    Radjabov,T
-102    41616       0       0       0   41616    Tkachiev,V
-103    41616       0       0       0   41616    Mchedlishvili,M
-104    39598       0       0   19998   19600    Wang Hao
-105    38900   10000       0       0   28900    Wojtaszek,R
-106    34600       0   15000       0   19600    Meier,Geo
-107    33900       0    5000       0   28900    Ragger,M
-108    30710   11110       0       0   19600    Najer,E
-109    29181       0    5000   22500    1681    Lenic,L
-110    25722       0       0   25722       0    Vakhidov,J
-111    17684   12500       0       0    5184    Moiseenko,A1
-112     1681       0       0       0    1681    Bartel,Mat
-113      441       0       0       0     441    Moradiabadi,E
-114        0       0       0       0       0    Faisal,Ab
-115        0       0       0       0       0    Al Hageri,B
-116        0       0       0       0       0    Hilwani,T
-********************************************************************************************
-*** 0 games with non-regular endings are stored in errorgames.pgn
-****************************************************
-*** EAS-Tool (C) Stefan Pohl (www.sp-cc.de), C port
-****************************************************
+   1   1225000          0   225000  1000000        0    AlHuwar,J  
+   2    702664      62500   348025   181250   110889    Adly,A  
+   3    665889     500000    55000        0   110889    Othman,AM  
+   4    516086      71450   308025    25722   110889    Nielsen,PH  
+   5    483949     214350    65000   202918     1681    Salgado Lopez,I  
+   6    470889          0    65000   295000   110889    Kayumov,S  
+   7    462206          0    70000   363306    28900    Maletin,P  
+   8    377736      55550   308025        0    14161    Dreev,A  
+   9    366662      14290    60000   181483   110889    Volokitin,And  
+  10    355000     250000    15000    90000        0    Nezad,H  
+  11    344639     200000        0    33750   110889    Vallejo Pons,F  
+  12    337889     100000        0   127000   110889    Georgiev,Ki  
+  13    325889      30000    40000   145000   110889    Salem,AR  
+  14    317931     277750     5000    29997     5184    Fressinet,L  
+  15    316984          0    45000   161095   110889    Savchenko,B  
+  16    311983          0    30000   171094   110889    Amin,B  
+  17    280889      50000    30000    90000   110889    Al Qudaimi,B  
+  18    265000          0    85000   180000        0    Suhail,A  
+  19    258889      10000    20000   118000   110889    Yu Yangyi  
+  20    256702       8330    50000    87483   110889    Korobov,A  
+  21    255114     110000    34225        0   110889    Lu Shanglei  
+  22    251681     250000        0        0     1681    Michalik,P  
+  23    228061      71450    20000    25722   110889    Fier,A  
+  24    227775          0    55000   163750     9025    Jobava,Ba  
+  25    225000          0   225000        0        0    Saleh,Nag  
+  26    225000          0   225000        0        0    Saeed,I  
+  27    225000          0   225000        0        0    Hj,Azahari Md Aliuddin  
+  28    225000          0   225000        0        0    Ehlvest,J  
+  29    225000          0   225000        0        0    Byambaa,Z  
+  30    225000          0   225000        0        0    Alahakoon,I  
+  31    221239      14290     5000   142900    59049    Andriasian,Z  
+  32    220889      10000        0   100000   110889    Cheparinov,I  
+  33    208025          0    45000   154000     9025    Riazantsev,A  
+  34    207243      18180        0    78174   110889    Mamedyarov,S  
+  35    205889      50000        0    45000   110889    Anton Guijarro,D  
+  36    200046          0    40000   158365     1681    Al Sayed,Mohamad  
+  37    197547      66660        0    19998   110889    Sargissian,G  
+  38    196889      50000        0    36000   110889    Polgar,Ju  
+  39    192551          0    35000    46662   110889    Kasimdzhanov,R  
+  40    188661      11110    20000    46662   110889    Dubov,Daniil  
+  41    186700          0    20000   166700        0    Goloshchapov,A  
+  42    185898          0    30000    45009   110889    Anand,V  
+  43    178889      50000        0    18000   110889    Matlakov,M  
+  44    178106      22220    15000    29997   110889    Inarkiev,E  
+  45    177184          0        0   172000     5184    Aleksandrov,A  
+  46    176810      11110    35000   111100    19600    Laznicka,V  
+  47    176097          0    20000   119997    36100    Durarbayli,V  
+  48    174116      25000    40000    67500    41616    Safarli,E  
+  49    170907          0        0    60018   110889    Shyam,SM  
+  50    165181      28570        0    25722   110889    Kovalev,Vl  
+  51    161611          0    25000    25722   110889    Debashis,D  
+  52    160901      14290    10000    25722   110889    Ipatov,Alexander  
+  53    160889      50000        0        0   110889    Caruana,F  
+  54    156889          0    10000    36000   110889    Zhigalko,S  
+  55    156221      71450        0    25722    59049    Nguyen Ngoc Truong Son  
+  56    155889          0    45000        0   110889    Glek,I  
+  57    154465     145440        0        0     9025    Yudin,S  
+  58    153729          0        0    42840   110889    Carlsen,M  
+  59    151611          0    15000    25722   110889    Efimenko,Z  
+  60    149472          0        0    38583   110889    Vakhidov,T  
+  61    147184          0    15000   127000     5184    Harikrishna,P  
+  62    140895          0        0    30006   110889    Breckenridge,S  
+  63    138229          0    45000    73629    19600    Morozevich,A  
+  64    136611          0        0    25722   110889    Sandipan,C  
+  65    136100     100000        0        0    36100    Ringoir,T  
+  66    135889      25000        0        0   110889    Sokolov,Ivan  
+  67    132262          0    25000   107262        0    Bologan,V  
+  68    124446      55550        0    39996    28900    Van Wely,L  
+  69    121999      11110        0        0   110889    Vitiugov,N  
+  70    120889      10000        0        0   110889    Al Modiahki,M  
+  71    120025      20000        0   100000       25    Fedoseev,Vl3  
+  72    113900      62500        0    22500    28900    Onischuk,V  
+  73    110889          0        0        0   110889    Taleb,M  
+  74    110889          0        0        0   110889    Sriram,J  
+  75    110889          0        0        0   110889    Milov,V  
+  76    110889          0        0        0   110889    Kryvoruchko,Y  
+  77    110889          0        0        0   110889    Gundavaa,B  
+  78    102576      10000    50000    42000      576    Mamedov,Rau  
+  79     99269      55550    20000    19998     3721    Tomashevsky,E  
+  80     99000      22220        0    76659      121    Guseinov,G  
+  81     96529          0        0    45000    51529    Ghaem Maghami,E  
+  82     95150      12500    20000    33750    28900    Karjakin,Sergey  
+  83     92423      76900        0    13842     1681    Nakamura,Hi  
+  84     90712          0        0    61812    28900    Aronian,L  
+  85     74023          0    45000    19998     9025    Ganguly,S  
+  86     71097          0     5000    29997    36100    Vachier Lagrave,M  
+  87     70184      60000     5000        0     5184    Iturrizaga,E  
+  88     65701      16670    10000    30006     9025    Potkin,V  
+  89     61900          0    15000    18000    28900    Bacrot,E  
+  90     60005       8330    35000    14994     1681    Svidler,P  
+  91     59994          0        0    59994        0    Omar,Noa  
+  92     59271      55550        0        0     3721    Malakhov,V  
+  93     58325      41650        0    14994     1681    Le Quang Liem  
+  94     57403          0    30000    25722     1681    Hansen,Eric  
+  95     51529          0        0        0    51529    Grischuk,A  
+  96     45000          0    45000        0        0    Tissir,M  
+  97     44600      25000        0        0    19600    Movsesian,S  
+  98     44521      42840        0        0     1681    Nepomniachtchi,I  
+  99     44158          0        0    29997    14161    Eljanov,P  
+ 100     41677          0        0    39996     1681    Naiditsch,A  
+ 101     41616          0        0        0    41616    Tkachiev,V  
+ 102     41616          0        0        0    41616    Radjabov,T  
+ 103     41616          0        0        0    41616    Mchedlishvili,M  
+ 104     39598          0        0    19998    19600    Wang Hao  
+ 105     38900      10000        0        0    28900    Wojtaszek,R  
+ 106     34600          0    15000        0    19600    Meier,Geo  
+ 107     33900          0     5000        0    28900    Ragger,M  
+ 108     30710      11110        0        0    19600    Najer,E  
+ 109     29181          0     5000    22500     1681    Lenic,L  
+ 110     25722          0        0    25722        0    Vakhidov,J  
+ 111     17684      12500        0        0     5184    Moiseenko,A1  
+ 112      1681          0        0        0     1681    Bartel,Mat  
+ 113       441          0        0        0      441    Moradiabadi,E  
+ 114         0          0        0        0        0    Hilwani,T  
+ 115         0          0        0        0        0    Faisal,Ab  
+ 116         0          0        0        0        0    Al Hageri,B  
+******************************************************************************************** 
+******************************************************************************************** 
+**************************************************** 
+*** EAS-Tool (C) 2025 Stefan Pohl (www.sp-cc.de) *** 
+**************************************************** 

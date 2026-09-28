@@ -106,9 +106,11 @@ Options:
 - `--hardavg N` — hardcode the average won-game length (batch's `hard_moveaverage`)
 - `--work=DIR` — directory for intermediate files
 
-Note: the batch computed the before-endgame / imbalance categories of
-`interesting_wins.pgn` from only the last engine processed; this port computes
-them across all engines (its evident intent). The EAS-Scores are unaffected.
+All three files are byte-identical to what `EAS_Tool_V6.0.bat` writes, quirks
+included. The medal table is ordered as Windows `sort` orders its text (so
+`33.33%` ranks above `100.0%`). `interesting_wins.pgn` takes its before-endgame
+and material-imbalance games from the last player processed only, as the batch
+does.
 
 ## Run IWS
 
@@ -212,15 +214,15 @@ rating lists and both PGN files: on GM blitz, on its variant with duplicates,
 error terminations and FEN starts, on the commented corpus, and on a file with
 non-standard tags.
 
-EAS: every number in the rating lists (EAS score, sacrifice, early-sacrifice,
-short-win and bad-draw percentages, average win length, and all score
-components) matches Stefan's batch for every player. This holds on the GM blitz
-corpus and on its variant with duplicates, error terminations and FEN starts, and
-`errorgames.pgn` is byte-identical. The report layout and the single-statistics
-medal table are the port's own. `interesting_wins.pgn` takes its before-endgame
-and imbalance categories from every player, not only the last one processed
-(see Run EAS). Like the batch, the port counts a player's wins on their
-de-duplicated, error-free wins, and processes players in `nameList` order.
+EAS matches the batch byte for byte on all three outputs, the rating-list
+report included: on GM blitz, on its variant with duplicates, error terminations
+and FEN starts, and on two tiny files. The report's line text is generated from
+the batch itself (`tools/eas/eas_templates.h`), and its lists are ordered the
+way Windows `sort.exe` orders them. `pgnu_sort_compare` reproduces that: the
+user locale's case-insensitive string sort of lines read in the console code
+page, measured against `sort.exe` character by character. Like the batch, the
+port counts a player's wins on their de-duplicated, error-free wins, and
+processes players in `nameList` order.
 
 Average game lengths (EAS, SGA) follow the batch exactly. The batch reads the
 mean ply count from Pollock's `summary.exe`, which prints it rounded half up to
